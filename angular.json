@@ -1,7 +1,138 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "covid-currency": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/covid-currency",
+      "sourceRoot": "apps/covid-currency/src",
+      "prefix": "covid",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/covid-currency",
+            "index": "apps/covid-currency/src/index.html",
+            "main": "apps/covid-currency/src/main.ts",
+            "polyfills": "apps/covid-currency/src/polyfills.ts",
+            "tsConfig": "apps/covid-currency/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/covid-currency/src/favicon.ico",
+              "apps/covid-currency/src/assets"
+            ],
+            "styles": ["apps/covid-currency/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/covid-currency/src/environments/environment.ts",
+                  "with": "apps/covid-currency/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "covid-currency:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "covid-currency:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "covid-currency:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/covid-currency/tsconfig.app.json",
+              "apps/covid-currency/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/covid-currency/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/covid-currency/jest.config.js",
+            "tsConfig": "apps/covid-currency/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/covid-currency/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "covid-currency-e2e": {
+      "root": "apps/covid-currency-e2e",
+      "sourceRoot": "apps/covid-currency-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/covid-currency-e2e/cypress.json",
+            "tsConfig": "apps/covid-currency-e2e/tsconfig.e2e.json",
+            "devServerTarget": "covid-currency:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "covid-currency:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/covid-currency-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/covid-currency-e2e/**"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "3ab8ae0a-1e79-4086-aaba-bee85a7bc19a"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "covid-currency"
 }

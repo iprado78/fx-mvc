@@ -10,5 +10,13 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "covid-currency": {
+      "tags": []
+    },
+    "covid-currency-e2e": {
+      "tags": [],
+      "implicitDependencies": ["covid-currency"]
+    }
+  }
 }
