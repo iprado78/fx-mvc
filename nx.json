@@ -1,5 +1,5 @@
 {
-  "npmScope": "covid",
+  "npmScope": "currency",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
@@ -11,12 +11,12 @@
     "nx.json": "*"
   },
   "projects": {
-    "covid-currency": {
+    "currency-mono": {
       "tags": []
     },
-    "covid-currency-e2e": {
+    "currency-mono-e2e": {
       "tags": [],
-      "implicitDependencies": ["covid-currency"]
+      "implicitDependencies": ["currency-mono"]
     }
   }
 }
