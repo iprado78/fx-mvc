@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { HistoricalRates } from '../../services/historical-rates/historicalRates.service';
+import {
+  HistoricalRates,
+  CurrencyEntries
+} from '../../services/historical-rates/historicalRates.service';
 import {
   XrangePointOptionsObject,
   SeriesLineOptions,
@@ -11,7 +14,7 @@ import { CurrencySelectionsService } from '../../services/currency-selections/cu
 import { combineLatest } from 'rxjs';
 
 const seriesDefaults = {
-  name: 'Daily Fx Close',
+  name: 'Exchange Rate at Close',
   data: [] as XrangePointOptionsObject[],
   type: 'line'
 } as SeriesLineOptions;
@@ -26,6 +29,8 @@ const xAxisDefaults = {
   styleUrls: ['./currency-chart.component.css']
 })
 export class CurrencyChartComponent implements OnInit {
+  private entriesCache: CurrencyEntries;
+
   options: Options = {
     title: {
       text: ''
@@ -52,13 +57,25 @@ export class CurrencyChartComponent implements OnInit {
       this.currencySelections.base,
       this.currencySelections.quote
     ]).subscribe(([entries, base, quote]) => {
+      /**
+       * Avoids updates while entries resolving.
+       *
+       * TODO: find idiomatic/cleaner RxJS way of doing this that does not require entriesCache variable.
+       */
+      if (entries === this.entriesCache) {
+        return;
+      } else {
+        this.entriesCache = entries;
+      }
+
       const data = entries
         .map(
           ([date, { close }]) =>
             ({ name: date, y: close } as XrangePointOptionsObject)
         )
         .reverse();
-      this.chart = new Chart({
+
+      this.options = {
         ...this.options,
         title: {
           text: `${base}/${quote}`
@@ -78,7 +95,8 @@ export class CurrencyChartComponent implements OnInit {
             data
           }
         ]
-      });
+      };
+      this.chart = new Chart(this.options);
     });
   }
 }

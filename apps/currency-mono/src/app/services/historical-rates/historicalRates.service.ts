@@ -19,7 +19,7 @@ interface CacheKeyParams {
 }
 
 type CurrencyEntry = [string, Record<string, number>];
-type CurrencyEntries = CurrencyEntry[];
+export type CurrencyEntries = CurrencyEntry[];
 
 const toCacheKey = ({ dates, base, quote }: CacheKeyParams) =>
   `${dates.startDate.toString()}:${dates.endDate.toString()}:${base}:${quote}`;
