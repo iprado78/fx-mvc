@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'angular-highcharts'
+import { Chart } from 'angular-highcharts';
 import { HistoricalRates } from '../../services/historical-rates/historicalRates.service';
-import { XrangePointOptionsObject, SeriesLineOptions, XAxisOptions, Options } from 'highcharts';
-import { CurrencyOption, CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
+import {
+  XrangePointOptionsObject,
+  SeriesLineOptions,
+  XAxisOptions,
+  Options
+} from 'highcharts';
+import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 
 const seriesDefaults = {
   name: 'Daily Fx Close',
   data: [] as XrangePointOptionsObject[],
   type: 'line'
-} as SeriesLineOptions
+} as SeriesLineOptions;
 
 const xAxisDefaults = {
-  type: 'category',
-} as XAxisOptions
+  type: 'category'
+} as XAxisOptions;
 
 @Component({
   selector: 'currency-mono-chart',
@@ -21,9 +26,7 @@ const xAxisDefaults = {
   styleUrls: ['./currency-chart.component.css']
 })
 export class CurrencyChartComponent implements OnInit {
-
-
-  options: Options =  {
+  options: Options = {
     title: {
       text: ''
     },
@@ -35,34 +38,47 @@ export class CurrencyChartComponent implements OnInit {
     },
     xAxis: xAxisDefaults,
     series: [seriesDefaults]
-  }
-  chart = new Chart(this.options)
+  };
+  chart = new Chart(this.options);
 
-  constructor(private historicalRatesService: HistoricalRates, private currencySelections: CurrencySelectionsService) { } 
+  constructor(
+    private historicalRatesService: HistoricalRates,
+    private currencySelections: CurrencySelectionsService
+  ) {}
 
   ngOnInit(): void {
-    combineLatest([this.historicalRatesService.currencyEntries, this.currencySelections.source, this.currencySelections.target])
-      .subscribe(([entries, source, target]) => {
-        const data = entries.map(([date, { close }]) => ({ name: date, y: close } as XrangePointOptionsObject)).reverse()
-        this.chart = new Chart({
-          ...this.options,
+    combineLatest([
+      this.historicalRatesService.currencyEntries,
+      this.currencySelections.base,
+      this.currencySelections.quote
+    ]).subscribe(([entries, base, quote]) => {
+      const data = entries
+        .map(
+          ([date, { close }]) =>
+            ({ name: date, y: close } as XrangePointOptionsObject)
+        )
+        .reverse();
+      this.chart = new Chart({
+        ...this.options,
+        title: {
+          text: `${base}/${quote}`
+        },
+        yAxis: {
           title: {
-            text: `${source} to ${target}`
-          },
-          yAxis: {
-            title: {
-              text: target
-            }
-          },
-          xAxis: {
-            ...xAxisDefaults,
-            labels: { step: Math.ceil(data.length / 20) }
-          } as XAxisOptions,
-          series: [{
+            text: `${base}/${quote}`
+          }
+        },
+        xAxis: {
+          ...xAxisDefaults,
+          labels: { step: Math.ceil(data.length / 20) }
+        } as XAxisOptions,
+        series: [
+          {
             ...seriesDefaults,
             data
-          }]
-        })
-      })
-    }
+          }
+        ]
+      });
+    });
+  }
 }

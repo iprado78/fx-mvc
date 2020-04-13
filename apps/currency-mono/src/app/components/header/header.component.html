@@ -1,50 +1,68 @@
 <mat-toolbar class="toolbar">
-    <h1>{{ title }}</h1>
-    <span>
-        <mat-form-field>
-          <mat-label>
-            Source Currency
-          </mat-label>
-          <mat-select [value]="sourceCurrency" (selectionChange)="onSourceCurrencyInput($event.value)" id="source-currency-select">
-            <mat-option *ngFor="let option of sourceOptions" [value]="option">
-              {{ option }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>
-            Target Currency
-          </mat-label>
-          <mat-select [value]="targetCurrency" (selectionChange)="onTargetCurrencyInput($event.value)">
-            <mat-option *ngFor="let option of targetOptions" [value]="option">
-              {{ option }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>
-              Start Date
-            </mat-label>
-            <input 
-              matInput  
-              [max]="max" 
-              [matDatepicker]="startDatePicker" 
-              [min]="min" 
-              [value]="startDate"
-              (dateInput)="onStartDateInput($event.value)"
-            >
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePicker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>
-              End Date
-            </mat-label>
-            <input matInput 
-            (dateInput)="onEndDateInput($event.value)"
-            [max]="max" [matDatepicker]="endDatePicker" [min]="min" [value]="endDate">
-            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #endDatePicker></mat-datepicker>
-        </mat-form-field>
-    </span>
+  <h1>{{ title }}</h1>
+  <span>
+    <mat-form-field>
+      <mat-label>
+        Base
+      </mat-label>
+      <mat-select
+        [value]="baseCurrency"
+        (selectionChange)="onBaseCurrencyInput($event.value)"
+        id="base-currency-select"
+      >
+        <mat-option *ngFor="let option of baseOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        Quote
+      </mat-label>
+      <mat-select
+        [value]="quoteCurrency"
+        (selectionChange)="onQuoteCurrencyInput($event.value)"
+      >
+        <mat-option *ngFor="let option of quoteOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        Start Date
+      </mat-label>
+      <input
+        matInput
+        [max]="max"
+        [matDatepicker]="startDatePicker"
+        [min]="min"
+        [value]="startDate"
+        (dateInput)="onStartDateInput($event.value)"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        End Date
+      </mat-label>
+      <input
+        matInput
+        (dateInput)="onEndDateInput($event.value)"
+        [max]="max"
+        [matDatepicker]="endDatePicker"
+        [min]="min"
+        [value]="endDate"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="endDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </span>
 </mat-toolbar>
