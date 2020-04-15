@@ -1,0 +1,20 @@
+{
+  "currencies": [
+    {
+      "id": "EUR",
+      "reserves": 0
+    },
+    {
+      "id": "USD",
+      "reserves": 5000
+    },
+    {
+      "id": "JPY",
+      "reserves": 0
+    },
+    {
+      "id": "GBP",
+      "reserves": 0
+    }
+  ]
+}

@@ -12,11 +12,15 @@
   },
   "projects": {
     "currency-mono": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["currency-bank-service"]
     },
     "currency-mono-e2e": {
       "tags": [],
       "implicitDependencies": ["currency-mono"]
+    },
+    "currency-bank-service": {
+      "tags": []
     }
   }
 }
