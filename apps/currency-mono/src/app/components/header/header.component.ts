@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DatesService } from '../../services/dates/dates.service';
-import {
-  CurrencyOption,
-  CurrencySelectionsService
-} from '../../services/currency-selections/currency-selections.service';
+import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
+import { CurrencySymbol } from '../../shared/types';
 
 type OnDateInput = (date: Date) => void;
-type OnCurrencyInput = (currency: CurrencyOption) => void;
+type OnCurrencyInput = (currency: CurrencySymbol) => void;
 
 @Component({
   selector: 'currency-header',
@@ -19,10 +17,10 @@ export class HeaderComponent implements OnInit {
   max: Date;
   startDate: Date;
   endDate: Date;
-  baseCurrency: CurrencyOption;
-  quoteCurrency: CurrencyOption;
-  baseOptions: CurrencyOption[];
-  quoteOptions: CurrencyOption[];
+  baseCurrency: CurrencySymbol;
+  quoteCurrency: CurrencySymbol;
+  baseOptions: CurrencySymbol[];
+  quoteOptions: CurrencySymbol[];
   onStartDateInput: OnDateInput;
   onEndDateInput: OnDateInput;
   onBaseCurrencyInput: OnCurrencyInput;
@@ -49,7 +47,7 @@ export class HeaderComponent implements OnInit {
     this.onQuoteCurrencyInput = this.currencyInputFactory('Quote');
   }
   private currencyChangeObservor = (type: 'base' | 'quote') => {
-    return (currency: CurrencyOption) => {
+    return (currency: CurrencySymbol) => {
       this[`${type}Currency`] = currency;
       this[`${type === 'base' ? 'quote' : 'base'}Options`] = [
         ...this.currencySelectionsService.currencyOptions
@@ -63,7 +61,7 @@ export class HeaderComponent implements OnInit {
   };
 
   private currencyInputFactory = (type: 'Base' | 'Quote') => {
-    return (currency: CurrencyOption): void => {
+    return (currency: CurrencySymbol): void => {
       this.currencySelectionsService[`set${type}`](currency);
     };
   };

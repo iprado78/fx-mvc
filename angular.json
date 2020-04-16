@@ -6,7 +6,7 @@
       "schematics": {},
       "root": "apps/currency-mono",
       "sourceRoot": "apps/currency-mono/src",
-      "prefix": "app",
+      "prefix": "currency",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

@@ -12,11 +12,30 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select'
-import { HttpClientModule } from '@angular/common/http'
- 
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { CurrencyExchangeComponent } from './components/currency-exchange/currency-exchange.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyReservesComponent } from './components/currency-reserves/currency-reserves.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { LayoutModule } from '@angular/cdk/layout';
+import { LiveRateComponent } from './components/live-rate/live-rate.component';
+
 @NgModule({
-  declarations: [AppComponent, CurrencyGridComponent, CurrencyChartComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    CurrencyGridComponent,
+    CurrencyChartComponent,
+    HeaderComponent,
+    CurrencyExchangeComponent,
+    CurrencyReservesComponent,
+    LiveRateComponent
+  ],
   imports: [
     BrowserModule,
     ChartModule,
@@ -28,7 +47,15 @@ import { HttpClientModule } from '@angular/common/http'
     MatInputModule,
     AgGridModule.withComponents(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatIconModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

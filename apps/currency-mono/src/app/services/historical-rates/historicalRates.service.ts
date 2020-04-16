@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { DatesService, Dates } from '../dates/dates.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import {
-  CurrencySelectionsService,
-  CurrencyOption
-} from '../currency-selections/currency-selections.service';
+  CurrencySymbol,
+  CurrencyEntry,
+  CurrencyEntries
+} from '../../shared/types';
+
+interface CacheKeyParams {
+  dates: Dates;
+  base: CurrencySymbol;
+  quote: CurrencySymbol;
+}
 
 const filterFromDates = (dates: Dates) => ([dateString]: CurrencyEntry) => {
   const asDate = new Date(dateString);
   return asDate >= dates.startDate && asDate <= dates.endDate;
 };
-
-interface CacheKeyParams {
-  dates: Dates;
-  base: CurrencyOption;
-  quote: CurrencyOption;
-}
-
-type CurrencyEntry = [string, Record<string, number>];
-export type CurrencyEntries = CurrencyEntry[];
 
 const toCacheKey = ({ dates, base, quote }: CacheKeyParams) =>
   `${dates.startDate.toString()}:${dates.endDate.toString()}:${base}:${quote}`;

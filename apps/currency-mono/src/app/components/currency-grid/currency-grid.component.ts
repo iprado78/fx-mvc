@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HistoricalRates } from '../../services/historical-rates/historicalRates.service';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
+import { currencyFormatterFactory } from '../../shared/functions';
 
 const toPipDiff = (end: number, start: number) =>
   Math.round((10_0000 * (end - start)) / start);
@@ -61,16 +62,8 @@ export class CurrencyGridComponent implements OnInit {
       this.selectedCurrenciesService.quote,
       this.historicalRatesService.currencyEntries
     ]).subscribe({
-      next: ([target, entries]) => {
-        const { format } = new Intl.NumberFormat(
-          this.selectedCurrenciesService.currencyToLocale.get(target),
-          {
-            style: 'currency',
-            currency: target,
-            maximumFractionDigits: 4,
-            minimumFractionDigits: 4
-          }
-        );
+      next: ([quote, entries]) => {
+        const format = currencyFormatterFactory(quote);
         this.rowData = entries.map(([date, { open, high, low, close }]) => ({
           date,
           open: format(open),

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import {
-  HistoricalRates,
-  CurrencyEntries
-} from '../../services/historical-rates/historicalRates.service';
+import { HistoricalRates } from '../../services/historical-rates/historicalRates.service';
 import {
   XrangePointOptionsObject,
   SeriesLineOptions,
@@ -12,6 +9,7 @@ import {
 } from 'highcharts';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
+import { CurrencyEntries } from '../../shared/types';
 
 const seriesDefaults = {
   name: 'Exchange Rate at Close',

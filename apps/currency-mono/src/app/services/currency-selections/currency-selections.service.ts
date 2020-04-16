@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-export type CurrencyOption = 'USD' | 'EUR' | 'GBP' | 'RMB' | 'JPY';
-export type CurrencyLocale = 'en-US' | 'en-GB' | 'ja-JP' | 'de-De';
+import { CurrencySymbol } from '../../shared/types';
+import {
+  defaultBase,
+  defaultQuote,
+  currencySymbolLocaleMap
+} from '../../shared/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencySelectionsService {
-  currencyToLocale: Map<CurrencyOption, CurrencyLocale> = new Map([
-    ['USD', 'en-US'],
-    ['EUR', 'de-De'],
-    ['GBP', 'en-GB'],
-    ['JPY', 'ja-JP']
-  ]);
-  currencyOptions = new Set<CurrencyOption>(this.currencyToLocale.keys());
-  private b = new BehaviorSubject<CurrencyOption>('USD');
-  private q = new BehaviorSubject<CurrencyOption>('EUR');
+  currencyOptions = new Set<CurrencySymbol>(currencySymbolLocaleMap.keys());
+  private b = new BehaviorSubject<CurrencySymbol>(defaultBase);
+  private q = new BehaviorSubject<CurrencySymbol>(defaultQuote);
   base = this.b.asObservable();
   quote = this.q.asObservable();
 
-  setBase = (currency: CurrencyOption) => {
+  setBase = (currency: CurrencySymbol) => {
     this.b.next(currency);
   };
 
-  setQuote = (currency: CurrencyOption) => {
+  setQuote = (currency: CurrencySymbol) => {
     this.q.next(currency);
   };
 
