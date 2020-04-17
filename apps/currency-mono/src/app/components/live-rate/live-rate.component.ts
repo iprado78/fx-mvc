@@ -4,6 +4,7 @@ import { LiveRateService } from '../../services/live-rate/live-rate.service';
 import { currencyFormatterFactory } from '../../shared/functions';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
+import { sample } from 'rxjs/operators';
 
 @Component({
   selector: 'currency-live-rate',
@@ -32,8 +33,10 @@ export class LiveRateComponent implements OnInit {
       this.service.rate,
       this.currencySelectionService.base,
       this.currencySelectionService.quote
-    ]).subscribe(([rate, base, quote]) => {
-      this.liveRate = LiveRateComponent.formatLiveRate(rate, base, quote);
-    });
+    ])
+      .pipe(sample(this.service.rate))
+      .subscribe(([rate, base, quote]) => {
+        this.liveRate = LiveRateComponent.formatLiveRate(rate, base, quote);
+      });
   }
 }

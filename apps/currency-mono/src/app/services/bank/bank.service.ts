@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CurrencyReserve, CurrencySymbol } from '../../shared/types';
+import { map, concatAll } from 'rxjs/operators';
 import {
   defaultBaseReserves,
   defaultQuoteReserves
@@ -50,23 +51,24 @@ export class BankService {
     return reqObservable;
   }
 
-  getFromServer(currency: CurrencySymbol) {
+  private getFromServer(currency: CurrencySymbol) {
     return this.http.get(`${baseUrl}/${currency}`);
+  }
+
+  private newReservesEmitter(target: 'base' | 'quote') {
+    this.currencySelection[target]
+      .pipe(map(this.getFromServer), concatAll())
+      .subscribe(this[`${target}Reserves`].next);
   }
 
   constructor(
     private http: HttpClient,
     private currencySelection: CurrencySelectionsService
   ) {
-    this.currencySelection.base.subscribe(async base => {
-      this.baseReserves.next(
-        (await this.getFromServer(base).toPromise()) as CurrencyReserve<number>
-      );
-    });
-    this.currencySelection.quote.subscribe(async quote => {
-      this.quoteReserves.next(
-        (await this.getFromServer(quote).toPromise()) as CurrencyReserve<number>
-      );
-    });
+    this.getFromServer = this.getFromServer.bind(this);
+    this.baseReserves.next = this.baseReserves.next.bind(this.baseReserves);
+    this.quoteReserves.next = this.quoteReserves.next.bind(this.quoteReserves);
+    this.newReservesEmitter('base');
+    this.newReservesEmitter('quote');
   }
 }
