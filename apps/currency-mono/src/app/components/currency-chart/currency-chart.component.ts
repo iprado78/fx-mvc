@@ -9,7 +9,16 @@ import {
 } from 'highcharts';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
+import { sample, map } from 'rxjs/operators';
 import { CurrencyEntries } from '../../shared/types';
+
+const currencyEntriesToXpointData = (entries: CurrencyEntries) =>
+  entries
+    .map(
+      ([date, { close }]) =>
+        ({ name: date, y: close } as XrangePointOptionsObject)
+    )
+    .reverse();
 
 const seriesDefaults = {
   name: 'Exchange Rate at Close',
@@ -27,8 +36,6 @@ const xAxisDefaults = {
   styleUrls: ['./currency-chart.component.css']
 })
 export class CurrencyChartComponent implements OnInit {
-  private entriesCache: CurrencyEntries;
-
   options: Options = {
     title: {
       text: ''
@@ -42,6 +49,7 @@ export class CurrencyChartComponent implements OnInit {
     xAxis: xAxisDefaults,
     series: [seriesDefaults]
   };
+
   chart = new Chart(this.options);
 
   constructor(
@@ -49,52 +57,46 @@ export class CurrencyChartComponent implements OnInit {
     private currencySelections: CurrencySelectionsService
   ) {}
 
-  ngOnInit(): void {
-    combineLatest([
-      this.historicalRatesService.currencyEntries,
-      this.currencySelections.base,
-      this.currencySelections.quote
-    ]).subscribe(([entries, base, quote]) => {
-      /**
-       * Avoids updates while entries resolving.
-       *
-       * TODO: find idiomatic/cleaner RxJS way of doing this that does not require entriesCache variable.
-       */
-      if (entries === this.entriesCache) {
-        return;
-      } else {
-        this.entriesCache = entries;
-      }
-
-      const data = entries
-        .map(
-          ([date, { close }]) =>
-            ({ name: date, y: close } as XrangePointOptionsObject)
-        )
-        .reverse();
-
-      this.options = {
-        ...this.options,
+  private setNewOptions(base, quote, data) {
+    this.options = {
+      ...this.options,
+      title: {
+        text: `${base}/${quote}`
+      },
+      yAxis: {
         title: {
           text: `${base}/${quote}`
-        },
-        yAxis: {
-          title: {
-            text: `${base}/${quote}`
-          }
-        },
-        xAxis: {
-          ...xAxisDefaults,
-          labels: { step: Math.ceil(data.length / 20) }
-        } as XAxisOptions,
-        series: [
-          {
-            ...seriesDefaults,
-            data
-          }
-        ]
-      };
-      this.chart = new Chart(this.options);
-    });
+        }
+      },
+      xAxis: {
+        ...xAxisDefaults,
+        labels: { step: Math.ceil(data.length / 20) }
+      } as XAxisOptions,
+      series: [
+        {
+          ...seriesDefaults,
+          data
+        }
+      ]
+    };
+  }
+
+  private setNewChart() {
+    this.chart = new Chart(this.options);
+  }
+
+  ngOnInit(): void {
+    combineLatest([
+      this.historicalRatesService.currencyEntries.pipe(
+        map(currencyEntriesToXpointData)
+      ),
+      this.currencySelections.base,
+      this.currencySelections.quote
+    ])
+      .pipe(sample(this.historicalRatesService.currencyEntries))
+      .subscribe(([data, base, quote]) => {
+        this.setNewOptions(base, quote, data);
+        this.setNewChart();
+      });
   }
 }

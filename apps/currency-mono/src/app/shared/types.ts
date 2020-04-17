@@ -7,7 +7,13 @@ export interface CurrencyReserve<T> {
   reserves: T;
 }
 
-export type CurrencyEntry = [string, Record<string, number>];
+export interface CurrencyEntryValue {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+export type CurrencyEntry = [string, CurrencyEntryValue];
 
 export type CurrencyEntries = CurrencyEntry[];
 
