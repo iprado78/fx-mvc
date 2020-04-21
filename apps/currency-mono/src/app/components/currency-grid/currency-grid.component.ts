@@ -4,6 +4,7 @@ import { CurrencySelectionsService } from '../../services/currency-selections/cu
 import { combineLatest } from 'rxjs';
 import { currencyFormatterFactory } from '../../shared/functions';
 import { sample } from 'rxjs/operators';
+import { ColDef } from 'ag-grid-community';
 
 const toPipDiff = (end: number, start: number) =>
   Math.round((10_0000 * (end - start)) / start);
@@ -14,13 +15,13 @@ const toPipDiff = (end: number, start: number) =>
   styleUrls: ['./currency-grid.component.css']
 })
 export class CurrencyGridComponent implements OnInit {
-  defaultColDef = {
+  defaultColDef: ColDef = {
     sortable: true,
     cellClass: 'align-right',
-    headerClass: 'align-right'
+    headerClass: 'align-right',
+    width: 125
   };
-
-  columnDefs = [
+  columnDefs: ColDef[] = [
     {
       headerName: 'Date',
       field: 'date'
@@ -34,7 +35,7 @@ export class CurrencyGridComponent implements OnInit {
       field: 'close'
     },
     {
-      headerName: 'Daily Diff (Pips)',
+      headerName: 'Intraday Change (Pips)',
       field: 'diff'
     },
     {
@@ -46,8 +47,8 @@ export class CurrencyGridComponent implements OnInit {
       field: 'low'
     },
     {
-      headerName: 'Daily Volatility (Pips)',
-      field: 'volatility'
+      headerName: 'Intraday Range (Pips)',
+      field: 'range'
     }
   ];
 
@@ -63,7 +64,7 @@ export class CurrencyGridComponent implements OnInit {
       this.selectedCurrenciesService.quote,
       this.historicalRatesService.currencyEntries
     ])
-      .pipe(sample(this.historicalRatesService.currencyEntries))
+      // .pipe(sample(this.historicalRatesService.currencyEntries))
       .subscribe({
         next: ([quote, entries]) => {
           const format = currencyFormatterFactory(quote);
@@ -74,7 +75,7 @@ export class CurrencyGridComponent implements OnInit {
             diff: toPipDiff(close, open),
             high: format(high),
             low: format(low),
-            volatility: toPipDiff(high, low)
+            range: toPipDiff(high, low)
           }));
         }
       });

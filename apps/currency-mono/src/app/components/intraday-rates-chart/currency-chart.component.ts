@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { HistoricalRates } from '../../services/historical-rates/historicalRates.service';
 import {
   XrangePointOptionsObject,
   SeriesLineOptions,
@@ -11,6 +10,7 @@ import { CurrencySelectionsService } from '../../services/currency-selections/cu
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CurrencyEntries } from '../../shared/types';
+import { IntradayRates } from '../../services/intraday-rates /intradayRates.service';
 
 const currencyEntriesToXpointData = (entries: CurrencyEntries) =>
   entries
@@ -21,7 +21,7 @@ const currencyEntriesToXpointData = (entries: CurrencyEntries) =>
     .reverse();
 
 const seriesDefaults = {
-  name: 'Historical Exchange Rate: Daily Time Series',
+  name: 'Intraday Exchange Rate: 5 Minute Time Series',
   data: [] as XrangePointOptionsObject[],
   type: 'line'
 } as SeriesLineOptions;
@@ -31,14 +31,14 @@ const xAxisDefaults = {
 } as XAxisOptions;
 
 @Component({
-  selector: 'currency-mono-chart',
+  selector: 'currency-intraday-chart',
   templateUrl: './currency-chart.component.html',
   styleUrls: ['./currency-chart.component.css']
 })
-export class CurrencyChartComponent implements OnInit {
+export class IntradayCurrencyChartComponent implements OnInit {
   options: Options = {
     title: {
-      text: 'Historical'
+      text: 'Intraday'
     },
     credits: {
       enabled: false
@@ -53,7 +53,7 @@ export class CurrencyChartComponent implements OnInit {
   chart = new Chart(this.options);
 
   constructor(
-    private historicalRatesService: HistoricalRates,
+    private intradayRates: IntradayRates,
     private currencySelections: CurrencySelectionsService
   ) {}
 
@@ -67,7 +67,7 @@ export class CurrencyChartComponent implements OnInit {
       },
       xAxis: {
         ...xAxisDefaults,
-        labels: { step: Math.ceil(data.length / 20) }
+        labels: { step: Math.ceil(data.length / 6) }
       } as XAxisOptions,
       series: [
         {
@@ -84,9 +84,7 @@ export class CurrencyChartComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest([
-      this.historicalRatesService.currencyEntries.pipe(
-        map(currencyEntriesToXpointData)
-      ),
+      this.intradayRates.currencyEntries.pipe(map(currencyEntriesToXpointData)),
       this.currencySelections.base,
       this.currencySelections.quote
     ]).subscribe(([data, base, quote]) => {

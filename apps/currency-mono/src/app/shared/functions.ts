@@ -1,4 +1,4 @@
-import { CurrencySymbol } from './types';
+import { CurrencySymbol, CacheKeyParams } from './types';
 import { currencySymbolLocaleMap } from './constants';
 
 export const currencyFormatterFactory = (
@@ -17,3 +17,6 @@ export const currencyFormatterFactory = (
 
   return format;
 };
+
+export const toCacheKey = ({ base, quote }: CacheKeyParams) =>
+  `${base}:${quote}`;

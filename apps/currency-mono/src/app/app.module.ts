@@ -25,16 +25,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LiveRateComponent } from './components/live-rate/live-rate.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { IntradayCurrencyChartComponent } from './components/intraday-rates-chart/currency-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrencyGridComponent,
     CurrencyChartComponent,
+    IntradayCurrencyChartComponent,
     HeaderComponent,
     CurrencyExchangeComponent,
     CurrencyReservesComponent,
-    LiveRateComponent
+    LiveRateComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

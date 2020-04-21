@@ -12,7 +12,7 @@ type OnCurrencyInput = (currency: CurrencySymbol) => void;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  title = 'Angular Fx Demo';
+  title = 'Angular Fx Demo: Only 5 API Requests a Minute';
   min: Date;
   max: Date;
   startDate: Date;

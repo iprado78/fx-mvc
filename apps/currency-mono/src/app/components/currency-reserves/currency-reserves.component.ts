@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BankService } from '../../services/bank/bank.service';
-import { CurrencyReserve, CurrencySymbol } from '../../shared/types';
-import {
-  defaultBaseReserves,
-  defaultQuoteReserves
-} from '../../shared/constants';
+import { CurrencyReserve } from '../../shared/types';
 import { currencyFormatterFactory } from '../../shared/functions';
 
 @Component({
