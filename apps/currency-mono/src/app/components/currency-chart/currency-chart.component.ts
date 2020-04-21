@@ -21,7 +21,7 @@ const currencyEntriesToXpointData = (entries: CurrencyEntries) =>
     .reverse();
 
 const seriesDefaults = {
-  name: 'Exchange Rate at Close',
+  name: 'Exchange Rate',
   data: [] as XrangePointOptionsObject[],
   type: 'line'
 } as SeriesLineOptions;

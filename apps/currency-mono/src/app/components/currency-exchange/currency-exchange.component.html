@@ -7,11 +7,20 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Pay Amount" formControlName="pay" />
+            <input
+              matInput
+              type="number"
+              placeholder="Pay Amount"
+              formControlName="pay"
+              max="max"
+            />
             <mat-error
               *ngIf="exchangeForm.controls['pay'].hasError('required')"
             >
               Pay amount is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="exchangeForm.controls['pay'].hasError('max')">
+              Pay amount exceeds currency reserves.
             </mat-error>
           </mat-form-field>
         </div>

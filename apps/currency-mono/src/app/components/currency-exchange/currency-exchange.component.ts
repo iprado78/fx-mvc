@@ -10,10 +10,10 @@ import { combineLatest } from 'rxjs';
   styleUrls: ['./currency-exchange.component.css']
 })
 export class CurrencyExchangeComponent implements OnInit {
-  exchangeForm = this.fb.group({
-    pay: [0, Validators.required]
-  });
   receive = 0;
+  exchangeForm = this.fb.group({
+    pay: [0, [Validators.required, Validators.max(0)]]
+  });
 
   onSubmit() {
     this.bankService
@@ -32,10 +32,18 @@ export class CurrencyExchangeComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest([
-      this.exchangeForm.valueChanges,
+      this.exchangeForm.controls.pay.valueChanges,
       this.liveRateService.rate
-    ]).subscribe(([formValue, liveRate]) => {
-      this.receive = Number(formValue.pay) * liveRate.rate;
+    ]).subscribe(([payVal, liveRate]) => {
+      this.receive = Number(payVal) * liveRate.rate;
+    });
+
+    this.bankService.baseReserves.subscribe({
+      next: ({ reserves }) => {
+        const { pay } = this.exchangeForm.controls;
+        pay.setValidators([Validators.required, Validators.max(reserves)]);
+        pay.updateValueAndValidity();
+      }
     });
   }
 }

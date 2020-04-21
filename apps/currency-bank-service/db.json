@@ -2,11 +2,11 @@
   "currencies": [
     {
       "id": "EUR",
-      "reserves": -36.71750000000003
+      "reserves": 382.56499999999994
     },
     {
       "id": "USD",
-      "reserves": 4245
+      "reserves": 3790
     },
     {
       "id": "JPY",
