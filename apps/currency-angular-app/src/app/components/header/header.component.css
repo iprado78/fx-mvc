@@ -1,0 +1,11 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.currency-selector {
+  width: 90px;
+  margin-right: 25px;
+}

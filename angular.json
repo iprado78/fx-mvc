@@ -1,29 +1,29 @@
 {
   "version": 1,
   "projects": {
-    "currency-mono": {
+    "currency-angular-app": {
       "projectType": "application",
       "schematics": {},
-      "root": "apps/currency-mono",
-      "sourceRoot": "apps/currency-mono/src",
+      "root": "apps/currency-angular-app",
+      "sourceRoot": "apps/currency-angular-app/src",
       "prefix": "currency",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/currency-mono",
-            "index": "apps/currency-mono/src/index.html",
-            "main": "apps/currency-mono/src/main.ts",
-            "polyfills": "apps/currency-mono/src/polyfills.ts",
-            "tsConfig": "apps/currency-mono/tsconfig.app.json",
+            "outputPath": "dist/apps/currency-angular-app",
+            "index": "apps/currency-angular-app/src/index.html",
+            "main": "apps/currency-angular-app/src/main.ts",
+            "polyfills": "apps/currency-angular-app/src/polyfills.ts",
+            "tsConfig": "apps/currency-angular-app/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/currency-mono/src/favicon.ico",
-              "apps/currency-mono/src/assets"
+              "apps/currency-angular-app/src/favicon.ico",
+              "apps/currency-angular-app/src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "apps/currency-mono/src/styles.css"
+              "apps/currency-angular-app/src/styles.css"
             ],
             "scripts": []
           },
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/currency-mono/src/environments/environment.ts",
-                  "with": "apps/currency-mono/src/environments/environment.prod.ts"
+                  "replace": "apps/currency-angular-app/src/environments/environment.ts",
+                  "with": "apps/currency-angular-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -61,64 +61,67 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "currency-mono:build"
+            "browserTarget": "currency-angular-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "currency-mono:build:production"
+              "browserTarget": "currency-angular-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "currency-mono:build"
+            "browserTarget": "currency-angular-app:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/currency-mono/tsconfig.app.json",
-              "apps/currency-mono/tsconfig.spec.json"
+              "apps/currency-angular-app/tsconfig.app.json",
+              "apps/currency-angular-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/currency-mono/**"]
+            "exclude": ["**/node_modules/**", "!apps/currency-angular-app/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/currency-mono/jest.config.js",
-            "tsConfig": "apps/currency-mono/tsconfig.spec.json",
+            "jestConfig": "apps/currency-angular-app/jest.config.js",
+            "tsConfig": "apps/currency-angular-app/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/currency-mono/src/test-setup.ts"
+            "setupFile": "apps/currency-angular-app/src/test-setup.ts"
           }
         }
       }
     },
-    "currency-mono-e2e": {
-      "root": "apps/currency-mono-e2e",
-      "sourceRoot": "apps/currency-mono-e2e/src",
+    "currency-angular-app-e2e": {
+      "root": "apps/currency-angular-app-e2e",
+      "sourceRoot": "apps/currency-angular-app-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/currency-mono-e2e/cypress.json",
-            "tsConfig": "apps/currency-mono-e2e/tsconfig.e2e.json",
-            "devServerTarget": "currency-mono:serve"
+            "cypressConfig": "apps/currency-angular-app-e2e/cypress.json",
+            "tsConfig": "apps/currency-angular-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "currency-angular-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "currency-mono:serve:production"
+              "devServerTarget": "currency-angular-app:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/currency-mono-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/currency-mono-e2e/**"]
+            "tsConfig": ["apps/currency-angular-app-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/currency-angular-app-e2e/**"
+            ]
           }
         }
       }
@@ -154,5 +157,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "currency-mono"
+  "defaultProject": "currency-angular-app"
 }

@@ -1,0 +1,12 @@
+<mat-card class="dashboard-card realtime-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{ liveRate.rate }} </mat-card-title>
+      <mat-card-subtitle> Rate @ {{ liveRate.refreshTime }} </mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <currency-reserves></currency-reserves>
+    <currency-exchange></currency-exchange>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,32 @@
+<mat-toolbar class="toolbar">
+  <h1>{{ title }}</h1>
+  <span>
+    <mat-form-field class="currency-selector">
+      <mat-label>
+        Base
+      </mat-label>
+      <mat-select
+        [value]="baseCurrency"
+        (selectionChange)="onBaseCurrencyInput($event.value)"
+        id="base-currency-select"
+      >
+        <mat-option *ngFor="let option of baseOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="currency-selector">
+      <mat-label>
+        Quote
+      </mat-label>
+      <mat-select
+        [value]="quoteCurrency"
+        (selectionChange)="onQuoteCurrencyInput($event.value)"
+      >
+        <mat-option *ngFor="let option of quoteOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </span>
+</mat-toolbar>

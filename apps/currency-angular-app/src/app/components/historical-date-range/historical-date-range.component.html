@@ -1,0 +1,36 @@
+<mat-form-field class="date-input">
+  <mat-label>
+    Start Date
+  </mat-label>
+  <input
+    matInput
+    [max]="max"
+    [matDatepicker]="startDatePicker"
+    [min]="min"
+    [value]="startDate"
+    (dateInput)="onStartDateInput($event.value)"
+  />
+  <mat-datepicker-toggle
+    matSuffix
+    [for]="startDatePicker"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #startDatePicker></mat-datepicker>
+</mat-form-field>
+<mat-form-field class="date-input">
+  <mat-label>
+    End Date
+  </mat-label>
+  <input
+    matInput
+    (dateInput)="onEndDateInput($event.value)"
+    [max]="max"
+    [matDatepicker]="endDatePicker"
+    [min]="min"
+    [value]="endDate"
+  />
+  <mat-datepicker-toggle
+    matSuffix
+    [for]="endDatePicker"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #endDatePicker></mat-datepicker>
+</mat-form-field>

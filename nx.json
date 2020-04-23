@@ -11,13 +11,13 @@
     "nx.json": "*"
   },
   "projects": {
-    "currency-mono": {
+    "currency-angular-app": {
       "tags": [],
       "implicitDependencies": ["currency-bank-service"]
     },
-    "currency-mono-e2e": {
+    "currency-angular-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["currency-mono"]
+      "implicitDependencies": ["currency-angular-app"]
     },
     "currency-bank-service": {
       "tags": []

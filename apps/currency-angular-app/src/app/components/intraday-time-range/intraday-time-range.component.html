@@ -1,0 +1,24 @@
+<mat-form-field class="time-input">
+  <mat-label>
+    Start Time
+  </mat-label>
+  <input
+    matInput
+    disabled
+    type="time"
+    [value]="startTime"
+    (input)="onStartTimeInput($event.target.valueAsNumber)"
+  />
+</mat-form-field>
+<mat-form-field class="time-input">
+  <mat-label>
+    End Time
+  </mat-label>
+  <input
+    matInput
+    type="time"
+    [value]="endTime"
+    disabled
+    (input)="onEndTimeInput($event.target.valueAsNumber)"
+  />
+</mat-form-field>

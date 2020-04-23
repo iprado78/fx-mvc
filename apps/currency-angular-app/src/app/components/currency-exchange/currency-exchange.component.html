@@ -1,0 +1,30 @@
+<form [formGroup]="exchangeForm" novalidate (ngSubmit)="onSubmit()">
+  <div class="row">
+    <mat-form-field class="full-width col">
+      <input
+        matInput
+        type="number"
+        placeholder="Pay Amount"
+        formControlName="pay"
+        max="max"
+      />
+      <mat-error *ngIf="exchangeForm.controls['pay'].hasError('required')">
+        Pay amount is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="exchangeForm.controls['pay'].hasError('max')">
+        Pay amount exceeds currency reserves
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width col">
+      <input matInput placeholder="Receive Amount" [value]="receive" disabled />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <button mat-raised-button color="primary" type="submit">
+        Exchange
+      </button>
+    </div>
+  </div>
+</form>
