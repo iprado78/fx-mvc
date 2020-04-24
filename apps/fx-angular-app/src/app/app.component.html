@@ -1,0 +1,78 @@
+<fx-header></fx-header>
+<div class="grid-container">
+  <fx-realtime-card class="fx-realtime-card"> </fx-realtime-card>
+  <mat-card class="dashboard-card datetime-controls">
+    <mat-card-header>
+      <mat-card-title>View</mat-card-title>
+    </mat-card-header>
+    <mat-tab-group
+      dynamicHeight
+      mat-align-tabs="center"
+      (selectedTabChange)="setViewState($event.tab.textLabel.toLowerCase())"
+    >
+      <mat-tab label="Intraday">
+        <fx-intraday-time-range
+          class="fx-intraday-time-range"
+        ></fx-intraday-time-range>
+      </mat-tab>
+      <mat-tab label="Historical">
+        <fx-historical-date-range
+          class="fx-historical-date-range"
+        ></fx-historical-date-range>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+  </mat-card>
+  <div *ngIf="viewState === 'intraday'; then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock>
+    <mat-card class="intraday-chart">
+      <mat-card-header>
+        <mat-card-title>Intraday Time Series</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fx-intraday-chart></fx-intraday-chart>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  <ng-template #elseBlock>
+    <mat-card class="historical-chart">
+      <mat-card-header>
+        <mat-card-title>Historical Time Series</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fx-mono-chart></fx-mono-chart>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  <mat-card class="transaction-grid">
+    <mat-card-header>
+      <mat-card-title>Transactions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      Transactions to do
+    </mat-card-content>
+  </mat-card>
+  <div
+    *ngIf="viewState === 'intraday'; then intradayPrices; else historicalPrices"
+  ></div>
+  <ng-template #intradayPrices>
+    <mat-card class="intraday-grid">
+      <mat-card-header>
+        <mat-card-title>Intraday Prices</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fx-intraday-grid></fx-intraday-grid>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  <ng-template #historicalPrices>
+    <mat-card class="historical-grid">
+      <mat-card-header>
+        <mat-card-title>Historical Prices</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fx-historical-grid></fx-historical-grid>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

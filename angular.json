@@ -1,29 +1,29 @@
 {
   "version": 1,
   "projects": {
-    "currency-angular-app": {
+    "fx-angular-app": {
       "projectType": "application",
       "schematics": {},
-      "root": "apps/currency-angular-app",
-      "sourceRoot": "apps/currency-angular-app/src",
-      "prefix": "currency",
+      "root": "apps/fx-angular-app",
+      "sourceRoot": "apps/fx-angular-app/src",
+      "prefix": "fx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/currency-angular-app",
-            "index": "apps/currency-angular-app/src/index.html",
-            "main": "apps/currency-angular-app/src/main.ts",
-            "polyfills": "apps/currency-angular-app/src/polyfills.ts",
-            "tsConfig": "apps/currency-angular-app/tsconfig.app.json",
+            "outputPath": "dist/apps/fx-angular-app",
+            "index": "apps/fx-angular-app/src/index.html",
+            "main": "apps/fx-angular-app/src/main.ts",
+            "polyfills": "apps/fx-angular-app/src/polyfills.ts",
+            "tsConfig": "apps/fx-angular-app/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/currency-angular-app/src/favicon.ico",
-              "apps/currency-angular-app/src/assets"
+              "apps/fx-angular-app/src/favicon.ico",
+              "apps/fx-angular-app/src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "apps/currency-angular-app/src/styles.css"
+              "apps/fx-angular-app/src/styles.css"
             ],
             "scripts": []
           },
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/currency-angular-app/src/environments/environment.ts",
-                  "with": "apps/currency-angular-app/src/environments/environment.prod.ts"
+                  "replace": "apps/fx-angular-app/src/environments/environment.ts",
+                  "with": "apps/fx-angular-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -61,73 +61,70 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "currency-angular-app:build"
+            "browserTarget": "fx-angular-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "currency-angular-app:build:production"
+              "browserTarget": "fx-angular-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "currency-angular-app:build"
+            "browserTarget": "fx-angular-app:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/currency-angular-app/tsconfig.app.json",
-              "apps/currency-angular-app/tsconfig.spec.json"
+              "apps/fx-angular-app/tsconfig.app.json",
+              "apps/fx-angular-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/currency-angular-app/**"]
+            "exclude": ["**/node_modules/**", "!apps/fx-angular-app/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/currency-angular-app/jest.config.js",
-            "tsConfig": "apps/currency-angular-app/tsconfig.spec.json",
+            "jestConfig": "apps/fx-angular-app/jest.config.js",
+            "tsConfig": "apps/fx-angular-app/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/currency-angular-app/src/test-setup.ts"
+            "setupFile": "apps/fx-angular-app/src/test-setup.ts"
           }
         }
       }
     },
-    "currency-angular-app-e2e": {
-      "root": "apps/currency-angular-app-e2e",
-      "sourceRoot": "apps/currency-angular-app-e2e/src",
+    "fx-angular-app-e2e": {
+      "root": "apps/fx-angular-app-e2e",
+      "sourceRoot": "apps/fx-angular-app-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/currency-angular-app-e2e/cypress.json",
-            "tsConfig": "apps/currency-angular-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "currency-angular-app:serve"
+            "cypressConfig": "apps/fx-angular-app-e2e/cypress.json",
+            "tsConfig": "apps/fx-angular-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "fx-angular-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "currency-angular-app:serve:production"
+              "devServerTarget": "fx-angular-app:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/currency-angular-app-e2e/tsconfig.e2e.json"],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/currency-angular-app-e2e/**"
-            ]
+            "tsConfig": ["apps/fx-angular-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/fx-angular-app-e2e/**"]
           }
         }
       }
     },
-    "currency-bank-service": {
-      "root": "apps/currency-bank-service",
+    "fx-bank-service": {
+      "root": "apps/fx-bank-service",
       "projectType": "application",
       "architect": {
         "start": {
@@ -138,7 +135,7 @@
                 "command": "npx json-server --watch db.json"
               }
             ],
-            "cwd": "apps/currency-bank-service"
+            "cwd": "apps/fx-bank-service"
           }
         }
       }
@@ -157,5 +154,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "currency-angular-app"
+  "defaultProject": "fx-angular-app"
 }
