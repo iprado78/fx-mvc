@@ -32,6 +32,7 @@ import { IntradayRatesGridComponent } from './components/intraday-rates-grid/int
 import { MatTabsModule } from '@angular/material/tabs';
 import { HistoricalDateRangeComponent } from './components/historical-date-range/historical-date-range.component';
 import { IntradayTimeRangeComponent } from './components/intraday-time-range/intraday-time-range.component';
+import { TransactionsGridComponent } from './components/transactions-grid/transactions-grid.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { IntradayTimeRangeComponent } from './components/intraday-time-range/int
     LiveRateComponent,
     IntradayRatesGridComponent,
     HistoricalDateRangeComponent,
-    IntradayTimeRangeComponent
+    IntradayTimeRangeComponent,
+    TransactionsGridComponent
   ],
   imports: [
     BrowserModule,

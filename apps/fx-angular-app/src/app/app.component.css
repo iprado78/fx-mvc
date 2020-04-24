@@ -32,7 +32,7 @@
 
 .historical-grid,
 .intraday-grid {
-  grid-column-start: 6;
+  grid-column-start: 7;
   grid-column-end: 13;
   grid-row-start: 5;
   grid-row-end: 10;
@@ -40,7 +40,7 @@
 
 .transaction-grid {
   grid-column-start: 1;
-  grid-column-end: 6;
+  grid-column-end: 7;
   grid-row-start: 5;
   grid-row-end: 10;
 }
