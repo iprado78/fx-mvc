@@ -12,9 +12,9 @@ export class CurrencyReservesComponent implements OnInit {
   baseCurrency: CurrencyReserve<string>;
   quoteCurrency: CurrencyReserve<string>;
   static formatReserves = (serviceReserves: CurrencyReserve<number>) => ({
-    id: serviceReserves.id,
+    code: serviceReserves.code,
     reserves: currencyFormatterFactory(
-      serviceReserves.id,
+      serviceReserves.code,
       2
     )(serviceReserves.reserves)
   });
@@ -24,8 +24,10 @@ export class CurrencyReservesComponent implements OnInit {
     this.bankService.baseReserves.subscribe((base: CurrencyReserve<number>) => {
       this.baseCurrency = CurrencyReservesComponent.formatReserves(base);
     });
-    this.bankService.quoteReserves.subscribe(quote => {
-      this.quoteCurrency = CurrencyReservesComponent.formatReserves(quote);
-    });
+    this.bankService.quoteReserves.subscribe(
+      (quote: CurrencyReserve<number>) => {
+        this.quoteCurrency = CurrencyReservesComponent.formatReserves(quote);
+      }
+    );
   }
 }

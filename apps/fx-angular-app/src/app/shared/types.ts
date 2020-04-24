@@ -13,8 +13,18 @@ export type CurrencySymbol = 'USD' | 'EUR' | 'GBP' | 'RMB' | 'JPY';
 export type CurrencyLocale = 'en-US' | 'en-GB' | 'ja-JP' | 'de-De';
 
 export interface CurrencyReserve<T> {
-  id: CurrencySymbol;
+  code: CurrencySymbol;
   reserves: T;
+}
+
+export interface Transaction<T> {
+  timestamp: string;
+  payCurrency: CurrencySymbol;
+  receiveCurrency: CurrencySymbol;
+  payCurrencyBalance: T;
+  receiveCurrencyBalance: T;
+  payAmount: T;
+  receiveAmount: T;
 }
 
 export interface FxEntryValue {

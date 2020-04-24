@@ -15,14 +15,18 @@ export class CurrencyExchangeComponent implements OnInit {
     pay: [0, [Validators.required, Validators.max(0)]]
   });
 
-  onSubmit() {
-    this.bankService
-      .exchangeCurrency(this.exchangeForm.value.pay, this.receive)
-      .subscribe(() => {
-        this.exchangeForm.setValue({
-          pay: 0
-        });
+  async onSubmit() {
+    try {
+      await this.bankService.exchangeCurrency(
+        this.exchangeForm.value.pay,
+        this.receive
+      );
+      this.exchangeForm.setValue({
+        pay: 0
       });
+    } catch (e) {
+      console.log(e);
+    }
   }
   constructor(
     private fb: FormBuilder,

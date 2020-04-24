@@ -20,11 +20,6 @@ const enttriesFromServerResponse = (res: IntradayRatesResponse) =>
 
 const filterFromTimes = (times: Times) => ([datetimeString]: FxEntry) => {
   const asMoment = moment.utc(datetimeString).local();
-  console.log(
-    asMoment.format('hh:mm A'),
-    asMoment.isSameOrAfter(times.startTime) &&
-      asMoment.isSameOrBefore(times.endTime)
-  );
   return (
     asMoment.isSameOrAfter(times.startTime) &&
     asMoment.isSameOrBefore(times.endTime)

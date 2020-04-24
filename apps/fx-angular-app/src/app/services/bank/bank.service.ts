@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { CurrencyReserve, CurrencySymbol } from '../../shared/types';
-import { map, concatAll } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { CurrencyReserve } from '../../shared/types';
+import { FxAngularTransactionsDbClientService } from '../fx-angular-transaction-db-client/fx-angular-transaction-db-client.service';
+import { TransactionsService } from '../transactions/transactions.service';
 import {
   defaultBaseReserves,
   defaultQuoteReserves
 } from '../../shared/constants';
-
-const baseUrl = 'http://localhost:3000/currencies';
 
 @Injectable({
   providedIn: 'root'
@@ -22,52 +20,50 @@ export class BankService {
     defaultQuoteReserves
   );
 
-  exchangeCurrency(pay: number, receive: number) {
-    const { id: baseId, reserves: baseReserves } = this.baseReserves.getValue();
-    const {
-      id: quoteId,
-      reserves: quoteReserves
-    } = this.quoteReserves.getValue();
-    const newBase = baseReserves - pay;
-    const newQuote = quoteReserves + receive;
-    const reqObservable = combineLatest([
-      this.http.patch(`${baseUrl}/${baseId}`, {
-        reserves: newBase
-      }),
-      this.http.patch(`${baseUrl}/${quoteId}`, {
-        reserves: newQuote
-      })
-    ]);
-    reqObservable.subscribe(() => {
-      this.baseReserves.next({
-        id: baseId,
-        reserves: newBase
-      });
-      this.quoteReserves.next({
-        id: quoteId,
-        reserves: newQuote
-      });
+  async exchangeCurrency(pay: number, receive: number) {
+    const base = this.baseReserves.getValue();
+    const quote = this.quoteReserves.getValue();
+    const newBase = {
+      code: base.code,
+      reserves: base.reserves - pay
+    } as CurrencyReserve<number>;
+    const newQuote = {
+      code: quote.code,
+      reserves: quote.reserves + receive
+    } as CurrencyReserve<number>;
+    const transactionPromise = this.transactionsClient.updatPairReserves(
+      newBase,
+      newQuote,
+      pay,
+      receive
+    );
+    try {
+      await transactionPromise;
+      this.baseReserves.next(newBase);
+      this.quoteReserves.next(newQuote);
+      this.transactionService.hydrateTransactions();
+    } catch (e) {
+      console.log(e);
+    }
+    return transactionPromise;
+  }
+
+  private newReservesEmitter = (target: 'base' | 'quote') => {
+    this.currencySelection[target].subscribe(async currency => {
+      const result = await this.transactionsClient.getReserves(currency);
+      try {
+        this[`${target}Reserves`].next(result);
+      } catch (e) {
+        console.log(e);
+      }
     });
-    return reqObservable;
-  }
-
-  private getFromServer(currency: CurrencySymbol) {
-    return this.http.get(`${baseUrl}/${currency}`);
-  }
-
-  private newReservesEmitter(target: 'base' | 'quote') {
-    this.currencySelection[target]
-      .pipe(map(this.getFromServer), concatAll())
-      .subscribe(this[`${target}Reserves`].next);
-  }
+  };
 
   constructor(
-    private http: HttpClient,
-    private currencySelection: CurrencySelectionsService
+    private transactionsClient: FxAngularTransactionsDbClientService,
+    private currencySelection: CurrencySelectionsService,
+    private transactionService: TransactionsService
   ) {
-    this.getFromServer = this.getFromServer.bind(this);
-    this.baseReserves.next = this.baseReserves.next.bind(this.baseReserves);
-    this.quoteReserves.next = this.quoteReserves.next.bind(this.quoteReserves);
     this.newReservesEmitter('base');
     this.newReservesEmitter('quote');
   }

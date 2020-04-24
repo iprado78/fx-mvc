@@ -31,7 +31,7 @@ const xAxisDefaults = {
 } as XAxisOptions;
 
 @Component({
-  selector: 'fx-mono-chart',
+  selector: 'fx-historical-chart',
   templateUrl: './historical-rates-chart.component.html'
 })
 export class HistoricalRatesChartComponent implements OnInit {

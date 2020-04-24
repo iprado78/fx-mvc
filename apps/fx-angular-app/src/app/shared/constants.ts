@@ -12,12 +12,12 @@ export const defaultBase: CurrencySymbol = 'USD';
 export const defaultQuote: CurrencySymbol = 'EUR';
 
 export const defaultBaseReserves: CurrencyReserve<number> = {
-  id: defaultBase,
+  code: defaultBase,
   reserves: 0
 };
 
 export const defaultQuoteReserves: CurrencyReserve<number> = {
-  id: defaultQuote,
+  code: defaultQuote,
   reserves: 0
 };
 
