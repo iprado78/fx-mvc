@@ -1,5 +1,5 @@
 {
-  "npmScope": "currency",
+  "npmScope": "fx",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
@@ -11,15 +11,15 @@
     "nx.json": "*"
   },
   "projects": {
-    "currency-angular-app": {
+    "fx-angular-app": {
       "tags": [],
-      "implicitDependencies": ["currency-bank-service"]
+      "implicitDependencies": ["fx-bank-service"]
     },
-    "currency-angular-app-e2e": {
+    "fx-angular-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["currency-angular-app"]
+      "implicitDependencies": ["fx-angular-app"]
     },
-    "currency-bank-service": {
+    "fx-bank-service": {
       "tags": []
     }
   }
