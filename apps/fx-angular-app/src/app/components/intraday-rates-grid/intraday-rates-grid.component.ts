@@ -5,7 +5,7 @@ import {
   currencyFormatterFactory,
   toPipDiff,
   utcStringToLocal
-} from '../../shared/functions';
+} from '../../../../../../libs/shared/src';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { ColDef } from 'ag-grid-community';
 

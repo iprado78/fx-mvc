@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
-import { FxEntries, Times, FxEntry } from '../../shared/types';
 import { AlphavantageClientService } from '../alpha-vantage-client/alphavantage-client.service';
-import { IntradayRatesResponse } from '../../shared/types';
-import { FxEntryValue } from '../../shared/types';
+import {
+  FxEntryValue,
+  IntradayRatesResponse,
+  FxEntries,
+  FxEntry,
+  Times
+} from '../../../../../../libs/shared/src';
 import { TimesService } from '../times/times.service';
 import moment from 'moment';
 import { debounceTime } from 'rxjs/operators';

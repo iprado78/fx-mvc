@@ -16,7 +16,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
-    "paths": {}
+    "paths": {
+      "@fx/test": ["libs/shared/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

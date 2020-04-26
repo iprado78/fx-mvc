@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FxAngularTransactionsDbClientService } from './fx-angular-transaction-db-client.service';
+import { FxTransactionDbClient } from './fx-transaction-db-client';
 
 describe('TransactionsService', () => {
-  let service: FxAngularTransactionsDbClientService;
+  let service: FxTransactionDbClient;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FxAngularTransactionsDbClientService);
+    service = TestBed.inject(FxTransactionDbClient);
   });
 
   it('should be created', () => {

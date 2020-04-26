@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CurrencySymbol } from '../../shared/types';
 import {
   defaultBase,
   defaultQuote,
-  currencySymbolLocaleMap
-} from '../../shared/constants';
+  currencySymbolLocaleMap,
+  CurrencySymbol
+} from '../../../../../../libs/shared/src';
 
 @Injectable({
   providedIn: 'root'

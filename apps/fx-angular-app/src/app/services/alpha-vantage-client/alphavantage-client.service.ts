@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import moment from 'moment';
-import { toCacheKey } from '../../shared/functions';
 import { Observable } from 'rxjs';
-import {
-  CurrencySymbol,
-  IntradayRatesResponse,
-  CacheKeyParams
-} from '../../shared/types';
 import {
   HistoricalRatesResponse,
   apiFunctions,
-  LiveRateResponse
-} from '../../shared/types';
+  LiveRateResponse,
+  CurrencySymbol,
+  IntradayRatesResponse,
+  CacheKeyParams,
+  toCacheKey
+} from '../../../../../../libs/shared/src';
 
 const BASE_URL = 'https://www.alphavantage.co/query';
 const API_KEY = 'SEDS91YKBFMKI360';

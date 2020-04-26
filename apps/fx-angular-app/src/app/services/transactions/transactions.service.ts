@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Transaction } from '../../shared/types';
-import { FxAngularTransactionsDbClientService } from '../fx-angular-transaction-db-client/fx-angular-transaction-db-client.service';
+import { Transaction } from '../../../../../../libs/shared/src';
+import { FxTransactionDbClient } from '../../../../../../libs/fx-transaction-db-client/src/lib/fx-transaction-db-client';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { FxAngularTransactionsDbClientService } from '../fx-angular-transaction-
 export class TransactionsService {
   private t = new BehaviorSubject<Transaction<number>[]>([]);
   transactions = this.t.asObservable();
-  constructor(private dbClient: FxAngularTransactionsDbClientService) {
+  constructor(private dbClient: FxTransactionDbClient) {
     this.hydrateTransactions();
   }
   hydrateTransactions = async () => {

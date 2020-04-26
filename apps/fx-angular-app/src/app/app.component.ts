@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewState } from './shared/types';
+import { ViewState } from '../../../../libs/shared/src';
 
 @Component({
   selector: 'fx-app',

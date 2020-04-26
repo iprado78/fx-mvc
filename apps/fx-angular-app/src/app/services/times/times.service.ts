@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import moment, { Moment } from 'moment';
-import { TimeType, Times } from '../../shared/types';
+import { TimeType, Times } from '../../../../../../libs/shared/src';
 
 @Injectable({
   providedIn: 'root'
