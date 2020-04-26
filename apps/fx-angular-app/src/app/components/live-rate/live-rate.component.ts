@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LiveRate, CurrencySymbol } from '../../shared/types';
+import { LiveRate, CurrencySymbol } from '../../../../../../libs/shared/src';
 import { LiveRateService } from '../../services/live-rate/live-rate.service';
 import {
   currencyFormatterFactory,
   formatUtcMoment
-} from '../../shared/functions';
+} from '../../../../../../libs/shared/src';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { sample } from 'rxjs/operators';

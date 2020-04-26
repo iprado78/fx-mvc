@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
 import { currencies as currenciesBootstrap } from './db-bootstrap.js';
 import {
   CurrencyReserve,
-  CurrencySymbol,
-  Transaction
-} from '../../shared/types';
+  Transaction,
+  CurrencySymbol
+} from '../../../shared/src/lib/types';
+import { Injectable } from '@angular/core';
 
 type Store = 'currencyReserves' | 'transactions';
 
 const RESERVES: Store = 'currencyReserves';
 const TRANSACTIONS: Store = 'transactions';
-const DB = 'FxAngularTransaction';
+const DB = 'FxTransaction';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FxAngularTransactionsDbClientService {
+export class FxTransactionDbClient {
   private db: IDBDatabase;
   loaded: Promise<boolean>;
   constructor() {
@@ -100,6 +100,7 @@ export class FxAngularTransactionsDbClientService {
   };
 
   getTransactions = async () => {
+    console.log('callled.......');
     await this.loaded;
     const [, [transactionsStore]] = this.prepareTransaction(
       [TRANSACTIONS],
@@ -143,7 +144,7 @@ export class FxAngularTransactionsDbClientService {
       [RESERVES, TRANSACTIONS],
       'readwrite'
     );
-    return await Promise.all([
+    return Promise.all([
       this.updateReserves(reservesStore, base),
       this.updateReserves(reservesStore, quote),
       this.createTransaction(

@@ -9,9 +9,9 @@ import {
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FxEntries } from '../../shared/types';
 import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
-import { utcStringToLocal } from '../../shared/functions';
+import { FxEntries } from '../../../../../../libs/shared/src/lib/types';
+import { utcStringToLocal } from '../../../../../../libs/shared/src/lib/functions';
 
 const fxEntriesToXpointData = (entries: FxEntries) =>
   entries

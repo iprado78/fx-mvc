@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { DatesService, Dates } from '../dates/dates.service';
+import { DatesService } from '../dates/dates.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import {
   FxEntry,
   FxEntries,
-  HistoricalRatesCacheKeyParams
-} from '../../shared/types';
-import { toCacheKey } from '../../shared/functions';
+  HistoricalRatesCacheKeyParams,
+  toCacheKey,
+  HistoricalRatesResponse,
+  FxEntryValue,
+  Dates
+} from '../../../../../../libs/shared/src';
 import { AlphavantageClientService } from '../alpha-vantage-client/alphavantage-client.service';
-import { HistoricalRatesResponse, FxEntryValue } from '../../shared/types';
 
 const filterFromDates = (dates: Dates) => ([dateString]: FxEntry) => {
   const asDate = new Date(dateString);

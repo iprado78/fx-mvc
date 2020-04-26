@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
-import { currencyFormatterFactory, toPipDiff } from '../../shared/functions';
 import { ColDef } from 'ag-grid-community';
+import {
+  currencyFormatterFactory,
+  toPipDiff
+} from '../../../../../../libs/shared/src';
 
 @Component({
   selector: 'fx-historical-grid',

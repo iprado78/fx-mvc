@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import { combineLatest, BehaviorSubject } from 'rxjs';
-import { LiveRate, LiveRateResponseData } from '../../shared/types';
-import { defaultLiveRate } from '../../shared/constants';
-import { toCacheKey } from '../../shared/functions';
+import {
+  toCacheKey,
+  defaultLiveRate,
+  LiveRate,
+  LiveRateResponseData
+} from '../../../../../../libs/shared/src';
 import moment, { Moment } from 'moment';
 import { AlphavantageClientService } from '../alpha-vantage-client/alphavantage-client.service';
 

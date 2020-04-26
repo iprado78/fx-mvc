@@ -1,5 +1,11 @@
-import { Dates } from '../services/dates/dates.service';
 import { Moment } from 'moment';
+
+export type DateType = 'startDate' | 'endDate';
+
+export interface Dates {
+  startDate: Date;
+  endDate: Date;
+}
 
 export interface Times {
   startTime: Moment;
