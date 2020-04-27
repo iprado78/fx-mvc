@@ -3,7 +3,7 @@ import { currencySymbolLocaleMap } from './constants';
 import { Moment } from 'moment';
 import moment from 'moment';
 
-const TEN_THOUSAND = 100000;
+const TEN_THOUSAND = 10000;
 
 export const currencyFormatterFactory = (
   symbol: CurrencySymbol,
@@ -26,7 +26,7 @@ export const toCacheKey = ({ base, quote }: CacheKeyParams) =>
   `${base}:${quote}`;
 
 export const toPipDiff = (end: number, start: number) =>
-  Math.round((TEN_THOUSAND * (end - start)) / start);
+  Math.round(TEN_THOUSAND * (end - start));
 
 export const formatUtcMoment = (utcMoment: Moment, ms = false): string => {
   return utcMoment.local().format(`hh:mm${ms ? ':ss' : ''} A`);
