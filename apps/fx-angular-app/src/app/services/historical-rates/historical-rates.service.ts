@@ -11,7 +11,7 @@ import {
   FxEntryValue,
   Dates
 } from '../../../../../../libs/shared/src';
-import { AlphavantageClientService } from '../alpha-vantage-client/alphavantage-client.service';
+import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
 
 const filterFromDates = (dates: Dates) => ([dateString]: FxEntry) => {
   const asDate = new Date(dateString);
@@ -42,8 +42,7 @@ export class HistoricalRates {
 
   constructor(
     private dateService: DatesService,
-    private currencySelection: CurrencySelectionsService,
-    private fromAlphaVantage: AlphavantageClientService
+    private currencySelection: CurrencySelectionsService
   ) {
     combineLatest([
       this.dateService.dates,
@@ -56,7 +55,7 @@ export class HistoricalRates {
         quote
       });
       if (!this.filterCache.has(filterCacheKey)) {
-        const unfilteredRates = await this.fromAlphaVantage.getHistoricalRates(
+        const unfilteredRates = await AlphaVantageClient.getHistoricalRates(
           base,
           quote
         );

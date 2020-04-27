@@ -1,4 +1,10 @@
-import { CurrencySymbol, CacheKeyParams, Transaction } from './types';
+import {
+  CurrencySymbol,
+  CacheKeyParams,
+  Transaction,
+  LiveRateResponseData,
+  LiveRate
+} from './types';
 import { currencySymbolLocaleMap } from './constants';
 import { Moment } from 'moment';
 import moment from 'moment';
@@ -57,3 +63,21 @@ export const transactionsToGridProjection = ({
     receiveCurrencyBalance: receiveFormatter(receiveCurrencyBalance)
   };
 };
+
+export const rateFromServerResponse = (
+  res: LiveRateResponseData
+): LiveRate<number, Moment> => ({
+  rate: Number(res['5. Exchange Rate']),
+  refreshTime: moment.utc(res['6. Last Refreshed'])
+});
+
+export const formatLiveRateForView = (
+  serviceRate: LiveRate<number, Moment>,
+  base: CurrencySymbol,
+  quote: CurrencySymbol
+): LiveRate<string, string> => ({
+  rate: `${base}/${quote} = ${currencyFormatterFactory(quote)(
+    serviceRate.rate
+  )}`,
+  refreshTime: formatUtcMoment(serviceRate.refreshTime, true)
+});

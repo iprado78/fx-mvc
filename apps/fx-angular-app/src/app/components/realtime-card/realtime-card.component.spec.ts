@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiveRateComponent } from './live-rate.component';
+import { LiveRateComponent } from './realtime-card.component';
 
 describe('LiveRateComponent', () => {
   let component: LiveRateComponent;
@@ -8,9 +8,8 @@ describe('LiveRateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiveRateComponent ]
-    })
-    .compileComponents();
+      declarations: [LiveRateComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

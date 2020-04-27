@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LiveRate, CurrencySymbol } from '../../../../../../libs/shared/src';
+import { LiveRate } from '../../../../../../libs/shared/src';
 import { LiveRateService } from '../../services/live-rate/live-rate.service';
-import {
-  currencyFormatterFactory,
-  formatUtcMoment
-} from '../../../../../../libs/shared/src';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { sample } from 'rxjs/operators';
-import { Moment } from 'moment';
+import { formatLiveRateForView } from '../../../../../../libs/shared/src/lib/functions';
 
 @Component({
   selector: 'fx-realtime-card',
-  templateUrl: './live-rate.component.html',
-  styleUrls: ['./live-rate.component.css']
+  templateUrl: './realtime-card.component.html',
+  styleUrls: ['./realtime-card.component.css']
 })
 export class LiveRateComponent implements OnInit {
   liveRate: LiveRate<string, string>;
@@ -22,16 +18,6 @@ export class LiveRateComponent implements OnInit {
     private currencySelectionService: CurrencySelectionsService
   ) {}
 
-  static formatLiveRate = (
-    serviceRate: LiveRate<number, Moment>,
-    base: CurrencySymbol,
-    quote: CurrencySymbol
-  ): LiveRate<string, string> => ({
-    rate: `${base}/${quote} = ${currencyFormatterFactory(quote)(
-      serviceRate.rate
-    )}`,
-    refreshTime: formatUtcMoment(serviceRate.refreshTime, true)
-  });
   ngOnInit(): void {
     combineLatest([
       this.service.rate,
@@ -40,7 +26,7 @@ export class LiveRateComponent implements OnInit {
     ])
       .pipe(sample(this.service.rate))
       .subscribe(([rate, base, quote]) => {
-        this.liveRate = LiveRateComponent.formatLiveRate(rate, base, quote);
+        this.liveRate = formatLiveRateForView(rate, base, quote);
       });
   }
 }

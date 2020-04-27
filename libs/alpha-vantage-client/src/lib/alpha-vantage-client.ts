@@ -1,7 +1,4 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import moment from 'moment';
-import { Observable } from 'rxjs';
 import {
   HistoricalRatesResponse,
   apiFunctions,
@@ -10,8 +7,9 @@ import {
   IntradayRatesResponse,
   CacheKeyParams,
   toCacheKey
-} from '../../../../../../libs/shared/src';
+} from '../../../shared/src';
 
+const toJson = (res: Response): Promise<unknown> => res.json();
 const BASE_URL = 'https://www.alphavantage.co/query';
 const API_KEY = 'SEDS91YKBFMKI360';
 
@@ -30,12 +28,9 @@ const toHistoricalCacheKey = (params: CacheKeyParams) =>
 const toIntradayCacheKey = (params: CacheKeyParams) =>
   `intraday:${toCacheKey(params)}`;
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AlphavantageClientService {
-  constructor(private http: HttpClient) {}
-  private buildUrl(apiFunction: apiFunctions, options) {
+export class AlphaVantageClient {
+  constructor() {}
+  private static buildUrl(apiFunction: apiFunctions, options) {
     const searchParams = new URLSearchParams({
       function: apiFunction,
       apikey: API_KEY,
@@ -43,41 +38,44 @@ export class AlphavantageClientService {
     });
     return `${BASE_URL}?${searchParams.toString()}`;
   }
-  private sendReq(apiFunction: apiFunctions, options) {
-    return this.http.get(this.buildUrl(apiFunction, options));
+  private static sendReq(apiFunction: apiFunctions, options) {
+    return window.fetch(this.buildUrl(apiFunction, options));
   }
-  private sendHistoricalRatesReq(base, quote) {
-    return this.sendReq('FX_DAILY', {
+  private static sendHistoricalRatesReq(base, quote) {
+    return AlphaVantageClient.sendReq('FX_DAILY', {
       from_symbol: base,
       to_symbol: quote,
       outputsize: 'full'
-    }) as Observable<HistoricalRatesResponse>;
+    }).then(toJson) as Promise<HistoricalRatesResponse>;
   }
-  private sendLiveRateReq(base: CurrencySymbol, quote: CurrencySymbol) {
-    return this.sendReq('CURRENCY_EXCHANGE_RATE', {
+  private static sendLiveRateReq(base: CurrencySymbol, quote: CurrencySymbol) {
+    return AlphaVantageClient.sendReq('CURRENCY_EXCHANGE_RATE', {
       from_currency: base,
       to_currency: quote
-    }) as Observable<LiveRateResponse>;
+    }).then(toJson) as Promise<LiveRateResponse>;
   }
-  private sendIntradayRatesReq(base, quote) {
-    return this.sendReq('FX_INTRADAY', {
+  private static sendIntradayRatesReq(base, quote) {
+    return AlphaVantageClient.sendReq('FX_INTRADAY', {
       from_symbol: base,
       to_symbol: quote,
       outputsize: 'full',
       interval: '5min'
-    }) as Observable<IntradayRatesResponse>;
+    }).then(toJson) as Promise<IntradayRatesResponse>;
   }
   /**
    * ToDo: figure out how to remove duplication while getting type safety
    */
-  async getHistoricalRates(base: CurrencySymbol, quote: CurrencySymbol) {
+  static async getHistoricalRates(base: CurrencySymbol, quote: CurrencySymbol) {
     const cacheKey = toHistoricalCacheKey({ base, quote });
     let persistentCache: HistoricalRatesResponse = JSON.parse(
       localStorage.getItem(cacheKey)
     );
     if (!persistentCache || historicalCacheInvalid(persistentCache)) {
       try {
-        const res = await this.sendHistoricalRatesReq(base, quote).toPromise();
+        const res = await AlphaVantageClient.sendHistoricalRatesReq(
+          base,
+          quote
+        );
         /**
          * Handle API limit
          */
@@ -91,20 +89,20 @@ export class AlphavantageClientService {
     }
     return persistentCache;
   }
-  getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
-    return this.sendLiveRateReq(base, quote);
+  static getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
+    return AlphaVantageClient.sendLiveRateReq(base, quote);
   }
   /**
    * ToDo: figure out how to remove duplication while getting type safety
    */
-  async getIntradayRates(base: CurrencySymbol, quote: CurrencySymbol) {
+  static async getIntradayRates(base: CurrencySymbol, quote: CurrencySymbol) {
     const cacheKey = toIntradayCacheKey({ base, quote });
     let persistentCache: IntradayRatesResponse = JSON.parse(
       localStorage.getItem(cacheKey)
     );
     if (!persistentCache || intradayCacheInvalid(persistentCache)) {
       try {
-        const res = await this.sendIntradayRatesReq(base, quote).toPromise();
+        const res = await AlphaVantageClient.sendIntradayRatesReq(base, quote);
         /**
          * Handle API limit
          */

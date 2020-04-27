@@ -5,20 +5,13 @@ import {
   toCacheKey,
   defaultLiveRate,
   LiveRate,
-  LiveRateResponseData
+  rateFromServerResponse
 } from '../../../../../../libs/shared/src';
 import moment, { Moment } from 'moment';
-import { AlphavantageClientService } from '../alpha-vantage-client/alphavantage-client.service';
+import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
 
 const cacheInvalid = (cache: LiveRate<number, Moment>) =>
   moment.utc(cache.refreshTime).isBefore(moment().subtract(2, 'minutes'));
-
-const rateFromServerResponse = (
-  res: LiveRateResponseData
-): LiveRate<number, Moment> => ({
-  rate: Number(res['5. Exchange Rate']),
-  refreshTime: moment.utc(res['6. Last Refreshed'])
-});
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +21,7 @@ export class LiveRateService {
   private r = new BehaviorSubject<LiveRate<number, Moment>>(defaultLiveRate);
   rate = this.r.asObservable();
 
-  constructor(
-    private currencySelection: CurrencySelectionsService,
-    private fromAlphaVantage: AlphavantageClientService
-  ) {
+  constructor(private currencySelection: CurrencySelectionsService) {
     combineLatest([
       this.currencySelection.base,
       this.currencySelection.quote
@@ -41,7 +31,7 @@ export class LiveRateService {
       if (!cachedRate || cacheInvalid(cachedRate)) {
         const {
           ['Realtime Currency Exchange Rate']: res
-        } = await this.fromAlphaVantage.getLiveRate(base, quote).toPromise();
+        } = await AlphaVantageClient.getLiveRate(base, quote);
         cachedRate = rateFromServerResponse(res);
         this.rateCache.set(cacheKey, cachedRate);
       }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import { transactionsToGridProjection } from '../../../../../../libs/shared/src/lib/functions';
 import { Transaction } from '../../../../../../libs/shared/src/lib/types';
+import {
+  transactionsGridDefaultColDef,
+  transactionsGridColumnDefs
+} from '../../../../../../libs/shared/src/lib/constants';
 
 @Component({
   selector: 'fx-transactions-grid',
@@ -10,35 +13,8 @@ import { Transaction } from '../../../../../../libs/shared/src/lib/types';
   styleUrls: ['./transactions-grid.component.css']
 })
 export class TransactionsGridComponent implements OnInit {
-  defaultColDef: ColDef = {
-    sortable: true,
-    cellClass: 'align-right',
-    headerClass: 'align-right',
-    width: 120
-  };
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Timestamp',
-      field: 'timestamp',
-      width: 200
-    },
-    {
-      headerName: 'Pay',
-      field: 'payAmount'
-    },
-    {
-      headerName: 'Receive',
-      field: 'receiveAmount'
-    },
-    {
-      headerName: 'Pay Balance',
-      field: 'payCurrencyBalance'
-    },
-    {
-      headerName: 'Receive Balance',
-      field: 'receiveCurrencyBalance'
-    }
-  ];
+  defaultColDef = transactionsGridDefaultColDef;
+  columnDefs = transactionsGridColumnDefs;
 
   rowData: Transaction<string>[] = [];
 

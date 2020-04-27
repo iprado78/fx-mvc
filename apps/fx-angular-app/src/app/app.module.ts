@@ -25,7 +25,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
-import { LiveRateComponent } from './components/live-rate/live-rate.component';
+import { LiveRateComponent } from './components/realtime-card/realtime-card.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { IntradayRatesChartComponent } from './components/intraday-rates-chart/intraday-rates-chart.component';
 import { IntradayRatesGridComponent } from './components/intraday-rates-grid/intraday-rates-grid.component';
