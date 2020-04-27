@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@fx/test": ["libs/shared/src/index.ts"]
+      "@fx/test": ["libs/shared/src/index.ts"],
+      "@fx/alpha-vantage-client": ["libs/alpha-vantage-client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

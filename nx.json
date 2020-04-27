@@ -12,12 +12,7 @@
   },
   "projects": {
     "fx-angular-app": {
-      "tags": [],
-      "implicitDependencies": ["fx-bank-service"]
-    },
-    "fx-angular-app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["fx-angular-app"]
+      "tags": []
     },
     "fx-bank-service": {
       "tags": []
@@ -25,17 +20,13 @@
     "fx-react-app": {
       "tags": []
     },
-    "fx-react-app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["fx-react-app"]
-    },
     "shared": {
       "tags": []
     },
-    "fx-transaction-db-client-fx-transaction-db-client": {
+    "fx-transaction-db-client": {
       "tags": []
     },
-    "fx-transaction-db-client": {
+    "alpha-vantage-client": {
       "tags": []
     }
   }

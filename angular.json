@@ -96,33 +96,6 @@
         }
       }
     },
-    "fx-angular-app-e2e": {
-      "root": "apps/fx-angular-app-e2e",
-      "sourceRoot": "apps/fx-angular-app-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/fx-angular-app-e2e/cypress.json",
-            "tsConfig": "apps/fx-angular-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "fx-angular-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "fx-angular-app:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/fx-angular-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/fx-angular-app-e2e/**"]
-          }
-        }
-      }
-    },
     "fx-bank-service": {
       "root": "apps/fx-bank-service",
       "projectType": "application",
@@ -218,81 +191,6 @@
         }
       }
     },
-    "fx-react-app-e2e": {
-      "root": "apps/fx-react-app-e2e",
-      "sourceRoot": "apps/fx-react-app-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/fx-react-app-e2e/cypress.json",
-            "tsConfig": "apps/fx-react-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "fx-react-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "fx-react-app:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/fx-react-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/fx-react-app-e2e/**"]
-          }
-        }
-      }
-    },
-    "test": {
-      "root": "libs/test",
-      "sourceRoot": "libs/test/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "config": "libs/test/.eslintrc",
-            "tsConfig": ["libs/test/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/test/**"]
-          }
-        }
-      }
-    },
-    "fx-transaction-db-client-fx-transaction-db-client": {
-      "root": "libs/fx-transaction-db-client/fx-transaction-db-client",
-      "sourceRoot": "libs/fx-transaction-db-client/fx-transaction-db-client/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "config": "libs/fx-transaction-db-client/fx-transaction-db-client/.eslintrc",
-            "tsConfig": [
-              "libs/fx-transaction-db-client/fx-transaction-db-client/tsconfig.lib.json",
-              "libs/fx-transaction-db-client/fx-transaction-db-client/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/fx-transaction-db-client/fx-transaction-db-client/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fx-transaction-db-client/fx-transaction-db-client/jest.config.js",
-            "tsConfig": "libs/fx-transaction-db-client/fx-transaction-db-client/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "fx-transaction-db-client": {
       "root": "libs/fx-transaction-db-client",
       "sourceRoot": "libs/fx-transaction-db-client/src",
@@ -323,6 +221,32 @@
           }
         }
       }
+    },
+    "alpha-vantage-client": {
+      "root": "libs/alpha-vantage-client",
+      "sourceRoot": "libs/alpha-vantage-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/alpha-vantage-client/tsconfig.lib.json",
+              "libs/alpha-vantage-client/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/alpha-vantage-client/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/alpha-vantage-client/jest.config.js",
+            "tsConfig": "libs/alpha-vantage-client/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -331,8 +255,7 @@
   },
   "schematics": {
     "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "unitTestRunner": "jest"
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
