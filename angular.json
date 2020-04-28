@@ -96,23 +96,6 @@
         }
       }
     },
-    "fx-bank-service": {
-      "root": "apps/fx-bank-service",
-      "projectType": "application",
-      "architect": {
-        "start": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              {
-                "command": "npx json-server --watch db.json"
-              }
-            ],
-            "cwd": "apps/fx-bank-service"
-          }
-        }
-      }
-    },
     "fx-react-app": {
       "root": "apps/fx-react-app",
       "sourceRoot": "apps/fx-react-app/src",
