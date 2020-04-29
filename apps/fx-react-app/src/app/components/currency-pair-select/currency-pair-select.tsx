@@ -1,8 +1,14 @@
 import React, { useMemo } from 'react';
 import { CurrencySymbol } from '../../../../../../libs/shared/src/lib/types';
 import { currencySymbolLocaleMap } from '../../../../../../libs/shared/src/lib/constants';
-import { HeaderProps as CurrencyPairSelectProps } from '../header/header';
 import { CurrencySelect } from './currency-select';
+
+interface CurrencyPairSelectProps {
+  baseCurrency: CurrencySymbol;
+  quoteCurrency: CurrencySymbol;
+  setBaseCurrency: React.Dispatch<React.SetStateAction<CurrencySymbol>>;
+  setQuoteCurrency: React.Dispatch<React.SetStateAction<CurrencySymbol>>;
+}
 
 const currencyOptions = Array.from(currencySymbolLocaleMap.keys());
 

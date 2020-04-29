@@ -4,7 +4,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { CurrencySymbol } from '../../../../../../libs/shared/src/lib/types';
 
 interface CurrencySelectProps {

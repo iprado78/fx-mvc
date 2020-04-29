@@ -7,10 +7,16 @@ interface FxCardProps {
   children: ReactNode;
   title: string;
   subtitle?: ReactNode;
+  className?: string;
 }
 
-export const FxCard = ({ children, title, subtitle }: FxCardProps) => (
-  <Card>
+export const FxCard = ({
+  children,
+  title,
+  subtitle,
+  className
+}: FxCardProps) => (
+  <Card className={className}>
     <CardHeader title={title} subheader={subtitle}></CardHeader>
     <CardContent>{children}</CardContent>
   </Card>

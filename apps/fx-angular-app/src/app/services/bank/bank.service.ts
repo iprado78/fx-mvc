@@ -43,22 +43,18 @@ export class BankService {
   async exchangeCurrency(pay: number, receive: number) {
     const base = this.baseReserves.getValue();
     const quote = this.quoteReserves.getValue();
-    const newBase = {
-      code: base.code,
-      reserves: base.reserves - pay
-    } as CurrencyReserve<number>;
-    const newQuote = {
-      code: quote.code,
-      reserves: quote.reserves + receive
-    } as CurrencyReserve<number>;
     const transactionPromise = this.transactionsClient.updatPairReserves(
-      newBase,
-      newQuote,
-      pay,
-      receive
+      {
+        amount: pay,
+        currency: base.code
+      },
+      {
+        amount: receive,
+        currency: quote.code
+      }
     );
     try {
-      await transactionPromise;
+      const [newBase, newQuote] = await transactionPromise;
       this.baseReserves.next(newBase);
       this.quoteReserves.next(newQuote);
       this.transactionService.hydrateTransactions();

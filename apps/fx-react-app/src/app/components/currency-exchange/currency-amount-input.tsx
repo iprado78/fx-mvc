@@ -8,6 +8,7 @@ interface CurrencyAmountInputProps {
   label: string;
   value: number | null;
   currency: CurrencySymbol;
+  max: number;
   name: string;
   valueSetter: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -16,15 +17,15 @@ export const CurrencyAmountInput = ({
   value,
   valueSetter,
   currency,
+  max,
   name
 }: CurrencyAmountInputProps) => {
-  const lowercaseLabel = label.toLowerCase();
-  const id = `${lowercaseLabel}-input`;
-
+  const id = `${label.toLowerCase()}-input`;
   return (
     <FormControl>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
+        inputProps={{ max }}
         type="number"
         name={name}
         id={id}

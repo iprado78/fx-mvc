@@ -48,6 +48,11 @@ export interface LiveRate<T, Q> {
   refreshTime: Q;
 }
 
+export interface Exchange {
+  amount: number;
+  currency: CurrencySymbol;
+}
+
 export type ViewState = 'historical' | 'intraday';
 
 export interface CacheKeyParams {
