@@ -12,15 +12,7 @@ import { TimesService } from '../times/times.service';
 import moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
-
-const enttriesFromServerResponse = (res: IntradayRatesResponse) =>
-  Object.entries(res['Time Series FX (5min)']).map(([date, rest]) => [
-    date,
-    Object.keys(rest).reduce(
-      (accum, key) => ({ ...accum, [key.split('. ')[1]]: Number(rest[key]) }),
-      {} as FxEntryValue
-    )
-  ]) as FxEntries;
+import { enttriesFromIntradayServerResponse } from '../../../../../../libs/shared/src/lib/functions';
 
 const filterFromTimes = (times: Times) => ([datetimeString]: FxEntry) => {
   const asMoment = moment.utc(datetimeString).local();
@@ -48,7 +40,7 @@ export class IntradayRates {
     ]).subscribe(async ([times, base, quote]) => {
       const rates = await AlphaVantageClient.getIntradayRates(base, quote);
       this.entries.next(
-        enttriesFromServerResponse(rates).filter(filterFromTimes(times))
+        enttriesFromIntradayServerResponse(rates).filter(filterFromTimes(times))
       );
     });
   }

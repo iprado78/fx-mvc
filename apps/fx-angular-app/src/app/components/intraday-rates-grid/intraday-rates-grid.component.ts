@@ -3,11 +3,14 @@ import { IntradayRates } from '../../services/intraday-rates/intraday-rates.serv
 import { combineLatest } from 'rxjs';
 import {
   currencyFormatterFactory,
-  toPipDiff,
   utcStringToLocal
 } from '../../../../../../libs/shared/src';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
-import { ColDef } from 'ag-grid-community';
+import { rowDataFromFxEntries } from '../../../../../../libs/shared/src/lib/functions';
+import {
+  intradayRatesGridDefaultColDef,
+  intradayRatesGridColumnDefs
+} from '../../../../../../libs/shared/src/lib/constants/grids';
 
 @Component({
   selector: 'fx-intraday-grid',
@@ -15,42 +18,8 @@ import { ColDef } from 'ag-grid-community';
   styleUrls: ['./intraday-rates-grid.component.css']
 })
 export class IntradayRatesGridComponent implements OnInit {
-  defaultColDef: ColDef = {
-    sortable: true,
-    cellClass: 'align-right',
-    headerClass: 'align-right',
-    width: 125
-  };
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Time',
-      field: 'time'
-    },
-    {
-      headerName: 'Open',
-      field: 'open'
-    },
-    {
-      headerName: 'Close',
-      field: 'close'
-    },
-    {
-      headerName: 'Change (Pips)',
-      field: 'diff'
-    },
-    {
-      headerName: 'High',
-      field: 'high'
-    },
-    {
-      headerName: 'Low',
-      field: 'low'
-    },
-    {
-      headerName: 'Range (Pips)',
-      field: 'range'
-    }
-  ];
+  defaultColDef = intradayRatesGridDefaultColDef;
+  columnDefs = intradayRatesGridColumnDefs;
   rowData = [];
   constructor(
     private intradayRatesService: IntradayRates,
@@ -63,16 +32,11 @@ export class IntradayRatesGridComponent implements OnInit {
       this.intradayRatesService.fxEntries
     ]).subscribe({
       next: ([quote, entries]) => {
-        const format = currencyFormatterFactory(quote);
-        this.rowData = entries.map(([time, { open, high, low, close }]) => ({
-          time: utcStringToLocal(time),
-          open: format(open),
-          close: format(close),
-          diff: toPipDiff(close, open),
-          high: format(high),
-          low: format(low),
-          range: toPipDiff(high, low)
-        }));
+        this.rowData = rowDataFromFxEntries(
+          entries,
+          currencyFormatterFactory(quote),
+          utcStringToLocal
+        );
       }
     });
   }

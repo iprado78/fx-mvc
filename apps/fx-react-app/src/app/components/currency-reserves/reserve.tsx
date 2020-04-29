@@ -1,33 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { FxTransactionDbClientInstance } from '../../transactionDbClient';
-import { currencyFormatterFactory } from '../../../../../../libs/shared/src/lib/functions';
+import React, { useState, useEffect } from 'react';
+
 import { Typography } from '@material-ui/core';
 import { useCurrencyFormatter } from '../../hooks/useCurrencyFormatter';
-import {
-  CurrencyReserve,
-  CurrencySymbol
-} from '../../../../../../libs/shared/src/lib/types';
-
-const useReserveEffect = (currencySymbol: CurrencySymbol, reserveSetter) =>
-  useEffect(() => {
-    FxTransactionDbClientInstance.getReserves(currencySymbol).then(
-      reserveSetter
-    );
-  }, [currencySymbol]);
+import { CurrencyReserve } from '../../../../../../libs/shared/src/lib/types';
 
 interface ReserveProps {
-  currency: CurrencySymbol;
-  defaultReserve: CurrencyReserve<number>;
+  reserve: CurrencyReserve<number>;
 }
-export const Reserve = ({ currency, defaultReserve }: ReserveProps) => {
-  const [reserve, setReserve] = useState<CurrencyReserve<number>>(
-    defaultReserve
-  );
-  useReserveEffect(currency, setReserve);
-  const formatter = useCurrencyFormatter(currency);
+export const Reserve = ({ reserve }: ReserveProps) => {
+  const formatter = useCurrencyFormatter(reserve.code, 2);
   return (
     <>
-      <Typography component="span">{reserve.code}</Typography>
+      <Typography component="span" style={{ fontWeight: 600 }}>
+        {reserve.code}
+      </Typography>
+      : &nbsp;
       <Typography component="span">{formatter(reserve.reserves)}</Typography>
     </>
   );

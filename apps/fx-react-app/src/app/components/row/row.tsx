@@ -5,14 +5,17 @@ import styled from '@emotion/styled';
 /* eslint-disable-next-line */
 export interface RowProps {
   children: ReactNode;
+  justifyContent?: 'flex-end' | 'center';
 }
 
 const StyledRow = styled.section`
   display: flex;
   flex-direction: row;
+  justify-content: ${(props: RowProps) => props.justifyContent || 'flex-start'};
   height: 60px;
+  width: 100%;
 `;
 
-export const Row = ({ children }: RowProps) => (
-  <StyledRow>{children}</StyledRow>
+export const Row = ({ children, ...rest }: RowProps) => (
+  <StyledRow {...rest}>{children}</StyledRow>
 );

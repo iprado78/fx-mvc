@@ -3,34 +3,12 @@ import { DatesService } from '../dates/dates.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import {
-  FxEntry,
   FxEntries,
-  HistoricalRatesCacheKeyParams,
-  toCacheKey,
-  HistoricalRatesResponse,
-  FxEntryValue,
-  Dates
+  toFilterCacheKey,
+  enttriesFromHistoricalServerResponse,
+  filterFromDates
 } from '../../../../../../libs/shared/src';
 import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
-
-const filterFromDates = (dates: Dates) => ([dateString]: FxEntry) => {
-  const asDate = new Date(dateString);
-  return asDate >= dates.startDate && asDate <= dates.endDate;
-};
-
-const toFilterCacheKey = ({ dates, ...rest }: HistoricalRatesCacheKeyParams) =>
-  `${dates.startDate.toString()}:${dates.endDate.toString()}:${toCacheKey(
-    rest
-  )}`;
-
-const enttriesFromServerResponse = (res: HistoricalRatesResponse) =>
-  Object.entries(res['Time Series FX (Daily)']).map(([date, rest]) => [
-    date,
-    Object.keys(rest).reduce(
-      (accum, key) => ({ ...accum, [key.split('. ')[1]]: Number(rest[key]) }),
-      {} as FxEntryValue
-    )
-  ]) as FxEntries;
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +39,7 @@ export class HistoricalRates {
         );
         this.filterCache.set(
           filterCacheKey,
-          enttriesFromServerResponse(unfilteredRates).filter(
+          enttriesFromHistoricalServerResponse(unfilteredRates).filter(
             filterFromDates(dates)
           )
         );

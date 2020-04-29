@@ -5,6 +5,8 @@ import {
   CurrencySymbol
 } from '../../../shared/src/lib/types';
 import { Injectable } from '@angular/core';
+import { Exchange } from '../../../shared/src/lib/types';
+import { defaultQuote } from '../../../shared/src/lib/constants';
 
 type Store = 'currencyReserves' | 'transactions';
 
@@ -87,10 +89,10 @@ export class FxTransactionDbClient {
     currencyReserve: CurrencyReserve<number>
   ) => {
     await this.loaded;
-    return new Promise((resolve, reject) => {
+    return new Promise<CurrencyReserve<number>>((resolve, reject) => {
       const req = store.put(currencyReserve);
-      req.onsuccess = (e: any) => {
-        resolve(e.target.result);
+      req.onsuccess = () => {
+        resolve(currencyReserve);
       };
       req.onerror = this.handleError(
         `set ${currencyReserve.code} at ${currencyReserve.reserves}`,
@@ -100,7 +102,6 @@ export class FxTransactionDbClient {
   };
 
   getTransactions = async () => {
-    console.log('callled.......');
     await this.loaded;
     const [, [transactionsStore]] = this.prepareTransaction(
       [TRANSACTIONS],
@@ -133,27 +134,34 @@ export class FxTransactionDbClient {
     } as Transaction<number>);
   };
 
-  updatPairReserves = async (
-    base: CurrencyReserve<number>,
-    quote: CurrencyReserve<number>,
-    payAmount: number,
-    receiveAmount: number
-  ) => {
+  updatPairReserves = async (pay: Exchange, receive: Exchange) => {
     await this.loaded;
+    let base: CurrencyReserve<number>;
+    let quote: CurrencyReserve<number>;
+    try {
+      [base, quote] = await Promise.all([
+        this.getReserves(pay.currency),
+        this.getReserves(receive.currency)
+      ]);
+      base.reserves -= pay.amount;
+      quote.reserves += receive.amount;
+    } catch (e) {
+      return Promise.reject(e);
+    }
     const [, [reservesStore, transactionsStore]] = this.prepareTransaction(
       [RESERVES, TRANSACTIONS],
       'readwrite'
     );
+    this.createTransaction(
+      transactionsStore,
+      base,
+      quote,
+      pay.amount,
+      receive.amount
+    );
     return Promise.all([
       this.updateReserves(reservesStore, base),
-      this.updateReserves(reservesStore, quote),
-      this.createTransaction(
-        transactionsStore,
-        base,
-        quote,
-        payAmount,
-        receiveAmount
-      )
+      this.updateReserves(reservesStore, quote)
     ]);
   };
 
@@ -163,7 +171,7 @@ export class FxTransactionDbClient {
       [RESERVES],
       'readonly'
     );
-    return new Promise((resolve, reject) => {
+    return new Promise<CurrencyReserve<number>>((resolve, reject) => {
       const req = transactionStore.get(currency);
       req.onerror = this.handleError(`get ${currency} reserves`, reject);
       req.onsuccess = (e: any) => {

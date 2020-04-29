@@ -48,7 +48,14 @@ export interface LiveRate<T, Q> {
   refreshTime: Q;
 }
 
+export interface Exchange {
+  amount: number;
+  currency: CurrencySymbol;
+}
+
 export type ViewState = 'historical' | 'intraday';
+
+export type RateHookDependencies = [CurrencySymbol, CurrencySymbol];
 
 export interface CacheKeyParams {
   base: CurrencySymbol;

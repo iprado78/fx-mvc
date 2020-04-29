@@ -5,12 +5,13 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import {
   LiveRate,
-  CurrencySymbol
+  RateHookDependencies
 } from '../../../../../libs/shared/src/lib/types';
 
-type Dependencies = [CurrencySymbol, CurrencySymbol];
-
-export const useLiveRate = ([baseCurrency, quoteCurrency]: Dependencies) => {
+export const useLiveRate = ([
+  baseCurrency,
+  quoteCurrency
+]: RateHookDependencies) => {
   const [liveRate, setLiveRate] = useState({
     rate: 0,
     refreshTime: moment.utc(new Date())

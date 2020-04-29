@@ -3,11 +3,19 @@ import {
   CacheKeyParams,
   Transaction,
   LiveRateResponseData,
-  LiveRate
+  LiveRate,
+  FxEntries
 } from './types';
 import { currencySymbolLocaleMap } from './constants';
 import { Moment } from 'moment';
 import moment from 'moment';
+import { FxEntryValue, IntradayRatesResponse, RateData } from './types';
+import {
+  Dates,
+  FxEntry,
+  HistoricalRatesCacheKeyParams,
+  HistoricalRatesResponse
+} from './types';
 
 const TEN_THOUSAND = 10000;
 
@@ -81,3 +89,55 @@ export const formatLiveRateForView = (
   )}`,
   refreshTime: formatUtcMoment(serviceRate.refreshTime, true)
 });
+
+export const filterFromDates = (dates: Dates) => ([dateString]: FxEntry) => {
+  const asDate = new Date(dateString);
+  return asDate >= dates.startDate && asDate <= dates.endDate;
+};
+
+export const toFilterCacheKey = ({
+  dates,
+  ...rest
+}: HistoricalRatesCacheKeyParams) =>
+  `${dates.startDate.toString()}:${dates.endDate.toString()}:${toCacheKey(
+    rest
+  )}`;
+
+type serverRates = [string, RateData];
+const serverRatesProjection = ([date, rateData]: serverRates) => [
+  date,
+  Object.keys(rateData).reduce(
+    (accum, key) => ({ ...accum, [key.split('. ')[1]]: Number(rateData[key]) }),
+    {} as FxEntryValue
+  )
+];
+
+export const enttriesFromHistoricalServerResponse = (
+  res: HistoricalRatesResponse
+) =>
+  Object.entries(res['Time Series FX (Daily)']).map(
+    serverRatesProjection
+  ) as FxEntries;
+
+export const enttriesFromIntradayServerResponse = (
+  res: IntradayRatesResponse
+) =>
+  Object.entries(res['Time Series FX (5min)']).map(
+    serverRatesProjection
+  ) as FxEntries;
+
+export const rowDataFromFxEntries = (
+  entries: FxEntries,
+  currencyFormatter: (currencyAmount: number) => string,
+  datetimeFormatter?: (datetime: string) => string
+) => {
+  return entries.map(([datetime, { open, high, low, close }]) => ({
+    datetime: datetimeFormatter ? datetimeFormatter(datetime) : datetime,
+    open: currencyFormatter(open),
+    close: currencyFormatter(close),
+    diff: toPipDiff(close, open),
+    high: currencyFormatter(high),
+    low: currencyFormatter(low),
+    range: toPipDiff(high, low)
+  }));
+};
