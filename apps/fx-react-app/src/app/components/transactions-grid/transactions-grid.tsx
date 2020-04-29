@@ -1,9 +1,6 @@
 import React, { useMemo } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import { FxCard } from '../fx-card/fx-card';
 import { transactionsToGridProjection } from '../../../../../../libs/shared/src/lib/functions';
+import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
   Transaction,
   transactionsGridColumnDefs as columnDefs,
@@ -20,17 +17,11 @@ export const TransactionsGrid = ({ transactions }: TransactionsGridProps) => {
     [transactions]
   );
   return (
-    <FxCard title="Transactions">
-      <div
-        className="ag-theme-balham"
-        style={{ height: '600px', maxWidth: '1400px' }}
-      >
-        <AgGridReact
-          defaultColDef={defaultColDef}
-          columnDefs={columnDefs}
-          rowData={rowData}
-        />
-      </div>
-    </FxCard>
+    <AgGridWrapper
+      title="Transactions"
+      rowData={rowData}
+      columnDefs={columnDefs}
+      defaultColDef={defaultColDef}
+    />
   );
 };

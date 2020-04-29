@@ -17,6 +17,5 @@ export const CurrencyReserves = ({ base, quote }: CurrencyReservesProps) => (
     <Col>
       <Reserve reserve={quote} />
     </Col>
-    <Col />
   </Row>
 );

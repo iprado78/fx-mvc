@@ -3,10 +3,11 @@ import {
   CurrencySymbol,
   CurrencyLocale,
   LiveRate
-} from './types';
+} from '../types';
 import { Moment } from 'moment';
 import moment from 'moment';
-import { ColDef } from 'ag-grid-community';
+
+export * from './grids';
 
 export const defaultBase: CurrencySymbol = 'USD';
 
@@ -36,34 +37,3 @@ export const currencySymbolLocaleMap: Map<
   ['GBP', 'en-GB'],
   ['JPY', 'ja-JP']
 ]);
-
-export const transactionsGridDefaultColDef: ColDef = {
-  sortable: true,
-  cellClass: 'align-right',
-  headerClass: 'align-right',
-  width: 120
-};
-
-export const transactionsGridColumnDefs: ColDef[] = [
-  {
-    headerName: 'Timestamp',
-    field: 'timestamp',
-    width: 200
-  },
-  {
-    headerName: 'Pay',
-    field: 'payAmount'
-  },
-  {
-    headerName: 'Receive',
-    field: 'receiveAmount'
-  },
-  {
-    headerName: 'Pay Balance',
-    field: 'payCurrencyBalance'
-  },
-  {
-    headerName: 'Receive Balance',
-    field: 'receiveCurrencyBalance'
-  }
-];
