@@ -5,7 +5,7 @@ import {
   defaultQuote,
   currencySymbolLocaleMap,
   CurrencySymbol
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
 
 @Injectable({
   providedIn: 'root'

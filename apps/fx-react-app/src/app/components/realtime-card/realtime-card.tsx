@@ -22,7 +22,7 @@ export const RealTimeCard = ({
 }: RealTimeCardProps) => {
   const { rate, refreshTime } = formatLiveRateForView(liveRate, base, quote);
   return (
-    <FxCard title={rate} subtitle={`Live rate @ ${refreshTime}`}>
+    <FxCard title={rate} subtitle={`Rate @ ${refreshTime}`}>
       {children}
     </FxCard>
   );

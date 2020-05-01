@@ -1,6 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HeaderComponent } from './components/header/header.component';
 import { HistoricalRatesGridComponent } from './components/historical-rates-grid/historical-rates-grid.component';
 import { HistoricalRatesChartComponent } from './components/historical-rates-chart/historical-rates-chart.component';

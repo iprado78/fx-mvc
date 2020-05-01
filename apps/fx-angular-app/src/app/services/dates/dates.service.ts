@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dates, DateType } from '../../../../../../libs/ui-data/src';
+import { Dates, DateType } from '@fx/ui-core-data';
 
 @Injectable({
   providedIn: 'root'

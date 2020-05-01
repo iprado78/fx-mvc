@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
 import { BehaviorSubject } from 'rxjs';
-import { TransactionsService } from '../transactions/transactions.service';
-import { FxTransactionDbClient } from '../../../../../../libs/fx-transaction-db-client/src/';
+import { FxTransactionDbClient } from '@fx/fx-transaction-db-client';
 import {
   defaultQuoteReserves,
   defaultBaseReserves,
   CurrencyReserve
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
+import { CurrencySelectionsService } from '../currency-selections/currency-selections.service';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable({
   providedIn: 'root'

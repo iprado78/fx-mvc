@@ -6,9 +6,9 @@ import {
   defaultLiveRate,
   LiveRate,
   rateFromServerResponse
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
 import moment, { Moment } from 'moment';
-import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
+import { AlphaVantageClient } from '@fx/alpha-vantage-client';
 
 const cacheInvalid = (cache: LiveRate<number, Moment>) =>
   moment.utc(cache.refreshTime).isBefore(moment().subtract(2, 'minutes'));

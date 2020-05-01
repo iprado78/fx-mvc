@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
-import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -9,7 +7,9 @@ import {
   fxEntriesToXpointData,
   lineChartOptions,
   HISTORICAL_CHART_NAME
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
+import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
+import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 
 @Component({
   selector: 'fx-historical-chart',

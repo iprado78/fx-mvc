@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
-import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import {
+  historicalRatesGridDefaultColDef,
+  hisotricalRatesGridColumnDefs,
   rowDataFromFxEntries,
   currencyFormatterFactory
-} from '../../../../../../libs/ui-data/src/lib/functions';
-import {
-  historicalRatesGridDefaultColDef,
-  hisotricalRatesGridColumnDefs
-} from '../../../../../../libs/ui-data/src/lib/constants/grids';
+} from '@fx/ui-core-data';
+import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
+import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 
 @Component({
   selector: 'fx-historical-grid',
