@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LiveRate } from '../../../../../../libs/shared/src';
+import { LiveRate } from '../../../../../../libs/ui-data/src';
 import { LiveRateService } from '../../services/live-rate/live-rate.service';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { sample } from 'rxjs/operators';
-import { formatLiveRateForView } from '../../../../../../libs/shared/src/lib/functions';
+import { formatLiveRateForView } from '../../../../../../libs/ui-data/src/lib/functions';
 
 @Component({
   selector: 'fx-realtime-card',

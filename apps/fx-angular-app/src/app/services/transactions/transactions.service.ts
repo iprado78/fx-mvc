@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Transaction } from '../../../../../../libs/shared/src';
+import { Transaction } from '../../../../../../libs/ui-data/src';
 import { FxTransactionDbClient } from '../../../../../../libs/fx-transaction-db-client/src/lib/fx-transaction-db-client';
 
 @Injectable({

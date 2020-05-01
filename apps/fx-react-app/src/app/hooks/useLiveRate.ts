@@ -1,12 +1,12 @@
 import { AlphaVantageClient } from '../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
-import { rateFromServerResponse } from '../../../../../libs/shared/src/lib/functions';
 import { Moment } from 'moment';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import {
   LiveRate,
-  RateHookDependencies
-} from '../../../../../libs/shared/src/lib/types';
+  RateHookDependencies,
+  rateFromServerResponse
+} from '@fx/ui-core-data';
 
 export const useLiveRate = ([
   baseCurrency,

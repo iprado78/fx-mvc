@@ -3,9 +3,9 @@ import { FxCard } from '../fx-card/fx-card';
 import {
   LiveRate,
   CurrencySymbol
-} from '../../../../../../libs/shared/src/lib/types';
+} from '../../../../../../libs/ui-data/src/lib/types';
 import { Moment } from 'moment';
-import { formatLiveRateForView } from '../../../../../../libs/shared/src/lib/functions';
+import { formatLiveRateForView } from '../../../../../../libs/ui-data/src/lib/functions';
 
 interface RealTimeCardProps {
   liveRate: LiveRate<number, Moment>;

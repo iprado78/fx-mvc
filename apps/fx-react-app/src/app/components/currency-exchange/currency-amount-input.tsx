@@ -1,8 +1,11 @@
 import React, { ChangeEvent } from 'react';
-import { CurrencySymbol } from '../../../../../../libs/shared/src/lib/types';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles, Input } from '@material-ui/core';
+import { CurrencySymbol } from '@fx/ui-core-data';
+import {
+  Input,
+  FormHelperText,
+  InputLabel,
+  FormControl
+} from '@material-ui/core';
 
 interface CurrencyAmountInputProps {
   label: string;
@@ -10,6 +13,8 @@ interface CurrencyAmountInputProps {
   currency: CurrencySymbol;
   max: number;
   name: string;
+  error?: boolean;
+  errorMessage?: string | undefined;
   valueSetter: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 export const CurrencyAmountInput = ({
@@ -17,12 +22,14 @@ export const CurrencyAmountInput = ({
   value,
   valueSetter,
   currency,
+  error,
+  errorMessage,
   max,
   name
 }: CurrencyAmountInputProps) => {
   const id = `${label.toLowerCase()}-input`;
   return (
-    <FormControl>
+    <FormControl error={error}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         inputProps={{ max }}
@@ -32,6 +39,7 @@ export const CurrencyAmountInput = ({
         value={value ?? ''}
         onChange={valueSetter}
       />
+      {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
     </FormControl>
   );
 };

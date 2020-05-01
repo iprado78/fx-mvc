@@ -7,7 +7,7 @@ import {
   toFilterCacheKey,
   enttriesFromHistoricalServerResponse,
   filterFromDates
-} from '../../../../../../libs/shared/src';
+} from '../../../../../../libs/ui-data/src';
 import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
 
 @Injectable({

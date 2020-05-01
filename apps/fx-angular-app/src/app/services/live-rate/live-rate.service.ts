@@ -6,7 +6,7 @@ import {
   defaultLiveRate,
   LiveRate,
   rateFromServerResponse
-} from '../../../../../../libs/shared/src';
+} from '../../../../../../libs/ui-data/src';
 import moment, { Moment } from 'moment';
 import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
 

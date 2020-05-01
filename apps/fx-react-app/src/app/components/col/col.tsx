@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
-/* eslint-disable-next-line */
 export interface ColProps {
   children?: ReactNode;
 }

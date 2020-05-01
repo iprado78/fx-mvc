@@ -7,7 +7,7 @@ import {
   IntradayRatesResponse,
   CacheKeyParams,
   toCacheKey
-} from '../../../shared/src';
+} from '@fx/ui-core-data';
 
 const toJson = (res: Response): Promise<unknown> => res.json();
 const BASE_URL = 'https://www.alphavantage.co/query';
@@ -44,8 +44,7 @@ export class AlphaVantageClient {
   private static sendHistoricalRatesReq(base, quote) {
     return AlphaVantageClient.sendReq('FX_DAILY', {
       from_symbol: base,
-      to_symbol: quote,
-      outputsize: 'full'
+      to_symbol: quote
     }).then(toJson) as Promise<HistoricalRatesResponse>;
   }
   private static sendLiveRateReq(base: CurrencySymbol, quote: CurrencySymbol) {
@@ -58,7 +57,6 @@ export class AlphaVantageClient {
     return AlphaVantageClient.sendReq('FX_INTRADAY', {
       from_symbol: base,
       to_symbol: quote,
-      outputsize: 'full',
       interval: '5min'
     }).then(toJson) as Promise<IntradayRatesResponse>;
   }

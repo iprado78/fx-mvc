@@ -205,6 +205,34 @@
         }
       }
     },
+    "ui-data": {
+      "root": "libs/ui-data",
+      "sourceRoot": "libs/ui-data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/ui-data/.eslintrc",
+            "tsConfig": [
+              "libs/ui-data/tsconfig.lib.json",
+              "libs/ui-data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui-data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-data/jest.config.js",
+            "tsConfig": "libs/ui-data/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "alpha-vantage-client": {
       "root": "libs/alpha-vantage-client",
       "sourceRoot": "libs/alpha-vantage-client/src",
@@ -226,6 +254,34 @@
           "options": {
             "jestConfig": "libs/alpha-vantage-client/jest.config.js",
             "tsConfig": "libs/alpha-vantage-client/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-core-data": {
+      "root": "libs/ui-core-data",
+      "sourceRoot": "libs/ui-core-data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/ui-core-data/.eslintrc",
+            "tsConfig": [
+              "libs/ui-core-data/tsconfig.lib.json",
+              "libs/ui-core-data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui-core-data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-core-data/jest.config.js",
+            "tsConfig": "libs/ui-core-data/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

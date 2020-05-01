@@ -8,6 +8,7 @@ import { Moment } from 'moment';
 import moment from 'moment';
 
 export * from './grids';
+export * from './charts';
 
 export const defaultBase: CurrencySymbol = 'USD';
 

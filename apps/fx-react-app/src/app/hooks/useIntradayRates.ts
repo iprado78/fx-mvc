@@ -1,8 +1,10 @@
 import { AlphaVantageClient } from '../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
-import { enttriesFromIntradayServerResponse } from '../../../../../libs/shared/src/lib/functions';
 import { useEffect, useState } from 'react';
-import { RateHookDependencies } from '../../../../../libs/shared/src/lib/types';
-import { FxEntries } from '../../../../../libs/shared/src/lib/types';
+import {
+  RateHookDependencies,
+  FxEntries,
+  enttriesFromIntradayServerResponse
+} from '@fx/ui-core-data';
 
 export const useIntradayRates = ([
   baseCurrency,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
-import { CurrencySymbol } from '../../../../../../libs/shared/src/lib/types';
+import { CurrencySymbol } from '../../../../../../libs/ui-data/src/lib/types';
 
 type OnCurrencyInput = (currency: CurrencySymbol) => void;
 

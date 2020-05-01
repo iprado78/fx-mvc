@@ -7,7 +7,7 @@ import {
   defaultQuoteReserves,
   defaultBaseReserves,
   CurrencyReserve
-} from '../../../../../../libs/shared/src';
+} from '../../../../../../libs/ui-data/src';
 
 @Injectable({
   providedIn: 'root'
