@@ -1,21 +1,25 @@
 import {
+  currencySymbolLocaleMap,
+  baseLineOptions,
+  xAxisDefaults,
+  seriesDefaults
+} from './constants';
+import { Moment } from 'moment';
+import moment from 'moment';
+import { FxEntryValue, IntradayRatesResponse, RateData } from './types';
+import {
   CurrencySymbol,
   CacheKeyParams,
   Transaction,
   LiveRateResponseData,
   LiveRate,
-  FxEntries
-} from './types';
-import { currencySymbolLocaleMap } from './constants';
-import { Moment } from 'moment';
-import moment from 'moment';
-import { FxEntryValue, IntradayRatesResponse, RateData } from './types';
-import {
+  FxEntries,
   Dates,
   FxEntry,
   HistoricalRatesCacheKeyParams,
   HistoricalRatesResponse
 } from './types';
+import { XrangePointOptionsObject, XAxisOptions } from 'highcharts';
 
 const TEN_THOUSAND = 10000;
 
@@ -141,3 +145,48 @@ export const rowDataFromFxEntries = (
     range: toPipDiff(high, low)
   }));
 };
+
+export const fxEntriesToXpointData = (
+  entries: FxEntries,
+  datetimeFormatter?: (timestamp: string) => string
+) =>
+  entries
+    .map(
+      ([date, { close }]) =>
+        ({
+          name: datetimeFormatter ? datetimeFormatter(date) : date,
+          y: close
+        } as XrangePointOptionsObject)
+    )
+    .reverse();
+
+interface lineChartOptionsConfig {
+  data: XrangePointOptionsObject[];
+  title: string;
+  name: string;
+  stepFactor: number;
+}
+export const lineChartOptions = ({
+  data,
+  title,
+  name,
+  stepFactor
+}: lineChartOptionsConfig) => ({
+  ...baseLineOptions,
+  yAxis: {
+    title: {
+      text: `${title}`
+    }
+  },
+  xAxis: {
+    ...xAxisDefaults,
+    labels: { step: Math.ceil(data.length / stepFactor) }
+  } as XAxisOptions,
+  series: [
+    {
+      ...seriesDefaults,
+      name,
+      data
+    }
+  ]
+});

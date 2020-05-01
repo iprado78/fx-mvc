@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BankService } from '../../services/bank/bank.service';
-import { currencyFormatterFactory } from '../../../../../../libs/shared/src/lib/functions';
-import { CurrencyReserve } from '../../../../../../libs/shared/src';
+import { currencyFormatterFactory } from '../../../../../../libs/ui-data/src/lib/functions';
+import { CurrencyReserve } from '../../../../../../libs/ui-data/src';
 
 @Component({
   selector: 'currency-reserves',

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from '../../services/transactions/transactions.service';
-import { transactionsToGridProjection } from '../../../../../../libs/shared/src/lib/functions';
-import { Transaction } from '../../../../../../libs/shared/src/lib/types';
+import { transactionsToGridProjection } from '../../../../../../libs/ui-data/src/lib/functions';
+import { Transaction } from '../../../../../../libs/ui-data/src/lib/types';
 import {
   transactionsGridDefaultColDef,
   transactionsGridColumnDefs
-} from '../../../../../../libs/shared/src/lib/constants';
+} from '../../../../../../libs/ui-data/src/lib/constants';
 
 @Component({
   selector: 'fx-transactions-grid',

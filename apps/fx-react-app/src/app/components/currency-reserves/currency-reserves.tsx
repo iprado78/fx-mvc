@@ -1,5 +1,5 @@
 import React from 'react';
-import { CurrencyReserve } from '../../../../../../libs/shared/src/lib/types';
+import { CurrencyReserve } from '../../../../../../libs/ui-data/src/lib/types';
 import { Row } from '../row/row';
 import { Reserve } from './reserve';
 

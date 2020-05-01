@@ -7,12 +7,12 @@ import {
   FxEntries,
   FxEntry,
   Times
-} from '../../../../../../libs/shared/src';
+} from '../../../../../../libs/ui-data/src';
 import { TimesService } from '../times/times.service';
 import moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { AlphaVantageClient } from '../../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
-import { enttriesFromIntradayServerResponse } from '../../../../../../libs/shared/src/lib/functions';
+import { enttriesFromIntradayServerResponse } from '../../../../../../libs/ui-data/src/lib/functions';
 
 const filterFromTimes = (times: Times) => ([datetimeString]: FxEntry) => {
   const asMoment = moment.utc(datetimeString).local();

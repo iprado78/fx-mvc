@@ -3,13 +3,13 @@ import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
   intradayRatesGridColumnDefs,
   intradayRatesGridDefaultColDef
-} from '../../../../../../libs/shared/src/lib/constants/grids';
-import { FxEntries, CurrencySymbol } from '@fx/test';
+} from '../../../../../../libs/ui-data/src/lib/constants/grids';
+import { FxEntries, CurrencySymbol } from 'libs/ui-data/src';
 import {
   rowDataFromFxEntries,
   currencyFormatterFactory,
   utcStringToLocal
-} from '../../../../../../libs/shared/src/lib/functions';
+} from '../../../../../../libs/ui-data/src/lib/functions';
 
 interface IntradayRatesGridProps {
   intradayRates: FxEntries;
@@ -21,7 +21,6 @@ export const IntradayRatesGrid = ({
 }: IntradayRatesGridProps) => {
   return (
     <AgGridWrapper
-      title="Intraday Rates"
       columnDefs={intradayRatesGridColumnDefs}
       defaultColDef={intradayRatesGridDefaultColDef}
       rowData={rowDataFromFxEntries(

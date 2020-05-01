@@ -3,15 +3,15 @@ import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
   historicalRatesGridDefaultColDef,
   hisotricalRatesGridColumnDefs
-} from '../../../../../../libs/shared/src/lib/constants/grids';
+} from '../../../../../../libs/ui-data/src/lib/constants/grids';
 import {
   rowDataFromFxEntries,
   currencyFormatterFactory
-} from '../../../../../../libs/shared/src/lib/functions';
+} from '../../../../../../libs/ui-data/src/lib/functions';
 import {
   CurrencySymbol,
   FxEntries
-} from '../../../../../../libs/shared/src/lib/types';
+} from '../../../../../../libs/ui-data/src/lib/types';
 
 interface HistoricalRatesGridProps {
   historicalRates: FxEntries;
@@ -23,7 +23,6 @@ export const HistoricalRatesGrid = ({
 }: HistoricalRatesGridProps) => {
   return (
     <AgGridWrapper
-      title="Historical Rates"
       columnDefs={hisotricalRatesGridColumnDefs}
       defaultColDef={historicalRatesGridDefaultColDef}
       rowData={rowDataFromFxEntries(

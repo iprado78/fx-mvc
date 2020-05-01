@@ -1,6 +1,5 @@
-import { currencyFormatterFactory } from '../../../../../libs/shared/src/lib/functions';
 import { useMemo } from 'react';
-import { CurrencySymbol } from '../../../../../libs/shared/src/lib/types';
+import { CurrencySymbol, currencyFormatterFactory } from '@fx/ui-core-data';
 
 export const useCurrencyFormatter = (
   currencySymbol: CurrencySymbol,

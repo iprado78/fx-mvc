@@ -1,5 +1,5 @@
 import React, { useState, useCallback, ChangeEvent } from 'react';
-import { CurrencySymbol } from '../../../../../../libs/shared/src/lib/types';
+import { CurrencySymbol } from '@fx/ui-core-data';
 import { Row } from '../row/row';
 import { Col } from '../col/col';
 import { Button } from '@material-ui/core';
@@ -23,17 +23,20 @@ export const CurrencyExchange = ({
   transactionSideEffects = []
 }: CurrencyExchangeProps) => {
   const [exchangeAmount, setExchangeAmount] = useState<number | null>(0);
-
   const scaleReceive = useCallback((x: number) => x * rate, [rate]);
+
+  const exceedReserves = exchangeAmount > max;
 
   const valueSetter = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const value = parseFloat(e.target.value);
+      console.log(value, max);
       if (Number.isNaN(value)) {
         setExchangeAmount(null);
-      } else if (e.target.name === 'pay' && value <= max) {
+      } else if (e.target.name === 'pay') {
+        console.log(' in setter');
         setExchangeAmount(value);
-      } else if (e.target.name === 'receive' && value <= scaleReceive(max)) {
+      } else if (e.target.name === 'receive') {
         setExchangeAmount(value / rate);
       }
     },
@@ -69,6 +72,10 @@ export const CurrencyExchange = ({
       <Row>
         <Col>
           <CurrencyAmountInput
+            error={exceedReserves}
+            errorMessage={
+              exceedReserves ? 'Pay amount exceeds reserves' : undefined
+            }
             label="Pay"
             max={max}
             value={exchangeAmount && formatNumberForDisplay(exchangeAmount)}
@@ -94,7 +101,12 @@ export const CurrencyExchange = ({
       <Row>
         <Col />
         <Col>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={exceedReserves}
+          >
             Exchange
           </Button>
         </Col>

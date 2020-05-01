@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 interface FxCardProps {
   children: ReactNode;
-  title: string;
+  title?: string;
   subtitle?: ReactNode;
   className?: string;
 }
@@ -17,7 +17,9 @@ export const FxCard = ({
   className
 }: FxCardProps) => (
   <Card className={className}>
-    <CardHeader title={title} subheader={subtitle}></CardHeader>
+    {title || subtitle ? (
+      <CardHeader title={title} subheader={subtitle}></CardHeader>
+    ) : null}
     <CardContent>{children}</CardContent>
   </Card>
 );

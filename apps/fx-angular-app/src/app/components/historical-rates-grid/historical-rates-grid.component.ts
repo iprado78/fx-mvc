@@ -5,11 +5,11 @@ import { combineLatest } from 'rxjs';
 import {
   rowDataFromFxEntries,
   currencyFormatterFactory
-} from '../../../../../../libs/shared/src/lib/functions';
+} from '../../../../../../libs/ui-data/src/lib/functions';
 import {
   historicalRatesGridDefaultColDef,
   hisotricalRatesGridColumnDefs
-} from '../../../../../../libs/shared/src/lib/constants/grids';
+} from '../../../../../../libs/ui-data/src/lib/constants/grids';
 
 @Component({
   selector: 'fx-historical-grid',

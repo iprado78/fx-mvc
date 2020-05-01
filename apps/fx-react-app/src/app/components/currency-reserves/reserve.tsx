@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Typography } from '@material-ui/core';
 import { useCurrencyFormatter } from '../../hooks/useCurrencyFormatter';
-import { CurrencyReserve } from '../../../../../../libs/shared/src/lib/types';
+import { CurrencyReserve } from '../../../../../../libs/ui-data/src/lib/types';
 
 interface ReserveProps {
   reserve: CurrencyReserve<number>;

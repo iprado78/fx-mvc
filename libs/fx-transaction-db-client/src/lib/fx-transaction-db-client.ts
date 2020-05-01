@@ -2,11 +2,10 @@ import { currencies as currenciesBootstrap } from './db-bootstrap.js';
 import {
   CurrencyReserve,
   Transaction,
-  CurrencySymbol
-} from '../../../shared/src/lib/types';
+  CurrencySymbol,
+  Exchange
+} from '@fx/ui-core-data';
 import { Injectable } from '@angular/core';
-import { Exchange } from '../../../shared/src/lib/types';
-import { defaultQuote } from '../../../shared/src/lib/constants';
 
 type Store = 'currencyReserves' | 'transactions';
 
