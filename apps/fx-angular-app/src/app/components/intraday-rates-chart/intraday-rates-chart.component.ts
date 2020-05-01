@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
 import {
   fxEntriesToXpointData,
   baseLineOptions,
   lineChartOptions,
   INTRADAY_CHART_NAME
-} from 'libs/ui-data/src';
+} from '@fx/ui-core-data';
+import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
+import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
 
 @Component({
   selector: 'fx-intraday-chart',

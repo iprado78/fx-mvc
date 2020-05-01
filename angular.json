@@ -181,10 +181,8 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "linter": "eslint",
-            "config": "libs/fx-transaction-db-client/.eslintrc",
             "tsConfig": [
               "libs/fx-transaction-db-client/tsconfig.lib.json",
               "libs/fx-transaction-db-client/tsconfig.spec.json"
@@ -200,34 +198,6 @@
           "options": {
             "jestConfig": "libs/fx-transaction-db-client/jest.config.js",
             "tsConfig": "libs/fx-transaction-db-client/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ui-data": {
-      "root": "libs/ui-data",
-      "sourceRoot": "libs/ui-data/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "config": "libs/ui-data/.eslintrc",
-            "tsConfig": [
-              "libs/ui-data/tsconfig.lib.json",
-              "libs/ui-data/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/ui-data/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ui-data/jest.config.js",
-            "tsConfig": "libs/ui-data/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

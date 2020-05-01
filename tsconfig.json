@@ -17,13 +17,11 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@fx/ui-data": ["/libs/ui-data/src/index.ts"],
-      "@fx/alpha-vantage-client": ["/libs/alpha-vantage-client/src/index.ts"],
+      "@fx/alpha-vantage-client": ["libs/alpha-vantage-client/src/index.ts"],
       "@fx/fx-transaction-db-client": [
-        "/libs/fx-transaction-db/client/src/index.ts"
+        "libs/fx-transaction-db-client/src/index.ts"
       ],
-      "@fx/ui-core-data": ["libs/ui-core-data/src/index.ts"],
-      "@fx/test": ["./libs/test/src/index.ts"]
+      "@fx/ui-core-data": ["libs/ui-core-data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

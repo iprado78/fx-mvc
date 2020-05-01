@@ -1,4 +1,4 @@
-import { AlphaVantageClient } from '../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
+import { AlphaVantageClient } from '@fx/alpha-vantage-client';
 import { useEffect, useState } from 'react';
 import {
   RateHookDependencies,

@@ -14,7 +14,8 @@ import { TabCol } from '../tab-col/tab-col';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: '#eee'
+    backgroundColor: '#ddd',
+    padding: '0 8px'
   },
   item: {
     paddingTop: '12px'
@@ -38,6 +39,7 @@ export const Main = ({ baseCurrency, quoteCurrency }: MainProps) => {
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={7}>
         <Tabs
+          indicatorColor="primary"
           value={viewState}
           onChange={(_e, value: ViewState) => setViewState(value)}
         >

@@ -1,7 +1,6 @@
 module.exports = {
   name: 'fx-transaction-db-client',
   preset: '../../jest.config.js',
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest'
   },

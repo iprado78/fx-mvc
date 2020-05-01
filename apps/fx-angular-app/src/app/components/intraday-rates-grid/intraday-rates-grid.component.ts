@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
 import { combineLatest } from 'rxjs';
 import {
+  intradayRatesGridDefaultColDef,
+  intradayRatesGridColumnDefs,
+  rowDataFromFxEntries,
   currencyFormatterFactory,
   utcStringToLocal
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
-import { rowDataFromFxEntries } from '../../../../../../libs/ui-data/src/lib/functions';
-import {
-  intradayRatesGridDefaultColDef,
-  intradayRatesGridColumnDefs
-} from '../../../../../../libs/ui-data/src/lib/constants/grids';
+import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
 
 @Component({
   selector: 'fx-intraday-grid',

@@ -26,13 +26,3 @@ body {
   width: unset;
   max-width: 180px;
 }
-
-.fx-app .mat-tab-label {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-}
-
-.fx-app .mat-ink-bar {
-  width: 100px;
-}

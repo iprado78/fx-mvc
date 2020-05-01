@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { combineLatest } from 'rxjs';
 import { BankService } from '../../services/bank/bank.service';
 import { LiveRateService } from '../../services/live-rate/live-rate.service';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'currency-exchange',

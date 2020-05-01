@@ -14,13 +14,7 @@
     "fx-angular-app": {
       "tags": []
     },
-    "fx-bank-service": {
-      "tags": []
-    },
     "fx-react-app": {
-      "tags": []
-    },
-    "ui-data": {
       "tags": []
     },
     "fx-transaction-db-client": {
@@ -30,9 +24,6 @@
       "tags": []
     },
     "ui-core-data": {
-      "tags": []
-    },
-    "test": {
       "tags": []
     }
   }

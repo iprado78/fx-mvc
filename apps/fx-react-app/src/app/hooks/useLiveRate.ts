@@ -1,4 +1,4 @@
-import { AlphaVantageClient } from '../../../../../libs/alpha-vantage-client/src/lib/alpha-vantage-client';
+import { AlphaVantageClient } from '@fx/alpha-vantage-client';
 import { Moment } from 'moment';
 import moment from 'moment';
 import { useEffect, useState } from 'react';

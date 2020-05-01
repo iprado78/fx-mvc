@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import moment, { Moment } from 'moment';
-import { TimeType, Times } from '../../../../../../libs/ui-data/src';
+import { TimeType, Times } from '@fx/ui-core-data';
 
 @Injectable({
   providedIn: 'root'
