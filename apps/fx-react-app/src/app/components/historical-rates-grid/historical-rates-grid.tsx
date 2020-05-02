@@ -1,17 +1,13 @@
 import React from 'react';
-import { AgGridWrapper } from '../../ag-grid-wrapper/ag-grid-wrapper';
+import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
   historicalRatesGridDefaultColDef,
-  hisotricalRatesGridColumnDefs
-} from '../../../../../../../libs/ui-data/src/lib/constants/grids';
-import {
+  hisotricalRatesGridColumnDefs,
   rowDataFromFxEntries,
-  currencyFormatterFactory
-} from '../../../../../../../libs/ui-data/src/lib/functions';
-import {
+  currencyFormatterFactory,
   CurrencySymbol,
   FxEntries
-} from '../../../../../../../libs/ui-data/src/lib/types';
+} from '@fx/ui-core-data';
 
 interface HistoricalRatesGridProps {
   historicalRates: FxEntries;

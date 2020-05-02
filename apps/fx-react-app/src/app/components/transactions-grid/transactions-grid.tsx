@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { transactionsToGridProjection } from '../../../../../../libs/ui-data/src/lib/functions';
 import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
   Transaction,
+  transactionsToGridProjection,
   transactionsGridColumnDefs as columnDefs,
   transactionsGridDefaultColDef as defaultColDef
-} from '../../../../../../libs/ui-data/src';
+} from '@fx/ui-core-data';
 
 interface TransactionsGridProps {
   transactions: Transaction<number>[];

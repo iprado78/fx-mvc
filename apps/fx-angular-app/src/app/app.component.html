@@ -19,18 +19,20 @@
       </div>
     </mat-tab>
     <mat-tab label="Historical Rates">
-      <div class="sub-grid-container">
-        <mat-card class="top-left">
-          <mat-card-content>
-            <fx-historical-chart></fx-historical-chart>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="bottom-left">
-          <mat-card-content>
-            <fx-historical-grid></fx-historical-grid>
-          </mat-card-content>
-        </mat-card>
-      </div>
+      <ng-template matTabContent>
+        <div class="sub-grid-container">
+          <mat-card class="top-left">
+            <mat-card-content>
+              <fx-historical-chart></fx-historical-chart>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="bottom-left">
+            <mat-card-content>
+              <fx-historical-grid></fx-historical-grid>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
   <div class="top-right">

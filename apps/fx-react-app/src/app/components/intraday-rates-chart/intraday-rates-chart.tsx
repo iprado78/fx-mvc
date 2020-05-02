@@ -4,10 +4,10 @@ import { HighchartsWrapper } from '../highcharts-wrapper/highcharts-wrapper';
 import {
   CurrencySymbol,
   FxEntries,
-  INTRADAY_CHART_NAME,
   fxEntriesToXpointData,
   utcStringToLocal,
-  lineChartOptions
+  lineChartOptions,
+  intradayChartOptions
 } from '@fx/ui-core-data';
 
 interface IntradayRatesChartProps {
@@ -26,12 +26,7 @@ export const IntradayRatesChart = ({
   );
   return (
     <HighchartsWrapper
-      options={lineChartOptions({
-        title: `${base}/${quote}`,
-        data,
-        name: INTRADAY_CHART_NAME,
-        stepFactor: 6
-      })}
+      options={lineChartOptions(intradayChartOptions(data, base, quote))}
     />
   );
 };
