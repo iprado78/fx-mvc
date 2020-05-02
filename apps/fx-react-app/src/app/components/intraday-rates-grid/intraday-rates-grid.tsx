@@ -1,15 +1,14 @@
 import React from 'react';
-import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 import {
-  intradayRatesGridColumnDefs,
-  intradayRatesGridDefaultColDef
-} from '../../../../../../libs/ui-data/src/lib/constants/grids';
-import { FxEntries, CurrencySymbol } from 'libs/ui-data/src';
-import {
+  FxEntries,
+  CurrencySymbol,
   rowDataFromFxEntries,
   currencyFormatterFactory,
-  utcStringToLocal
-} from '../../../../../../libs/ui-data/src/lib/functions';
+  utcStringToLocal,
+  intradayRatesGridColumnDefs,
+  intradayRatesGridDefaultColDef
+} from '@fx/ui-core-data';
+import { AgGridWrapper } from '../ag-grid-wrapper/ag-grid-wrapper';
 
 interface IntradayRatesGridProps {
   intradayRates: FxEntries;

@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
-import { FxCard } from '../fx-card/fx-card';
+import { Moment } from 'moment';
 import {
   LiveRate,
-  CurrencySymbol
-} from '../../../../../../libs/ui-data/src/lib/types';
-import { Moment } from 'moment';
-import { formatLiveRateForView } from '../../../../../../libs/ui-data/src/lib/functions';
+  CurrencySymbol,
+  formatLiveRateForView
+} from '@fx/ui-core-data';
+import { FxCard } from '../fx-card/fx-card';
 
 interface RealTimeCardProps {
   liveRate: LiveRate<number, Moment>;

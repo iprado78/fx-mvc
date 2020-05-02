@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core';
-import { CurrencySymbol } from '../../../../../../libs/ui-data/src/lib/types';
+import { CurrencySymbol } from '@fx/ui-core-data';
 
 interface CurrencySelectProps {
   label: string;

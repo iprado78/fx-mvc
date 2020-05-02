@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { CurrencySymbol } from '../../../../../../libs/ui-data/src/lib/types';
-import { currencySymbolLocaleMap } from '../../../../../../libs/ui-data/src/lib/constants';
+import { currencySymbolLocaleMap, CurrencySymbol } from '@fx/ui-core-data';
 import { CurrencySelect } from './currency-select';
 
 interface CurrencyPairSelectProps {

@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
-/* eslint-disable-next-line */
 export interface RowProps {
   children: ReactNode;
   justifyContent?: 'flex-end' | 'center';

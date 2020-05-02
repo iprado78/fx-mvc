@@ -1,7 +1,7 @@
 import React from 'react';
 import { CurrencySymbol } from '@fx/ui-core-data';
 import { HistoricalRatesChart } from '../historical-rates-chart/historical-rates-chart';
-import { HistoricalRatesGrid } from '../historical-rates-chart/historical-rates-grid/historical-rates-grid';
+import { HistoricalRatesGrid } from '../historical-rates-grid/historical-rates-grid';
 import { useHistoricalRates } from '../../hooks/useHistoricalRates';
 import { TabCol } from '../tab-col/tab-col';
 

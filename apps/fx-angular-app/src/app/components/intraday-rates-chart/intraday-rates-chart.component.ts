@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { XrangePointOptionsObject } from 'highcharts';
 import { Chart } from 'angular-highcharts';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,7 +7,8 @@ import {
   fxEntriesToXpointData,
   baseLineOptions,
   lineChartOptions,
-  INTRADAY_CHART_NAME
+  intradayChartOptions,
+  CurrencySymbol
 } from '@fx/ui-core-data';
 import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
@@ -25,13 +27,12 @@ export class IntradayRatesChartComponent implements OnInit {
     private currencySelections: CurrencySelectionsService
   ) {}
 
-  private setNewOptions(base, quote, data) {
-    this.options = lineChartOptions({
-      name: INTRADAY_CHART_NAME,
-      title: `${base}/${quote}`,
-      data,
-      stepFactor: 6
-    });
+  private setNewOptions(
+    base: CurrencySymbol,
+    quote: CurrencySymbol,
+    data: XrangePointOptionsObject[]
+  ) {
+    this.options = lineChartOptions(intradayChartOptions(data, base, quote));
   }
 
   private setNewChart() {

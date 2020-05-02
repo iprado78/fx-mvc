@@ -1,3 +1,6 @@
+export * from './grids';
+export * from './charts';
+
 import {
   CurrencyReserve,
   CurrencySymbol,
@@ -6,9 +9,6 @@ import {
 } from '../types';
 import { Moment } from 'moment';
 import moment from 'moment';
-
-export * from './grids';
-export * from './charts';
 
 export const defaultBase: CurrencySymbol = 'USD';
 

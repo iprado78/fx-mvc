@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { XrangePointOptionsObject } from 'highcharts';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   baseLineOptions,
   fxEntriesToXpointData,
   lineChartOptions,
-  HISTORICAL_CHART_NAME
+  CurrencySymbol,
+  historicalChartOptions
 } from '@fx/ui-core-data';
 import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
@@ -25,13 +27,12 @@ export class HistoricalRatesChartComponent implements OnInit {
     private currencySelections: CurrencySelectionsService
   ) {}
 
-  private setNewOptions(base, quote, data) {
-    this.options = lineChartOptions({
-      data,
-      title: `${base / quote}`,
-      stepFactor: 20,
-      name: HISTORICAL_CHART_NAME
-    });
+  private setNewOptions(
+    base: CurrencySymbol,
+    quote: CurrencySymbol,
+    data: XrangePointOptionsObject[]
+  ) {
+    this.options = lineChartOptions(historicalChartOptions(data, base, quote));
   }
 
   private setNewChart() {

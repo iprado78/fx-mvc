@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "start-fx-react": "ng serve fx-react-app",
+    "start-fx-angular": "ng serve fx-angular-app --browserTarget=fx-angular-app:build --port=4500",
     "ng": "ng",
     "nx": "nx",
     "start": "ng serve",
