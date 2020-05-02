@@ -1,5 +1,21 @@
 # Fx MVC
 
+Fx MVC houses functionally equivalent versions of an app implemented in different web UI frameworks (currently React and Angular).  The app pulls foreign exchange rate data from the [Alpha Vantage APIs](https://www.alphavantage.co/).  It displays the historical and intraday data using the [Ag Grid](https://www.ag-grid.com/) and [Highcharts](https://www.highcharts.com/) libraries, and it simulates currency exchange transactions using the market live rate and a fake personal bank seeded with 5,000 USD.  The "bank" data is persisted in browser storage using the [IndexDB APIs](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).  App versions use the standard [Material Design](https://material.io/design) UI component implementations avaialble for [each](https://material.angular.io/) [framework](https://material-ui.com/).
+
+The repo started when I needed to relearn Angular for a project after several years of doing React development.  I quickly realized the Nx monorepo scaffolding and tooling would make it easy to run versions of the app that used different UI frameworks with all the data logic reused through shared libraries.  Extracting the data logic into libaries lets the app code focus on the core job of the UI frameworks in MVC: responding to user events, setting and updating state, and syncing views with state.  The goal of the project is something like [TodoMVC](http://todomvc.com/), though with a use case that hopefully demonstrates more complexity than todos.
+
+## Running the UIs
+
+To get started, simply run `npm install`.  Libraries and tooling have only been tested on Node v12, but should at least work on v >= 10.
+
+Run the React UI with `npm run start-fx-react`.  Runs on port 4200 by default.
+
+Run the Angular UI with `npm run start-fx-angular`.  Runs on port 4500 by default (changing port requires updating the npm script).
+
+Both these commands launch dev servers that will live rebuild with code changes.  For for full dev tooling, utlize the Nx commands and infrastructure described below.
+
+## Nx
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
