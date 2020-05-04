@@ -30,11 +30,9 @@ export const CurrencyExchange = ({
   const valueSetter = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const value = parseFloat(e.target.value);
-      console.log(value, max);
       if (Number.isNaN(value)) {
         setExchangeAmount(null);
       } else if (e.target.name === 'pay') {
-        console.log(' in setter');
         setExchangeAmount(value);
       } else if (e.target.name === 'receive') {
         setExchangeAmount(value / rate);
