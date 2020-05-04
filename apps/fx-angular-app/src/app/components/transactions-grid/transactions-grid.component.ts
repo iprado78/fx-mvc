@@ -22,7 +22,7 @@ export class TransactionsGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionService.transactions.subscribe(transactions => {
-      this.rowData = transactions.reverse().map(transactionsToGridProjection);
+      this.rowData = transactions.map(transactionsToGridProjection);
     });
   }
 }

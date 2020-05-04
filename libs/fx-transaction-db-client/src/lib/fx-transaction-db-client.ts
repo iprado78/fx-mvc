@@ -36,12 +36,11 @@ export class FxTransactionDbClient {
 
   private handleError = (action: string, cb?: (m: string) => void) => {
     return (e: any) => {
-      const message = `Failed to ${action}: ${DB} db - ${e.target.errorCode}`;
+      e.message = `Failed to ${action}: ${DB} db - ${e.target.errorCode}`;
       if (cb) {
-        e.message = message;
         cb(e);
       } else {
-        return message;
+        return e;
       }
     };
   };
@@ -107,10 +106,18 @@ export class FxTransactionDbClient {
       'readonly'
     );
     return new Promise<Transaction<number>[]>((resolve, reject) => {
-      const req = transactionsStore.getAll();
+      const transactions: Transaction<number>[] = [];
+
+      const req = transactionsStore.openCursor(null, 'prev');
       req.onerror = this.handleError(`get all transactions`, reject);
       req.onsuccess = (e: any) => {
-        resolve(e.target.result);
+        const { result } = e.target;
+        if (result) {
+          transactions.push(result.value);
+          result.continue();
+        } else {
+          resolve(transactions);
+        }
       };
     });
   };

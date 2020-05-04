@@ -13,7 +13,7 @@ interface TransactionsGridProps {
 
 export const TransactionsGrid = ({ transactions }: TransactionsGridProps) => {
   const rowData = useMemo(
-    () => transactions.reverse().map(transactionsToGridProjection),
+    () => transactions.map(transactionsToGridProjection),
     [transactions]
   );
   return (
