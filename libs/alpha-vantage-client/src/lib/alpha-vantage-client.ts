@@ -5,30 +5,33 @@ import {
   apiFunctions,
   LiveRateResponse,
   CurrencySymbol,
-  IntradayRatesResponse,
-  CacheKeyParams,
-  toCacheKey
+  IntradayRatesResponse
 } from '@fx/ui-core-data';
 
-const toJson = (res: Response): Promise<unknown> => res.json();
 const BASE_URL = 'https://www.alphavantage.co/query';
 const API_KEY = 'SEDS91YKBFMKI360';
+const HISTORICAL_REQ_ERR_MESSAGE = 'Failed historical rates request';
+const INTRADAY_REQ_ERR_MESSAGE = 'Failed intraday rates request';
+const LIVE_RATE_REQ_ERR_MESSAGE = 'Failed live rate request';
 
-const historicalCacheInvalid = (cache: HistoricalRatesResponse) =>
-  moment
-    .utc(cache['Meta Data']['5. Last Refreshed'].split(' ')[0])
-    .isBefore(moment(), 'day');
-
-const intradayCacheInvalid = (cache: IntradayRatesResponse) =>
-  moment
+const intradayCacheIsValid = (cache: IntradayRatesResponse) =>
+  !moment
     .utc(cache['Meta Data']['4. Last Refreshed'])
-    .isBefore(moment().subtract(5, 'minutes'));
+    .isBefore(moment().subtract(10, 'minutes'));
 
-const toHistoricalCacheKey = (params: CacheKeyParams) =>
-  `historical:${toCacheKey(params)}`;
-const toIntradayCacheKey = (params: CacheKeyParams) =>
-  `intraday:${toCacheKey(params)}`;
+const historicalCacheIsValid = (cache: HistoricalRatesResponse) =>
+  !moment
+    .utc(cache['Meta Data']['5. Last Refreshed'])
+    .isBefore(moment().startOf('day'));
 
+const liveRateCacheIsValid = (cache: LiveRateResponse) =>
+  !moment
+    .utc(cache['Realtime Currency Exchange Rate']['6. Last Refreshed'])
+    .isBefore(moment().subtract(1, 'minute'));
+
+/**
+ * ToDo: abstract common functionality in request while preserving type safety.
+ */
 export class AlphaVantageClient {
   constructor() {}
   private static buildUrl(apiFunction: apiFunctions, options) {
@@ -39,80 +42,91 @@ export class AlphaVantageClient {
     });
     return `${BASE_URL}?${searchParams.toString()}`;
   }
-  private static sendReq(apiFunction: apiFunctions, options) {
-    return window.fetch(this.buildUrl(apiFunction, options));
+
+  private static buildReq(apiFunction: apiFunctions, options) {
+    return new Request(this.buildUrl(apiFunction, options));
   }
-  private static sendHistoricalRatesReq(base, quote) {
-    return AlphaVantageClient.sendReq('FX_DAILY', {
+
+  static async getHistoricalRates(base: CurrencySymbol, quote: CurrencySymbol) {
+    const historicalCache = await caches.open('historical-rates');
+    const request = this.buildReq('FX_DAILY', {
       from_symbol: base,
       to_symbol: quote
-    }).then(toJson) as Promise<HistoricalRatesResponse>;
+    });
+    const cachedResponse = await historicalCache.match(request);
+    if (cachedResponse) {
+      const resolvedCachedResponse: HistoricalRatesResponse = await cachedResponse.json();
+      if (historicalCacheIsValid(resolvedCachedResponse)) {
+        return resolvedCachedResponse;
+      }
+    }
+    try {
+      const res = await window.fetch(request.clone());
+      const resolvedResponse: HistoricalRatesResponse = await res
+        .clone()
+        .json();
+      if (!res.ok || !resolvedResponse['Meta Data']) {
+        throw new Error(HISTORICAL_REQ_ERR_MESSAGE);
+      }
+      historicalCache.put(request, res);
+      return resolvedResponse;
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   }
-  private static sendLiveRateReq(base: CurrencySymbol, quote: CurrencySymbol) {
-    return AlphaVantageClient.sendReq('CURRENCY_EXCHANGE_RATE', {
+  static async getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
+    const liveRateCache = await caches.open('live-rate');
+    const request = this.buildReq('CURRENCY_EXCHANGE_RATE', {
       from_currency: base,
       to_currency: quote
-    }).then(toJson) as Promise<LiveRateResponse>;
+    });
+
+    const cachedResponse = await liveRateCache.match(request);
+    if (cachedResponse) {
+      const resolvedCacheResponse: LiveRateResponse = await cachedResponse.json();
+      if (liveRateCacheIsValid(resolvedCacheResponse)) {
+        return resolvedCacheResponse;
+      }
+    }
+    try {
+      const res = await window.fetch(request.clone());
+      const resolvedResponse: LiveRateResponse = await res.clone().json();
+      if (!res.ok || !resolvedResponse['Realtime Currency Exchange Rate']) {
+        throw new Error(LIVE_RATE_REQ_ERR_MESSAGE);
+      }
+      liveRateCache.put(request, res);
+      return resolvedResponse;
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   }
-  private static sendIntradayRatesReq(base, quote) {
-    return AlphaVantageClient.sendReq('FX_INTRADAY', {
+  static async getIntradayRates(base: CurrencySymbol, quote: CurrencySymbol) {
+    const intradayCache = await caches.open('intraday-rates');
+    const request = this.buildReq('FX_INTRADAY', {
       from_symbol: base,
       to_symbol: quote,
       interval: '5min'
-    }).then(toJson) as Promise<IntradayRatesResponse>;
-  }
-  /**
-   * ToDo: figure out how to remove duplication while getting type safety
-   */
-  static async getHistoricalRates(base: CurrencySymbol, quote: CurrencySymbol) {
-    const cacheKey = toHistoricalCacheKey({ base, quote });
-    let persistentCache: HistoricalRatesResponse = JSON.parse(
-      localStorage.getItem(cacheKey)
-    );
-    if (!persistentCache || historicalCacheInvalid(persistentCache)) {
-      try {
-        const res = await AlphaVantageClient.sendHistoricalRatesReq(
-          base,
-          quote
-        );
-        /**
-         * Handle API limit
-         */
-        if (res['Meta Data']) {
-          persistentCache = res;
-        }
-      } catch (e) {
-        console.log(e);
+    });
+    const cachedResponse = await intradayCache.match(request);
+    if (cachedResponse) {
+      const resolvedCacheResponse: IntradayRatesResponse = await cachedResponse.json();
+      if (intradayCacheIsValid(resolvedCacheResponse)) {
+        return resolvedCacheResponse;
       }
-      localStorage.setItem(cacheKey, JSON.stringify(persistentCache));
     }
-    return persistentCache;
-  }
-  static getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
-    return AlphaVantageClient.sendLiveRateReq(base, quote);
-  }
-  /**
-   * ToDo: figure out how to remove duplication while getting type safety
-   */
-  static async getIntradayRates(base: CurrencySymbol, quote: CurrencySymbol) {
-    const cacheKey = toIntradayCacheKey({ base, quote });
-    let persistentCache: IntradayRatesResponse = JSON.parse(
-      localStorage.getItem(cacheKey)
-    );
-    if (!persistentCache || intradayCacheInvalid(persistentCache)) {
-      try {
-        const res = await AlphaVantageClient.sendIntradayRatesReq(base, quote);
-        /**
-         * Handle API limit
-         */
-        if (res['Meta Data']) {
-          persistentCache = res;
-        }
-      } catch (e) {
-        console.log(e);
+    try {
+      const res = await window.fetch(request.clone());
+      const resolvedResponse: IntradayRatesResponse = await res.clone().json();
+      if (!res.ok || !resolvedResponse['Meta Data']) {
+        throw new Error(INTRADAY_REQ_ERR_MESSAGE);
       }
-      localStorage.setItem(cacheKey, JSON.stringify(persistentCache));
+      intradayCache.put(request, res);
+      return resolvedResponse;
+    } catch (e) {
+      console.log(e);
+      throw e;
     }
-    return persistentCache;
   }
 }
