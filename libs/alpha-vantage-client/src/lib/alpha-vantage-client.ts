@@ -8,6 +8,53 @@ import {
   IntradayRatesResponse
 } from '@fx/ui-core-data';
 
+interface IntradayRatesReqOptions {
+  cacheKey: 'intraday-rates';
+  apiFunction: 'FX_INTRADAY';
+  buildReqOptions: {
+    from_symbol: CurrencySymbol;
+    to_symbol: CurrencySymbol;
+    interval: '5min';
+  };
+  errorMessage: string;
+  successfulResponseKey: 'Meta Data';
+}
+
+interface LiveRateReqOptions {
+  cacheKey: 'live-rate';
+  apiFunction: 'CURRENCY_EXCHANGE_RATE';
+  buildReqOptions: {
+    from_currency: CurrencySymbol;
+    to_currency: CurrencySymbol;
+  };
+  errorMessage: string;
+  successfulResponseKey: 'Realtime Currency Exchange Rate';
+}
+
+interface HistoricalReqOptions {
+  cacheKey: 'historical-rates';
+  apiFunction: 'FX_DAILY';
+  buildReqOptions: {
+    from_symbol: CurrencySymbol;
+    to_symbol: CurrencySymbol;
+  };
+  errorMessage: string;
+  successfulResponseKey: 'Meta Data';
+}
+
+type RatesReqOptions =
+  | IntradayRatesReqOptions
+  | LiveRateReqOptions
+  | HistoricalReqOptions;
+
+type RatesRes<T extends RatesReqOptions> = T extends IntradayRatesReqOptions
+  ? IntradayRatesResponse
+  : T extends LiveRateReqOptions
+  ? LiveRateResponse
+  : T extends HistoricalReqOptions
+  ? HistoricalRatesResponse
+  : never;
+
 const BASE_URL = 'https://www.alphavantage.co/query';
 const API_KEY = 'SEDS91YKBFMKI360';
 const HISTORICAL_REQ_ERR_MESSAGE = 'Failed historical rates request';
@@ -29,9 +76,6 @@ const liveRateCacheIsValid = (cache: LiveRateResponse) =>
     .utc(cache['Realtime Currency Exchange Rate']['6. Last Refreshed'])
     .isBefore(moment().subtract(1, 'minute'));
 
-/**
- * ToDo: abstract common functionality in request while preserving type safety.
- */
 export class AlphaVantageClient {
   constructor() {}
   private static buildUrl(apiFunction: apiFunctions, options) {
@@ -48,81 +92,74 @@ export class AlphaVantageClient {
   }
 
   static async getHistoricalRates(base: CurrencySymbol, quote: CurrencySymbol) {
-    const historicalCache = await caches.open('historical-rates');
-    const request = this.buildReq('FX_DAILY', {
-      from_symbol: base,
-      to_symbol: quote
-    });
-    const cachedResponse = await historicalCache.match(request);
-    if (cachedResponse) {
-      const resolvedCachedResponse: HistoricalRatesResponse = await cachedResponse.json();
-      if (historicalCacheIsValid(resolvedCachedResponse)) {
-        return resolvedCachedResponse;
+    return this.getRates<HistoricalRatesResponse, HistoricalReqOptions>(
+      historicalCacheIsValid,
+      {
+        cacheKey: 'historical-rates',
+        apiFunction: 'FX_DAILY',
+        errorMessage: HISTORICAL_REQ_ERR_MESSAGE,
+        buildReqOptions: {
+          from_symbol: base,
+          to_symbol: quote
+        },
+        successfulResponseKey: 'Meta Data'
       }
-    }
-    try {
-      const res = await window.fetch(request.clone());
-      const resolvedResponse: HistoricalRatesResponse = await res
-        .clone()
-        .json();
-      if (!res.ok || !resolvedResponse['Meta Data']) {
-        throw new Error(HISTORICAL_REQ_ERR_MESSAGE);
-      }
-      historicalCache.put(request, res);
-      return resolvedResponse;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
+    );
   }
-  static async getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
-    const liveRateCache = await caches.open('live-rate');
-    const request = this.buildReq('CURRENCY_EXCHANGE_RATE', {
-      from_currency: base,
-      to_currency: quote
-    });
 
-    const cachedResponse = await liveRateCache.match(request);
-    if (cachedResponse) {
-      const resolvedCacheResponse: LiveRateResponse = await cachedResponse.json();
-      if (liveRateCacheIsValid(resolvedCacheResponse)) {
-        return resolvedCacheResponse;
+  static async getLiveRate(base: CurrencySymbol, quote: CurrencySymbol) {
+    return this.getRates<LiveRateResponse, LiveRateReqOptions>(
+      liveRateCacheIsValid,
+      {
+        cacheKey: 'live-rate',
+        apiFunction: 'CURRENCY_EXCHANGE_RATE',
+        buildReqOptions: {
+          from_currency: base,
+          to_currency: quote
+        },
+        errorMessage: LIVE_RATE_REQ_ERR_MESSAGE,
+        successfulResponseKey: 'Realtime Currency Exchange Rate'
       }
-    }
-    try {
-      const res = await window.fetch(request.clone());
-      const resolvedResponse: LiveRateResponse = await res.clone().json();
-      if (!res.ok || !resolvedResponse['Realtime Currency Exchange Rate']) {
-        throw new Error(LIVE_RATE_REQ_ERR_MESSAGE);
-      }
-      liveRateCache.put(request, res);
-      return resolvedResponse;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
+    );
   }
+
   static async getIntradayRates(base: CurrencySymbol, quote: CurrencySymbol) {
-    const intradayCache = await caches.open('intraday-rates');
-    const request = this.buildReq('FX_INTRADAY', {
-      from_symbol: base,
-      to_symbol: quote,
-      interval: '5min'
-    });
-    const cachedResponse = await intradayCache.match(request);
+    return this.getRates<IntradayRatesResponse, IntradayRatesReqOptions>(
+      intradayCacheIsValid,
+      {
+        cacheKey: 'intraday-rates',
+        apiFunction: 'FX_INTRADAY',
+        buildReqOptions: {
+          from_symbol: base,
+          to_symbol: quote,
+          interval: '5min'
+        },
+        errorMessage: INTRADAY_REQ_ERR_MESSAGE,
+        successfulResponseKey: 'Meta Data'
+      }
+    );
+  }
+
+  static async getRates<T extends RatesRes<Q>, Q extends RatesReqOptions>(
+    cacheValidator: (res: T) => boolean,
+    options: Q
+  ) {
+    const cache = await caches.open(options.cacheKey);
+    const request = this.buildReq(options.apiFunction, options.buildReqOptions);
+    const cachedResponse = await cache.match(request);
     if (cachedResponse) {
-      const resolvedCacheResponse: IntradayRatesResponse = await cachedResponse.json();
-      if (intradayCacheIsValid(resolvedCacheResponse)) {
+      const resolvedCacheResponse: T = await cachedResponse.json();
+      if (cacheValidator(resolvedCacheResponse)) {
         return resolvedCacheResponse;
       }
     }
     try {
       const res = await window.fetch(request.clone());
-      const resolvedResponse: IntradayRatesResponse = await res.clone().json();
-      if (!res.ok || !resolvedResponse['Meta Data']) {
-        throw new Error(INTRADAY_REQ_ERR_MESSAGE);
+      const resolvedResponse: T = await res.clone().json();
+      if (!res.ok || !resolvedResponse[options.successfulResponseKey]) {
+        throw new Error(options.errorMessage);
       }
-      intradayCache.put(request, res);
+      cache.put(request, res);
       return resolvedResponse;
     } catch (e) {
       console.log(e);
