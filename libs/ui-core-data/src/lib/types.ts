@@ -122,3 +122,8 @@ export interface IntradayRatesResponse {
   'Meta Data': IntradayRateMetaData;
   'Time Series FX (5min)': Record<string, RateData>;
 }
+
+export interface ApiSettigs {
+  key: string;
+  nextPrompt: string;
+}

@@ -5,6 +5,7 @@ import { Header } from './components/header/header';
 import { CurrencyPairSelect } from './components/currency-pair-select/currency-pair-select';
 import { theme } from './theme';
 import { Main } from './components/main/main';
+import { ApiKeyPreferences } from './components/api-key-preferences/api-key-preferences';
 
 export const App = () => {
   const [baseCurrency, setBaseCurrency] = useState<CurrencySymbol>(defaultBase);
@@ -13,19 +14,18 @@ export const App = () => {
   );
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Header>
-          <CurrencyPairSelect
-            baseCurrency={baseCurrency}
-            quoteCurrency={quoteCurrency}
-            setBaseCurrency={setBaseCurrency}
-            setQuoteCurrency={setQuoteCurrency}
-          />
-        </Header>
-        <Main baseCurrency={baseCurrency} quoteCurrency={quoteCurrency} />
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <ApiKeyPreferences />
+      <Header>
+        <CurrencyPairSelect
+          baseCurrency={baseCurrency}
+          quoteCurrency={quoteCurrency}
+          setBaseCurrency={setBaseCurrency}
+          setQuoteCurrency={setQuoteCurrency}
+        />
+      </Header>
+      <Main baseCurrency={baseCurrency} quoteCurrency={quoteCurrency} />
+    </ThemeProvider>
   );
 };
 

@@ -5,8 +5,10 @@ import {
   CurrencyReserve,
   CurrencySymbol,
   CurrencyLocale,
-  LiveRate
+  LiveRate,
+  ApiSettigs
 } from '../types';
+
 import { Moment } from 'moment';
 import moment from 'moment';
 
@@ -38,3 +40,11 @@ export const currencySymbolLocaleMap: Map<
   ['GBP', 'en-GB'],
   ['JPY', 'ja-JP']
 ]);
+
+export const DEFAULT_API_KEY = 'SEDS91YKBFMKI360';
+
+export const API_SETTINGS: ApiSettigs = {
+  key: localStorage.ALPHA_VANTAGE_API_KEY ?? DEFAULT_API_KEY,
+  nextPrompt:
+    localStorage.ALPHA_VANTAGE_API_KEY_NEXT_PROMPT ?? new Date().toISOString()
+};

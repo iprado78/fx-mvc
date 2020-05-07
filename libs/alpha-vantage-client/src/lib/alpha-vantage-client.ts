@@ -5,7 +5,8 @@ import {
   apiFunctions,
   LiveRateResponse,
   CurrencySymbol,
-  IntradayRatesResponse
+  IntradayRatesResponse,
+  API_SETTINGS
 } from '@fx/ui-core-data';
 
 interface IntradayRatesReqOptions {
@@ -56,7 +57,7 @@ type RatesRes<T extends RatesReqOptions> = T extends IntradayRatesReqOptions
   : never;
 
 const BASE_URL = 'https://www.alphavantage.co/query';
-const API_KEY = 'SEDS91YKBFMKI360';
+const API_KEY = API_SETTINGS.key;
 const HISTORICAL_REQ_ERR_MESSAGE = 'Failed historical rates request';
 const INTRADAY_REQ_ERR_MESSAGE = 'Failed intraday rates request';
 const LIVE_RATE_REQ_ERR_MESSAGE = 'Failed live rate request';
@@ -140,10 +141,10 @@ export class AlphaVantageClient {
     );
   }
 
-  static async getRates<T extends RatesRes<Q>, Q extends RatesReqOptions>(
-    cacheValidator: (res: T) => boolean,
-    options: Q
-  ) {
+  private static async getRates<
+    T extends RatesRes<Q>,
+    Q extends RatesReqOptions
+  >(cacheValidator: (res: T) => boolean, options: Q) {
     const cache = await caches.open(options.cacheKey);
     const request = this.buildReq(options.apiFunction, options.buildReqOptions);
     const cachedResponse = await cache.match(request);
