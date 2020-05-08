@@ -1,6 +1,6 @@
 import React from 'react';
 import { PreferencesControlWrap } from './preferences-control-wrap';
-import { PERSONAL_KEY_PREF, PERSONAL_KEY } from './api-key-preferences';
+import { PERSONAL_KEY_PREF, PERSONAL_KEY } from '@fx/ui-core-data';
 import {
   FormControl,
   FormLabel,
@@ -14,44 +14,43 @@ interface PersonalKeyPreferencesProps {
   personalKeyPref: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   personalKey: string;
+  radioClasses: Record<string, any>;
 }
 
 export const PersonalKeyPreferences = ({
   personalKeyPref,
   handleChange,
-  personalKey
+  personalKey,
+  radioClasses
 }: PersonalKeyPreferencesProps) => (
   <PreferencesControlWrap>
     <FormControl component="fieldset">
-      <FormLabel component="legend">Use</FormLabel>
+      <FormLabel component="legend">{PERSONAL_KEY_PREF.label}</FormLabel>
       <RadioGroup
-        aria-label={PERSONAL_KEY_PREF}
-        name={PERSONAL_KEY_PREF}
+        aria-label={PERSONAL_KEY_PREF.id}
+        name={PERSONAL_KEY_PREF.id}
         value={personalKeyPref}
         onChange={handleChange}
         row
       >
-        <FormControlLabel
-          value={false}
-          control={<Radio />}
-          label="Shared Key"
-        />
-        <FormControlLabel
-          value={true}
-          control={<Radio />}
-          label="Personal Key"
-        />
+        {PERSONAL_KEY_PREF.options.map(({ label, value }) => (
+          <FormControlLabel
+            className={radioClasses.root}
+            value={value}
+            control={<Radio />}
+            label={label}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
     {personalKeyPref && (
       <FormControl focused>
-        <FormLabel htmlFor={PERSONAL_KEY} component="legend">
-          API Key
+        <FormLabel htmlFor={PERSONAL_KEY.id} component="legend">
+          {PERSONAL_KEY.id}
         </FormLabel>
         <Input
-          placeholder="Enter key"
-          name={PERSONAL_KEY}
-          id={PERSONAL_KEY}
+          name={PERSONAL_KEY.id}
+          id={PERSONAL_KEY.id}
           value={personalKey}
           onChange={handleChange}
         />

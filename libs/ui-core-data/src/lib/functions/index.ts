@@ -3,6 +3,7 @@ export * from './grids';
 
 import { Moment } from 'moment';
 import moment from 'moment';
+import { API_SETTINGS, DEFAULT_API_KEY } from '../constants';
 import {
   FxEntryValue,
   IntradayRatesResponse,
@@ -94,3 +95,8 @@ export const filterFromTimes = (times: Times) => ([
     asMoment.isSameOrBefore(times.endTime)
   );
 };
+
+export const shouldPrompt = (): boolean =>
+  API_SETTINGS.key === DEFAULT_API_KEY &&
+  API_SETTINGS.nextPrompt !== 'never' &&
+  moment().isAfter(moment(API_SETTINGS.nextPrompt));

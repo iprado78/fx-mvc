@@ -1,0 +1,11 @@
+.formRow {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.formRowItem {
+  height: 100%;
+  width: 140px;
+  box-sizing: border-box;
+}

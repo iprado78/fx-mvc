@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>Api Key Preferences</h1>
+<form [formGroup]="apiKeyPrefForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <p>
+      To retrieve exchange rates, you are currently using a default Alpha
+      Vantage API key that is limited to 5 requests per minute, 500 requests per
+      day. It is shared across users.
+    </p>
+    <p>
+      You can generate a free a personal key
+      <a href="https://www.alphavantage.co/support/#api-key" target="_blank"
+        >here</a
+      >
+      and enter below to use with <strong>{{ title }}</strong> on this browser.
+    </p>
+    <div>
+      <mat-label>{{ personalKeyPref.label }}</mat-label>
+      <div class="formRow">
+        <mat-radio-group formControlName="personalKeyPref">
+          <mat-radio-button
+            *ngFor="let option of personalKeyPref.options"
+            [value]="option.value"
+            class="formRowItem"
+          >
+            {{ option.label }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field
+          class="formRowItem"
+          *ngIf="apiKeyPrefForm.controls.personalKeyPref.value"
+        >
+          <mat-label>{{ personalKey.label }}</mat-label>
+          <input
+            [name]="personalKey.id"
+            matInput
+            formControlName="personalKey"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="!apiKeyPrefForm.controls.personalKeyPref.value">
+      <mat-label>{{ promptPref.label }}</mat-label>
+      <div class="formRow">
+        <mat-radio-group formControlName="promptPref">
+          <mat-radio-button
+            *ngFor="let option of promptPref.options"
+            [value]="option.value"
+            class="formRowItem"
+          >
+            {{ option.label }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field
+          class="formRowItem"
+          *ngIf="apiKeyPrefForm.controls.promptPref.value === 'after'"
+        >
+          <mat-label>{{ numDaysToPrompt.label }}</mat-label>
+          <input matInput type="number" formControlName="numDaysToPrompt" />
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" type="submit">
+      Save Preferences
+    </button></mat-dialog-actions
+  >
+</form>

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Typography, makeStyles } from '@material-ui/core';
+import { APP_TITLE } from '../../shared';
 
 export interface HeaderProps {
   children: ReactNode;
@@ -23,7 +24,7 @@ export const Header = ({ children }: HeaderProps) => {
     <AppBar position="static" color="transparent">
       <Toolbar className={classes.root}>
         <Typography variant="h4" component="h1" className={classes.h4}>
-          React Fx Demo
+          {APP_TITLE}
         </Typography>
         {children}
       </Toolbar>

@@ -48,3 +48,47 @@ export const API_SETTINGS: ApiSettigs = {
   nextPrompt:
     localStorage.ALPHA_VANTAGE_API_KEY_NEXT_PROMPT ?? new Date().toISOString()
 };
+
+export const PERSONAL_KEY_PREF = {
+  label: 'Use',
+  id: 'personal-key-pref',
+  defaultValue: true,
+  options: [
+    {
+      label: 'Shared Key',
+      value: false
+    },
+    {
+      label: 'Personal Key',
+      value: true
+    }
+  ]
+};
+
+export const PERSONAL_KEY = {
+  id: 'personal-key',
+  label: 'API Key',
+  defaultValue: ''
+};
+
+export const PROMPT_PREF = {
+  id: 'prompt-pref',
+  label: 'Prompt again',
+  defaultValue: 'after',
+  options: [
+    {
+      label: 'Never',
+      value: 'never'
+    },
+    {
+      label: 'After',
+      value: 'after'
+    }
+  ]
+};
+
+export const NUM_DAYS_TO_PROMPT = {
+  id: 'num-days-to-prompt',
+  label: 'Days',
+  defaultValue: 10
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { DialogContentText } from '@material-ui/core';
+import { APP_TITLE } from '../../shared';
 
 export const PreferencesText = () => (
   <>
@@ -10,8 +11,10 @@ export const PreferencesText = () => (
     </DialogContentText>
     <DialogContentText>
       You can generate a free a personal key{' '}
-      <a href="https://www.alphavantage.co/support/#api-key">here</a> and enter
-      below to use with <strong>React Fx Demo</strong> on this browser.
+      <a href="https://www.alphavantage.co/support/#api-key" target="_blank">
+        here
+      </a>{' '}
+      and enter below to use with <strong>{APP_TITLE}</strong> on this browser.
     </DialogContentText>
   </>
 );

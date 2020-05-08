@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencySymbol } from '@fx/ui-core-data';
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
-
+import { APP_TITLE } from '../../shared';
 type OnCurrencyInput = (currency: CurrencySymbol) => void;
 
 @Component({
@@ -10,7 +10,7 @@ type OnCurrencyInput = (currency: CurrencySymbol) => void;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  title = 'Angular Fx Demo';
+  title = APP_TITLE;
   baseCurrency: CurrencySymbol;
   quoteCurrency: CurrencySymbol;
   baseOptions: CurrencySymbol[];
