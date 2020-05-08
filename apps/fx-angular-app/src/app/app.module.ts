@@ -11,7 +11,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MatDialogModule,
+  MatDialogActions,
+  MatDialogContainer,
+  MatDialogContent
+} from '@angular/material/dialog';
+import { MatFormFieldModule, MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +39,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HistoricalDateRangeComponent } from './components/historical-date-range/historical-date-range.component';
 import { IntradayTimeRangeComponent } from './components/intraday-time-range/intraday-time-range.component';
 import { TransactionsGridComponent } from './components/transactions-grid/transactions-grid.component';
+import { ApiKeyPreferencesComponent } from './components/api-key-preferences/api-key-preferences.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +54,8 @@ import { TransactionsGridComponent } from './components/transactions-grid/transa
     IntradayRatesGridComponent,
     HistoricalDateRangeComponent,
     IntradayTimeRangeComponent,
-    TransactionsGridComponent
+    TransactionsGridComponent,
+    ApiKeyPreferencesComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +79,14 @@ import { TransactionsGridComponent } from './components/transactions-grid/transa
     MatDividerModule,
     MatMenuModule,
     MatIconModule,
-    LayoutModule
+    LayoutModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    MatDialogActions,
+    MatDialogContainer,
+    MatDialogContent,
+    MatFormField
   ],
   providers: [],
   bootstrap: [AppComponent]
