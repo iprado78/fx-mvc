@@ -1,8 +1,8 @@
-import React from 'react';
-import * as Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import * as Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import React from "react";
 
-import { FxCard } from '../fx-card/fx-card';
+import { FxCard } from "../fx-card/fx-card";
 
 export interface HighchartsWrapperProps {
   title?: string;
@@ -10,7 +10,7 @@ export interface HighchartsWrapperProps {
 }
 export const HighchartsWrapper = ({
   title,
-  options
+  options,
 }: HighchartsWrapperProps) => {
   return (
     <FxCard title={title}>

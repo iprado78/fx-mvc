@@ -1,8 +1,8 @@
+import { AgGridModule } from 'ag-grid-angular';
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoricalRatesGridComponent } from './historical-rates-grid.component';
-import { AgGridModule } from 'ag-grid-angular';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HistoricalRatesGridComponent', () => {
   let component: HistoricalRatesGridComponent;
@@ -11,7 +11,7 @@ describe('HistoricalRatesGridComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HistoricalRatesGridComponent],
-      imports: [AgGridModule.withComponents(), HttpClientTestingModule]
+      imports: [AgGridModule.withComponents()]
     }).compileComponents();
   }));
 

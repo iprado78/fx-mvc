@@ -1,14 +1,11 @@
-import React from 'react';
-import { PreferencesControlWrap } from './preferences-control-wrap';
-import { PROMPT_PREF, NUM_DAYS_TO_PROMPT } from '@fx/ui-core-data';
+import React from "react";
+
+import { NUM_DAYS_TO_PROMPT, PROMPT_PREF } from "@fx/ui-core-data";
 import {
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  Input,
-  FormControlLabel
-} from '@material-ui/core';
+    FormControl, FormControlLabel, FormLabel, Input, Radio, RadioGroup
+} from "@material-ui/core";
+
+import { PreferencesControlWrap } from "./preferences-control-wrap";
 
 interface SharedKeyPreferencesProps {
   promptPref: string;
@@ -21,7 +18,7 @@ export const SharedKeyPreferences = ({
   promptPref,
   handleChange,
   numDaysToPrompt,
-  radioClasses
+  radioClasses,
 }: SharedKeyPreferencesProps) => (
   <PreferencesControlWrap>
     <FormControl component="fieldset">

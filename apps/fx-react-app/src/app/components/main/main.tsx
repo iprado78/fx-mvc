@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import { Grid, Tab, Tabs, makeStyles } from '@material-ui/core';
-import { TransactionsGrid } from '../transactions-grid/transactions-grid';
-import { RealTimeCard } from '../realtime-card/realtime-card';
-import { CurrencyReserves } from '../currency-reserves/currency-reserves';
-import { CurrencyExchange } from '../currency-exchange/currency-exchange';
-import { useLiveRate } from '../../hooks/useLiveRate';
-import { useReserves } from '../../hooks/useReserves';
-import { useTransactions } from '../../hooks/useTransactions';
-import { CurrencySymbol, ViewState } from '@fx/ui-core-data';
-import { HistoricalTab } from '../historical-tab/historical-tab';
-import { IntradayTab } from '../intraday-tab/intraday-tab';
-import { TabCol } from '../tab-col/tab-col';
+import React, { useState } from "react";
+
+import { CurrencySymbol, ViewState } from "@fx/ui-core-data";
+import { Grid, makeStyles, Tab, Tabs } from "@material-ui/core";
+
+import { useLiveRate } from "../../hooks/useLiveRate";
+import { useReserves } from "../../hooks/useReserves";
+import { useTransactions } from "../../hooks/useTransactions";
+import { CurrencyExchange } from "../currency-exchange/currency-exchange";
+import { CurrencyReserves } from "../currency-reserves/currency-reserves";
+import { HistoricalTab } from "../historical-tab/historical-tab";
+import { IntradayTab } from "../intraday-tab/intraday-tab";
+import { RealTimeCard } from "../realtime-card/realtime-card";
+import { TabCol } from "../tab-col/tab-col";
+import { TransactionsGrid } from "../transactions-grid/transactions-grid";
 
 const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: '#ddd',
-    padding: '0 8px'
+    padding: '0 8px',
   },
   item: {
-    paddingTop: '12px'
-  }
+    paddingTop: '12px',
+  },
 }));
 
 interface MainProps {

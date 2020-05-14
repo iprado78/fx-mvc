@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewState, shouldPrompt } from '@fx/ui-core-data';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { shouldPrompt, ViewState } from '@fx/ui-core-data';
+
 import { ApiKeyPreferencesComponent } from './components/api-key-preferences/api-key-preferences.component';
 
 @Component({
@@ -18,7 +15,7 @@ export class AppComponent implements OnInit {
     this.viewState = state;
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     if (shouldPrompt()) {

@@ -1,10 +1,11 @@
-import React from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core';
-import { CurrencySymbol } from '@fx/ui-core-data';
+import React from "react";
+
+import { CurrencySymbol } from "@fx/ui-core-data";
+import { makeStyles } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 
 interface CurrencySelectProps {
   label: string;
@@ -15,15 +16,15 @@ interface CurrencySelectProps {
 
 const useStyles = makeStyles(() => ({
   formControl: {
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
 }));
 
 export const CurrencySelect = ({
   label,
   value,
   options,
-  valueSetter
+  valueSetter,
 }: CurrencySelectProps) => {
   const lowercaseLabel = label.toLowerCase();
   const classes = useStyles();

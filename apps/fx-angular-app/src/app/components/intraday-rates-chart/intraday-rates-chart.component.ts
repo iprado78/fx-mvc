@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { XrangePointOptionsObject } from 'highcharts';
 import { Chart } from 'angular-highcharts';
+import { XrangePointOptionsObject } from 'highcharts';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { Component, OnInit } from '@angular/core';
 import {
-  fxEntriesToXpointData,
   baseLineOptions,
-  lineChartOptions,
+  CurrencySymbol,
+  fxEntriesToXpointData,
   intradayChartOptions,
-  CurrencySymbol
+  lineChartOptions
 } from '@fx/ui-core-data';
-import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
+
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
+import { IntradayRates } from '../../services/intraday-rates/intraday-rates.service';
 
 @Component({
   selector: 'fx-intraday-chart',

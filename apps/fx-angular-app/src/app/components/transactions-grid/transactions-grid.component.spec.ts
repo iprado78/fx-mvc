@@ -1,3 +1,5 @@
+import { AgGridModule } from 'ag-grid-angular';
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TransactionsGridComponent } from './transactions-grid.component';
@@ -8,9 +10,9 @@ describe('TransactionsGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionsGridComponent ]
-    })
-    .compileComponents();
+      declarations: [TransactionsGridComponent],
+      imports: [AgGridModule.withComponents()]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

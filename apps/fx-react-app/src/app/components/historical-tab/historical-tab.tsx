@@ -1,9 +1,11 @@
-import React from 'react';
-import { CurrencySymbol } from '@fx/ui-core-data';
-import { HistoricalRatesChart } from '../historical-rates-chart/historical-rates-chart';
-import { HistoricalRatesGrid } from '../historical-rates-grid/historical-rates-grid';
-import { useHistoricalRates } from '../../hooks/useHistoricalRates';
-import { TabCol } from '../tab-col/tab-col';
+import React from "react";
+
+import { CurrencySymbol } from "@fx/ui-core-data";
+
+import { useHistoricalRates } from "../../hooks/useHistoricalRates";
+import { HistoricalRatesChart } from "../historical-rates-chart/historical-rates-chart";
+import { HistoricalRatesGrid } from "../historical-rates-grid/historical-rates-grid";
+import { TabCol } from "../tab-col/tab-col";
 
 interface HistoricalTabProps {
   baseCurrency: CurrencySymbol;
@@ -11,7 +13,7 @@ interface HistoricalTabProps {
 }
 export const HistoricalTab = ({
   baseCurrency,
-  quoteCurrency
+  quoteCurrency,
 }: HistoricalTabProps) => {
   const historicalRates = useHistoricalRates([baseCurrency, quoteCurrency]);
   return (

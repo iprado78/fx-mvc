@@ -15,6 +15,7 @@
     },
     "forin": true,
     "import-blacklist": [true, "rxjs/Rx"],
+    "ordered-imports": true,
     "interface-over-type-literal": true,
     "member-access": false,
     "member-ordering": [

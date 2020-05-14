@@ -1,5 +1,5 @@
-import { Transaction, FxEntries, CurrencySymbol } from '../types';
-import { currencySymbolLocaleMap } from '../constants';
+import { currencySymbolLocaleMap } from "../constants";
+import { CurrencySymbol, FxEntries, Transaction } from "../types";
 
 const TEN_THOUSAND = 10000;
 
@@ -16,7 +16,7 @@ export const currencyFormatterFactory = (
       style: 'currency',
       currency: symbol,
       maximumFractionDigits: sigDif,
-      minimumFractionDigits: sigDif
+      minimumFractionDigits: sigDif,
     }
   );
   return format;
@@ -29,7 +29,7 @@ export const transactionsToGridProjection = ({
   receiveCurrency,
   payCurrencyBalance,
   receiveCurrencyBalance,
-  timestamp
+  timestamp,
 }: Transaction<number>): Transaction<string> => {
   const payFormatter = currencyFormatterFactory(payCurrency, 2);
   const receiveFormatter = currencyFormatterFactory(receiveCurrency, 2);
@@ -40,7 +40,7 @@ export const transactionsToGridProjection = ({
     payAmount: payFormatter(payAmount),
     receiveAmount: receiveFormatter(receiveAmount),
     payCurrencyBalance: payFormatter(payCurrencyBalance),
-    receiveCurrencyBalance: receiveFormatter(receiveCurrencyBalance)
+    receiveCurrencyBalance: receiveFormatter(receiveCurrencyBalance),
   };
 };
 
@@ -56,6 +56,6 @@ export const rowDataFromFxEntries = (
     diff: toPipDiff(close, open),
     high: currencyFormatter(high),
     low: currencyFormatter(low),
-    range: toPipDiff(high, low)
+    range: toPipDiff(high, low),
   }));
 };

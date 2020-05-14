@@ -1,14 +1,11 @@
-import React, { useMemo } from 'react';
-import { HighchartsWrapper } from '../highcharts-wrapper/highcharts-wrapper';
+import React, { useMemo } from "react";
 
 import {
-  CurrencySymbol,
-  FxEntries,
-  fxEntriesToXpointData,
-  utcStringToLocal,
-  lineChartOptions,
-  intradayChartOptions
-} from '@fx/ui-core-data';
+    CurrencySymbol, FxEntries, fxEntriesToXpointData, intradayChartOptions, lineChartOptions,
+    utcStringToLocal
+} from "@fx/ui-core-data";
+
+import { HighchartsWrapper } from "../highcharts-wrapper/highcharts-wrapper";
 
 interface IntradayRatesChartProps {
   intradayRates: FxEntries;
@@ -18,7 +15,7 @@ interface IntradayRatesChartProps {
 export const IntradayRatesChart = ({
   intradayRates,
   base,
-  quote
+  quote,
 }: IntradayRatesChartProps) => {
   const data = useMemo(
     () => fxEntriesToXpointData(intradayRates, utcStringToLocal),

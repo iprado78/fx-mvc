@@ -1,14 +1,13 @@
-import { AlphaVantageClient } from '@fx/alpha-vantage-client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+
+import { AlphaVantageClient } from "@fx/alpha-vantage-client";
 import {
-  RateHookDependencies,
-  FxEntries,
-  enttriesFromIntradayServerResponse
-} from '@fx/ui-core-data';
+    enttriesFromIntradayServerResponse, FxEntries, RateHookDependencies
+} from "@fx/ui-core-data";
 
 export const useIntradayRates = ([
   baseCurrency,
-  quoteCurrency
+  quoteCurrency,
 ]: RateHookDependencies) => {
   const [intradayRates, setIntradayRates] = useState<FxEntries>([]);
   useEffect(() => {

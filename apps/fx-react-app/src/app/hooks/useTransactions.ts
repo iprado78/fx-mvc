@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Transaction } from '@fx/ui-core-data';
-import { FxTransactionDbClientInstance } from '../transactionDbClient';
+import { useCallback, useEffect, useState } from "react";
+
+import { Transaction } from "@fx/ui-core-data";
+
+import { FxTransactionDbClientInstance } from "../transactionDbClient";
 
 export const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction<number>[]>([]);

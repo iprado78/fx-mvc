@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrencyReservesComponent } from './fx-reserves.component';
+import { CurrencyReservesComponent } from './currency-reserves.component';
 
 describe('CurrencyReservesComponent', () => {
   let component: CurrencyReservesComponent;
