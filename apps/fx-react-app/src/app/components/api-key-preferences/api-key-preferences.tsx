@@ -1,31 +1,22 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  makeStyles
-} from '@material-ui/core';
-import moment from 'moment';
+import moment from "moment";
+import React, { useCallback, useMemo, useState } from "react";
 
 import {
-  API_SETTINGS,
-  DEFAULT_API_KEY,
-  shouldPrompt,
-  PERSONAL_KEY_PREF,
-  PROMPT_PREF,
-  PERSONAL_KEY,
-  NUM_DAYS_TO_PROMPT
-} from '@fx/ui-core-data';
-import { PreferencesText } from './preferences-dialog-text';
-import { PersonalKeyPreferences } from './personal-key-preferences';
-import { SharedKeyPreferences } from './shared-key-preferences';
+    API_SETTINGS, DEFAULT_API_KEY, NUM_DAYS_TO_PROMPT, PERSONAL_KEY, PERSONAL_KEY_PREF, PROMPT_PREF,
+    shouldPrompt
+} from "@fx/ui-core-data";
+import {
+    Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles
+} from "@material-ui/core";
+
+import { PersonalKeyPreferences } from "./personal-key-preferences";
+import { PreferencesText } from "./preferences-dialog-text";
+import { SharedKeyPreferences } from "./shared-key-preferences";
 
 const useStyles = makeStyles({
   root: {
-    width: '150px'
-  }
+    width: '150px',
+  },
 });
 
 export const ApiKeyPreferences = () => {

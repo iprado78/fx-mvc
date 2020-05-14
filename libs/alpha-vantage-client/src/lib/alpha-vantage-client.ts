@@ -1,13 +1,9 @@
-import moment from 'moment';
+import moment from "moment";
 
 import {
-  HistoricalRatesResponse,
-  apiFunctions,
-  LiveRateResponse,
-  CurrencySymbol,
-  IntradayRatesResponse,
-  API_SETTINGS
-} from '@fx/ui-core-data';
+    API_SETTINGS, apiFunctions, CurrencySymbol, HistoricalRatesResponse, IntradayRatesResponse,
+    LiveRateResponse
+} from "@fx/ui-core-data";
 
 interface IntradayRatesReqOptions {
   cacheKey: 'intraday-rates';
@@ -83,7 +79,7 @@ export class AlphaVantageClient {
     const searchParams = new URLSearchParams({
       function: apiFunction,
       apikey: API_KEY,
-      ...options
+      ...options,
     });
     return `${BASE_URL}?${searchParams.toString()}`;
   }
@@ -101,9 +97,9 @@ export class AlphaVantageClient {
         errorMessage: HISTORICAL_REQ_ERR_MESSAGE,
         buildReqOptions: {
           from_symbol: base,
-          to_symbol: quote
+          to_symbol: quote,
         },
-        successfulResponseKey: 'Meta Data'
+        successfulResponseKey: 'Meta Data',
       }
     );
   }
@@ -116,10 +112,10 @@ export class AlphaVantageClient {
         apiFunction: 'CURRENCY_EXCHANGE_RATE',
         buildReqOptions: {
           from_currency: base,
-          to_currency: quote
+          to_currency: quote,
         },
         errorMessage: LIVE_RATE_REQ_ERR_MESSAGE,
-        successfulResponseKey: 'Realtime Currency Exchange Rate'
+        successfulResponseKey: 'Realtime Currency Exchange Rate',
       }
     );
   }
@@ -133,10 +129,10 @@ export class AlphaVantageClient {
         buildReqOptions: {
           from_symbol: base,
           to_symbol: quote,
-          interval: '5min'
+          interval: '5min',
         },
         errorMessage: INTRADAY_REQ_ERR_MESSAGE,
-        successfulResponseKey: 'Meta Data'
+        successfulResponseKey: 'Meta Data',
       }
     );
   }

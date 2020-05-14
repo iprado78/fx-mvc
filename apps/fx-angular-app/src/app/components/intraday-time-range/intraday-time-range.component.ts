@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { TimesService } from '../../services/times/times.service';
 import moment from 'moment';
+
+import { Component, OnInit } from '@angular/core';
+
+import { TimesService } from '../../services/times/times.service';
 
 const ssmToMoment = (seconds: number) =>
   moment()

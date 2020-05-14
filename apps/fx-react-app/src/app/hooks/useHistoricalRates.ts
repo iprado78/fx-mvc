@@ -1,14 +1,13 @@
-import { AlphaVantageClient } from '@fx/alpha-vantage-client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+
+import { AlphaVantageClient } from "@fx/alpha-vantage-client";
 import {
-  RateHookDependencies,
-  FxEntries,
-  enttriesFromHistoricalServerResponse
-} from '@fx/ui-core-data';
+    enttriesFromHistoricalServerResponse, FxEntries, RateHookDependencies
+} from "@fx/ui-core-data";
 
 export const useHistoricalRates = ([
   baseCurrency,
-  quoteCurrency
+  quoteCurrency,
 ]: RateHookDependencies) => {
   const [historicalRates, setHistoricalRates] = useState<FxEntries>([]);
   useEffect(() => {

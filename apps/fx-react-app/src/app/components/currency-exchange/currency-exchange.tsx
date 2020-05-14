@@ -1,10 +1,12 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
-import { CurrencySymbol } from '@fx/ui-core-data';
-import { Row } from '../row/row';
-import { Col } from '../col/col';
-import { Button } from '@material-ui/core';
-import { CurrencyAmountInput } from './currency-amount-input';
-import { FxTransactionDbClientInstance } from '../../transactionDbClient';
+import React, { ChangeEvent, useCallback, useState } from "react";
+
+import { CurrencySymbol } from "@fx/ui-core-data";
+import { Button } from "@material-ui/core";
+
+import { FxTransactionDbClientInstance } from "../../transactionDbClient";
+import { Col } from "../col/col";
+import { Row } from "../row/row";
+import { CurrencyAmountInput } from "./currency-amount-input";
 
 const formatNumberForDisplay = (val: number): number => Number(val.toFixed(2));
 
@@ -20,7 +22,7 @@ export const CurrencyExchange = ({
   quote,
   rate,
   max,
-  transactionSideEffects = []
+  transactionSideEffects = [],
 }: CurrencyExchangeProps) => {
   const [exchangeAmount, setExchangeAmount] = useState<number | null>(0);
   const scaleReceive = useCallback((x: number) => x * rate, [rate]);
@@ -48,17 +50,17 @@ export const CurrencyExchange = ({
         await FxTransactionDbClientInstance.updatPairReserves(
           {
             amount: exchangeAmount,
-            currency: base
+            currency: base,
           },
           {
             amount: exchangeAmount * rate,
-            currency: quote
+            currency: quote,
           }
         );
 
         [
           ...transactionSideEffects,
-          () => setExchangeAmount(0)
+          () => setExchangeAmount(0),
         ].forEach(sideEffect => sideEffect());
       } catch (e) {
         console.log(e);

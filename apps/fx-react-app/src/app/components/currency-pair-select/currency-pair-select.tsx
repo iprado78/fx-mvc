@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react';
-import { currencySymbolLocaleMap, CurrencySymbol } from '@fx/ui-core-data';
-import { CurrencySelect } from './currency-select';
+import React, { useMemo } from "react";
+
+import { CurrencySymbol, currencySymbolLocaleMap } from "@fx/ui-core-data";
+
+import { CurrencySelect } from "./currency-select";
 
 interface CurrencyPairSelectProps {
   baseCurrency: CurrencySymbol;
@@ -21,7 +23,7 @@ export const CurrencyPairSelect = ({
   baseCurrency,
   quoteCurrency,
   setBaseCurrency,
-  setQuoteCurrency
+  setQuoteCurrency,
 }: CurrencyPairSelectProps) => {
   return (
     <>

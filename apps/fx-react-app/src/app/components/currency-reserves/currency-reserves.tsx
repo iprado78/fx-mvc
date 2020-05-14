@@ -1,9 +1,10 @@
-import React from 'react';
-import { CurrencyReserve } from '@fx/ui-core-data';
-import { Row } from '../row/row';
-import { Reserve } from './reserve';
+import React from "react";
 
-import { Col } from '../col/col';
+import { CurrencyReserve } from "@fx/ui-core-data";
+
+import { Col } from "../col/col";
+import { Row } from "../row/row";
+import { Reserve } from "./reserve";
 
 interface CurrencyReservesProps {
   base: CurrencyReserve<number>;

@@ -1,32 +1,27 @@
-import {
-  XrangePointOptionsObject,
-  SeriesLineOptions,
-  XAxisOptions,
-  Options
-} from 'highcharts';
+import { Options, SeriesLineOptions, XAxisOptions, XrangePointOptionsObject } from "highcharts";
 
 export const seriesDefaults = {
   data: [] as XrangePointOptionsObject[],
   type: 'line',
-  turboThreshold: 5000
+  turboThreshold: 5000,
 } as SeriesLineOptions;
 
 export const xAxisDefaults = {
-  type: 'category'
+  type: 'category',
 } as XAxisOptions;
 
 export const baseLineOptions: Options = {
   title: {
-    text: ''
+    text: '',
   },
   credits: {
-    enabled: false
+    enabled: false,
   },
   yAxis: {
-    title: { text: '' }
+    title: { text: '' },
   },
   xAxis: xAxisDefaults,
-  series: [seriesDefaults]
+  series: [seriesDefaults],
 };
 
 export const INTRADAY_CHART_NAME =

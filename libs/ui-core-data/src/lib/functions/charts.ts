@@ -1,12 +1,9 @@
-import { XrangePointOptionsObject, XAxisOptions } from 'highcharts';
-import { FxEntries, CurrencySymbol } from '../types';
+import { XAxisOptions, XrangePointOptionsObject } from "highcharts";
+
 import {
-  baseLineOptions,
-  xAxisDefaults,
-  seriesDefaults,
-  HISTORICAL_CHART_NAME,
-  INTRADAY_CHART_NAME
-} from '../constants';
+    baseLineOptions, HISTORICAL_CHART_NAME, INTRADAY_CHART_NAME, seriesDefaults, xAxisDefaults
+} from "../constants";
+import { CurrencySymbol, FxEntries } from "../types";
 
 export const fxEntriesToXpointData = (
   entries: FxEntries,
@@ -17,7 +14,7 @@ export const fxEntriesToXpointData = (
       ([date, { close }]) =>
         ({
           name: datetimeFormatter ? datetimeFormatter(date) : date,
-          y: close
+          y: close,
         } as XrangePointOptionsObject)
     )
     .reverse();
@@ -32,25 +29,25 @@ export const lineChartOptions = ({
   data,
   title,
   name,
-  stepFactor
+  stepFactor,
 }: lineChartOptionsConfig) => ({
   ...baseLineOptions,
   yAxis: {
     title: {
-      text: `${title}`
-    }
+      text: `${title}`,
+    },
   },
   xAxis: {
     ...xAxisDefaults,
-    labels: { step: Math.ceil(data.length / stepFactor) }
+    labels: { step: Math.ceil(data.length / stepFactor) },
   } as XAxisOptions,
   series: [
     {
       ...seriesDefaults,
       name,
-      data
-    }
-  ]
+      data,
+    },
+  ],
 });
 
 export const historicalChartOptions = (
@@ -61,7 +58,7 @@ export const historicalChartOptions = (
   data,
   title: `${base} / ${quote}`,
   stepFactor: 10,
-  name: HISTORICAL_CHART_NAME
+  name: HISTORICAL_CHART_NAME,
 });
 
 export const intradayChartOptions = (
@@ -72,5 +69,5 @@ export const intradayChartOptions = (
   name: INTRADAY_CHART_NAME,
   title: `${base}/${quote}`,
   data,
-  stepFactor: 6
+  stepFactor: 6,
 });

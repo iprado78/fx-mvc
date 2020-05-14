@@ -10,7 +10,7 @@ import {
 } from '../types';
 
 import { Moment } from 'moment';
-import moment from 'moment';
+const moment: Moment = require('moment'); // Hack required for tests
 
 export const defaultBase: CurrencySymbol = 'USD';
 
@@ -28,7 +28,7 @@ export const defaultQuoteReserves: CurrencyReserve<number> = {
 
 export const defaultLiveRate: LiveRate<number, Moment> = {
   rate: 0,
-  refreshTime: moment()
+  refreshTime: moment.utc()
 };
 
 export const currencySymbolLocaleMap: Map<

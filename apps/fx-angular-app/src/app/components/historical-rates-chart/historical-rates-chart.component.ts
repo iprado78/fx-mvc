@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { XrangePointOptionsObject } from 'highcharts';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { Component, OnInit } from '@angular/core';
 import {
   baseLineOptions,
-  fxEntriesToXpointData,
-  lineChartOptions,
   CurrencySymbol,
-  historicalChartOptions
+  fxEntriesToXpointData,
+  historicalChartOptions,
+  lineChartOptions
 } from '@fx/ui-core-data';
-import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
+
 import { CurrencySelectionsService } from '../../services/currency-selections/currency-selections.service';
+import { HistoricalRates } from '../../services/historical-rates/historical-rates.service';
 
 @Component({
   selector: 'fx-historical-chart',

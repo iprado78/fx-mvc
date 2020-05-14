@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
+import React, { ReactNode } from "react";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 
 interface FxCardProps {
   children: ReactNode;
@@ -14,7 +15,7 @@ export const FxCard = ({
   children,
   title,
   subtitle,
-  className
+  className,
 }: FxCardProps) => (
   <Card className={className}>
     {title || subtitle ? (

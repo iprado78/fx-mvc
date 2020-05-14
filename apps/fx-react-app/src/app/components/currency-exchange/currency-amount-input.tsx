@@ -1,11 +1,7 @@
-import React, { ChangeEvent } from 'react';
-import { CurrencySymbol } from '@fx/ui-core-data';
-import {
-  Input,
-  FormHelperText,
-  InputLabel,
-  FormControl
-} from '@material-ui/core';
+import React, { ChangeEvent } from "react";
+
+import { CurrencySymbol } from "@fx/ui-core-data";
+import { FormControl, FormHelperText, Input, InputLabel } from "@material-ui/core";
 
 interface CurrencyAmountInputProps {
   label: string;
@@ -25,7 +21,7 @@ export const CurrencyAmountInput = ({
   error,
   errorMessage,
   max,
-  name
+  name,
 }: CurrencyAmountInputProps) => {
   const id = `${label.toLowerCase()}-input`;
   return (

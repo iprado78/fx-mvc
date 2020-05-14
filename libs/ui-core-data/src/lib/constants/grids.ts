@@ -1,78 +1,78 @@
-import { ColDef } from 'ag-grid-community';
+import { ColDef } from "ag-grid-community";
 
 const allDefaults: ColDef = {
   sortable: true,
   cellClass: 'align-right',
-  headerClass: 'align-right'
+  headerClass: 'align-right',
 };
 
 export const transactionsGridDefaultColDef: ColDef = {
   ...allDefaults,
-  width: 120
+  width: 120,
 };
 
 export const transactionsGridColumnDefs: ColDef[] = [
   {
     headerName: 'Timestamp',
     field: 'timestamp',
-    width: 200
+    width: 200,
   },
   {
     headerName: 'Pay',
-    field: 'payAmount'
+    field: 'payAmount',
   },
   {
     headerName: 'Receive',
-    field: 'receiveAmount'
+    field: 'receiveAmount',
   },
   {
     headerName: 'Pay Balance',
-    field: 'payCurrencyBalance'
+    field: 'payCurrencyBalance',
   },
   {
     headerName: 'Receive Balance',
-    field: 'receiveCurrencyBalance'
-  }
+    field: 'receiveCurrencyBalance',
+  },
 ];
 
 export const intradayRatesGridDefaultColDef: ColDef = {
   ...allDefaults,
-  width: 125
+  width: 125,
 };
 
 const baseRatesGrid: ColDef[] = [
   {
     headerName: 'Open',
-    field: 'open'
+    field: 'open',
   },
   {
     headerName: 'Close',
-    field: 'close'
+    field: 'close',
   },
   {
     headerName: 'Change (Pips)',
-    field: 'diff'
+    field: 'diff',
   },
   {
     headerName: 'High',
-    field: 'high'
+    field: 'high',
   },
   {
     headerName: 'Low',
-    field: 'low'
+    field: 'low',
   },
   {
     headerName: 'Range (Pips)',
-    field: 'range'
-  }
+    field: 'range',
+  },
 ];
 
 export const intradayRatesGridColumnDefs: ColDef[] = [
   {
     headerName: 'Time',
-    field: 'datetime'
+    field: 'datetime',
   },
-  ...baseRatesGrid
+  ...baseRatesGrid,
 ];
 
 export const historicalRatesGridDefaultColDef: ColDef = intradayRatesGridDefaultColDef;
@@ -80,7 +80,7 @@ export const historicalRatesGridDefaultColDef: ColDef = intradayRatesGridDefault
 export const hisotricalRatesGridColumnDefs: ColDef[] = [
   {
     headerName: 'Date',
-    field: 'datetime'
+    field: 'datetime',
   },
-  ...baseRatesGrid
+  ...baseRatesGrid,
 ];

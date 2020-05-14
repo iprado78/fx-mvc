@@ -1,4 +1,5 @@
-export const currencies = [
+import { CurrencyReserve } from '@fx/ui-core-data';
+export const currencies: CurrencyReserve<number>[] = [
   {
     code: 'EUR',
     reserves: 1214.375

@@ -1,3 +1,5 @@
+import { AgGridModule } from 'ag-grid-angular';
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IntradayRatesGridComponent } from './intraday-rates-grid.component';
@@ -8,9 +10,9 @@ describe('IntradayRatesGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IntradayRatesGridComponent ]
-    })
-    .compileComponents();
+      declarations: [IntradayRatesGridComponent],
+      imports: [AgGridModule.withComponents()]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

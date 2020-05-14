@@ -1,6 +1,8 @@
-import React from 'react';
-import { DialogContentText } from '@material-ui/core';
-import { APP_TITLE } from '../../shared';
+import React from "react";
+
+import { DialogContentText } from "@material-ui/core";
+
+import { APP_TITLE } from "../../shared";
 
 export const PreferencesText = () => (
   <>

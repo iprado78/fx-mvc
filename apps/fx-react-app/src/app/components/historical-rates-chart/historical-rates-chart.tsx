@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
-import { HighchartsWrapper } from '../highcharts-wrapper/highcharts-wrapper';
+import React, { useMemo } from "react";
+
 import {
-  historicalChartOptions,
-  fxEntriesToXpointData,
-  lineChartOptions,
-  FxEntries,
-  CurrencySymbol
-} from '@fx/ui-core-data';
+    CurrencySymbol, FxEntries, fxEntriesToXpointData, historicalChartOptions, lineChartOptions
+} from "@fx/ui-core-data";
+
+import { HighchartsWrapper } from "../highcharts-wrapper/highcharts-wrapper";
 
 interface HistoricalRatesChartProps {
   historicalRates: FxEntries;
@@ -16,10 +14,10 @@ interface HistoricalRatesChartProps {
 export const HistoricalRatesChart = ({
   historicalRates,
   base,
-  quote
+  quote,
 }: HistoricalRatesChartProps) => {
   const data = useMemo(() => fxEntriesToXpointData(historicalRates), [
-    historicalRates
+    historicalRates,
   ]);
   return (
     <HighchartsWrapper
