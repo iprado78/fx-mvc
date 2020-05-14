@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyReserve, currencyFormatterFactory } from '@fx/ui-core-data';
+import { currencyFormatterFactory, CurrencyReserve } from '@fx/ui-core-data';
+
 import { BankService } from '../../services/bank/bank.service';
 
 @Component({

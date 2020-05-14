@@ -1,8 +1,10 @@
-import React from 'react';
-import { AgGridReact, AgGridReactProps } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import { FxCard } from '../fx-card/fx-card';
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.css";
+
+import { AgGridReact, AgGridReactProps } from "ag-grid-react";
+import React from "react";
+
+import { FxCard } from "../fx-card/fx-card";
 
 interface AgGridWrapperProps extends AgGridReactProps {
   title?: string;

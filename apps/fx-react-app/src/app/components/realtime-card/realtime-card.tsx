@@ -1,11 +1,9 @@
-import React, { ReactNode } from 'react';
-import { Moment } from 'moment';
-import {
-  LiveRate,
-  CurrencySymbol,
-  formatLiveRateForView
-} from '@fx/ui-core-data';
-import { FxCard } from '../fx-card/fx-card';
+import { Moment } from "moment";
+import React, { ReactNode } from "react";
+
+import { CurrencySymbol, formatLiveRateForView, LiveRate } from "@fx/ui-core-data";
+
+import { FxCard } from "../fx-card/fx-card";
 
 interface RealTimeCardProps {
   liveRate: LiveRate<number, Moment>;
@@ -18,7 +16,7 @@ export const RealTimeCard = ({
   liveRate,
   base,
   quote,
-  children
+  children,
 }: RealTimeCardProps) => {
   const { rate, refreshTime } = formatLiveRateForView(liveRate, base, quote);
   return (

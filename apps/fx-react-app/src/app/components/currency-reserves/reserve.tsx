@@ -1,7 +1,9 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
-import { CurrencyReserve } from '@fx/ui-core-data';
-import { useCurrencyFormatter } from '../../hooks/useCurrencyFormatter';
+import React from "react";
+
+import { CurrencyReserve } from "@fx/ui-core-data";
+import { Typography } from "@material-ui/core";
+
+import { useCurrencyFormatter } from "../../hooks/useCurrencyFormatter";
 
 interface ReserveProps {
   reserve: CurrencyReserve<number>;

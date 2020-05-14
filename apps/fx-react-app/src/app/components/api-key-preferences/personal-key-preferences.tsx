@@ -1,14 +1,11 @@
-import React from 'react';
-import { PreferencesControlWrap } from './preferences-control-wrap';
-import { PERSONAL_KEY_PREF, PERSONAL_KEY } from '@fx/ui-core-data';
+import React from "react";
+
+import { PERSONAL_KEY, PERSONAL_KEY_PREF } from "@fx/ui-core-data";
 import {
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Input,
-  Radio
-} from '@material-ui/core';
+    FormControl, FormControlLabel, FormLabel, Input, Radio, RadioGroup
+} from "@material-ui/core";
+
+import { PreferencesControlWrap } from "./preferences-control-wrap";
 
 interface PersonalKeyPreferencesProps {
   personalKeyPref: boolean;
@@ -21,7 +18,7 @@ export const PersonalKeyPreferences = ({
   personalKeyPref,
   handleChange,
   personalKey,
-  radioClasses
+  radioClasses,
 }: PersonalKeyPreferencesProps) => (
   <PreferencesControlWrap>
     <FormControl component="fieldset">

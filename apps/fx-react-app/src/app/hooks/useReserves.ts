@@ -1,11 +1,10 @@
-import { FxTransactionDbClientInstance } from '../transactionDbClient';
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from "react";
+
 import {
-  CurrencySymbol,
-  CurrencyReserve,
-  defaultBaseReserves,
-  defaultQuoteReserves
-} from '@fx/ui-core-data';
+    CurrencyReserve, CurrencySymbol, defaultBaseReserves, defaultQuoteReserves
+} from "@fx/ui-core-data";
+
+import { FxTransactionDbClientInstance } from "../transactionDbClient";
 
 const hydrateReserve = (
   currencySymbol: CurrencySymbol,

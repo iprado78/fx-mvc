@@ -1,11 +1,7 @@
-import { currencies as currenciesBootstrap } from './db-bootstrap.js';
-import {
-  CurrencyReserve,
-  Transaction,
-  CurrencySymbol,
-  Exchange
-} from '@fx/ui-core-data';
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { CurrencyReserve, CurrencySymbol, Exchange, Transaction } from "@fx/ui-core-data";
+
+import { currencies as currenciesBootstrap } from "./db-bootstrap";
 
 type Store = 'currencyReserves' | 'transactions';
 
@@ -14,7 +10,7 @@ const TRANSACTIONS: Store = 'transactions';
 const DB = 'FxTransaction';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FxTransactionDbClient {
   private db: IDBDatabase;
@@ -61,7 +57,7 @@ export class FxTransactionDbClient {
 
   private initialize = (resolve: (val: boolean) => void) => {
     const currencyReservesStore = this.db.createObjectStore(RESERVES, {
-      keyPath: 'code'
+      keyPath: 'code',
     });
 
     currencyReservesStore.transaction.oncomplete = () => {
@@ -76,7 +72,7 @@ export class FxTransactionDbClient {
     };
 
     const transactionsStore = this.db.createObjectStore(TRANSACTIONS, {
-      keyPath: 'timestamp'
+      keyPath: 'timestamp',
     });
 
     transactionsStore.createIndex('timestamp', 'timestamp', { unique: true });
@@ -136,7 +132,7 @@ export class FxTransactionDbClient {
       payAmount,
       receiveAmount,
       payCurrencyBalance: base.reserves,
-      receiveCurrencyBalance: quote.reserves
+      receiveCurrencyBalance: quote.reserves,
     } as Transaction<number>);
   };
 
@@ -147,7 +143,7 @@ export class FxTransactionDbClient {
     try {
       [base, quote] = await Promise.all([
         this.getReserves(pay.currency),
-        this.getReserves(receive.currency)
+        this.getReserves(receive.currency),
       ]);
       base.reserves -= pay.amount;
       quote.reserves += receive.amount;
@@ -167,7 +163,7 @@ export class FxTransactionDbClient {
     );
     return Promise.all([
       this.updateReserves(reservesStore, base),
-      this.updateReserves(reservesStore, quote)
+      this.updateReserves(reservesStore, quote),
     ]);
   };
 

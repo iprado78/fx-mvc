@@ -1,9 +1,11 @@
-import React from 'react';
-import { CurrencySymbol } from '@fx/ui-core-data';
-import { IntradayRatesChart } from '../intraday-rates-chart/intraday-rates-chart';
-import { IntradayRatesGrid } from '../intraday-rates-grid/intraday-rates-grid';
-import { useIntradayRates } from '../../hooks/useIntradayRates';
-import { TabCol } from '../tab-col/tab-col';
+import React from "react";
+
+import { CurrencySymbol } from "@fx/ui-core-data";
+
+import { useIntradayRates } from "../../hooks/useIntradayRates";
+import { IntradayRatesChart } from "../intraday-rates-chart/intraday-rates-chart";
+import { IntradayRatesGrid } from "../intraday-rates-grid/intraday-rates-grid";
+import { TabCol } from "../tab-col/tab-col";
 
 interface IntradayTabProps {
   baseCurrency: CurrencySymbol;
@@ -11,7 +13,7 @@ interface IntradayTabProps {
 }
 export const IntradayTab = ({
   baseCurrency,
-  quoteCurrency
+  quoteCurrency,
 }: IntradayTabProps) => {
   const intradayRates = useIntradayRates([baseCurrency, quoteCurrency]);
   return (

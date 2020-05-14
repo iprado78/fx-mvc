@@ -1,25 +1,15 @@
 export * from './charts';
 export * from './grids';
 
-import { Moment } from 'moment';
-import moment from 'moment';
-import { API_SETTINGS, DEFAULT_API_KEY } from '../constants';
+import moment, { Moment } from "moment";
+
+import { API_SETTINGS, DEFAULT_API_KEY } from "../constants";
 import {
-  FxEntryValue,
-  IntradayRatesResponse,
-  RateData,
-  CurrencySymbol,
-  CacheKeyParams,
-  LiveRateResponseData,
-  LiveRate,
-  FxEntries,
-  Dates,
-  FxEntry,
-  HistoricalRatesCacheKeyParams,
-  HistoricalRatesResponse,
-  Times
-} from '../types';
-import { currencyFormatterFactory } from './grids';
+    CacheKeyParams, CurrencySymbol, Dates, FxEntries, FxEntry, FxEntryValue,
+    HistoricalRatesCacheKeyParams, HistoricalRatesResponse, IntradayRatesResponse, LiveRate,
+    LiveRateResponseData, RateData, Times
+} from "../types";
+import { currencyFormatterFactory } from "./grids";
 
 export const toCacheKey = ({ base, quote }: CacheKeyParams) =>
   `${base}:${quote}`;
@@ -36,7 +26,7 @@ export const rateFromServerResponse = (
   res: LiveRateResponseData
 ): LiveRate<number, Moment> => ({
   rate: Number(res['5. Exchange Rate']),
-  refreshTime: moment.utc(res['6. Last Refreshed'])
+  refreshTime: moment.utc(res['6. Last Refreshed']),
 });
 
 export const formatLiveRateForView = (
@@ -47,7 +37,7 @@ export const formatLiveRateForView = (
   rate: `${base}/${quote} = ${currencyFormatterFactory(quote)(
     serviceRate.rate
   )}`,
-  refreshTime: formatUtcMoment(serviceRate.refreshTime, true)
+  refreshTime: formatUtcMoment(serviceRate.refreshTime, true),
 });
 
 export const filterFromDates = (dates: Dates) => ([dateString]: FxEntry) => {
@@ -69,7 +59,7 @@ const serverRatesProjection = ([date, rateData]: serverRates) => [
   Object.keys(rateData).reduce(
     (accum, key) => ({ ...accum, [key.split('. ')[1]]: Number(rateData[key]) }),
     {} as FxEntryValue
-  )
+  ),
 ];
 
 export const enttriesFromHistoricalServerResponse = (
@@ -87,7 +77,7 @@ export const enttriesFromIntradayServerResponse = (
   ) as FxEntries;
 
 export const filterFromTimes = (times: Times) => ([
-  datetimeString
+  datetimeString,
 ]: FxEntry) => {
   const asMoment = moment.utc(datetimeString).local();
   return (

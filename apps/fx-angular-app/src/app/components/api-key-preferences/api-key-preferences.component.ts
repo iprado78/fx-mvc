@@ -1,16 +1,18 @@
+import moment from 'moment';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
-  PERSONAL_KEY,
   API_SETTINGS,
-  PERSONAL_KEY_PREF,
+  DEFAULT_API_KEY,
   NUM_DAYS_TO_PROMPT,
+  PERSONAL_KEY,
+  PERSONAL_KEY_PREF,
   PROMPT_PREF
 } from '@fx/ui-core-data';
+
 import { APP_TITLE } from '../../shared';
-import { DEFAULT_API_KEY } from '@fx/ui-core-data';
-import moment from 'moment';
 
 @Component({
   selector: 'fx-api-key-preferences',
@@ -47,7 +49,7 @@ export class ApiKeyPreferencesComponent implements OnInit {
   };
 
   constructor(
-    public dialogRef: MatDialogRef<ApiKeyPreferencesComponent>,
+    private dialogRef: MatDialogRef<ApiKeyPreferencesComponent>,
     private fb: FormBuilder
   ) {}
 
