@@ -7,7 +7,7 @@ type Store = 'currencyReserves' | 'transactions';
 
 const RESERVES: Store = 'currencyReserves';
 const TRANSACTIONS: Store = 'transactions';
-const DB = 'FxTransaction';
+const DB = 'fxTransactionDb';
 
 @Injectable({
   providedIn: 'root',
@@ -95,6 +95,24 @@ export class FxTransactionDbClient {
     });
   };
 
+  private createTransaction = async (
+    store: IDBObjectStore,
+    base: CurrencyReserve<number>,
+    quote: CurrencyReserve<number>,
+    payAmount: number,
+    receiveAmount: number
+  ) => {
+    store.add({
+      timestamp: new Date().toISOString(),
+      payCurrency: base.code,
+      receiveCurrency: quote.code,
+      payAmount,
+      receiveAmount,
+      payCurrencyBalance: base.reserves,
+      receiveCurrencyBalance: quote.reserves,
+    } as Transaction<number>);
+  };
+
   getTransactions = async () => {
     await this.loaded;
     const [, [transactionsStore]] = this.prepareTransaction(
@@ -118,24 +136,6 @@ export class FxTransactionDbClient {
     });
   };
 
-  private createTransaction = async (
-    store: IDBObjectStore,
-    base: CurrencyReserve<number>,
-    quote: CurrencyReserve<number>,
-    payAmount: number,
-    receiveAmount: number
-  ) => {
-    store.add({
-      timestamp: new Date().toISOString(),
-      payCurrency: base.code,
-      receiveCurrency: quote.code,
-      payAmount,
-      receiveAmount,
-      payCurrencyBalance: base.reserves,
-      receiveCurrencyBalance: quote.reserves,
-    } as Transaction<number>);
-  };
-
   updatPairReserves = async (pay: Exchange, receive: Exchange) => {
     await this.loaded;
     let base: CurrencyReserve<number>;
@@ -145,10 +145,13 @@ export class FxTransactionDbClient {
         this.getReserves(pay.currency),
         this.getReserves(receive.currency),
       ]);
+      if (base.reserves < pay.amount) {
+        throw new Error('Pay amount exceeds balance');
+      }
       base.reserves -= pay.amount;
       quote.reserves += receive.amount;
     } catch (e) {
-      return Promise.reject(e);
+      return Promise.reject(e.message);
     }
     const [, [reservesStore, transactionsStore]] = this.prepareTransaction(
       [RESERVES, TRANSACTIONS],
