@@ -1,21 +1,22 @@
-import { CurrencyReserve } from '@fx/ui-core-data';
+import { CurrencyReserve } from "@fx/ui-core-data";
+
 export const currencies: CurrencyReserve<number>[] = [
   {
     code: 'EUR',
-    reserves: 1214.375
+    reserves: 0,
   },
   {
     code: 'USD',
-    reserves: 2390
+    reserves: 5000,
   },
   {
     code: 'JPY',
-    reserves: 0
+    reserves: 0,
   },
   {
     code: 'GBP',
-    reserves: 1042.5467600000002
-  }
+    reserves: 0,
+  },
 ];
 
 export const transactions = [];
